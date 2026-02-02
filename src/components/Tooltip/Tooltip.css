@@ -1,0 +1,88 @@
+.tooltip {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  will-change: opacity, transform;
+}
+
+.tooltip[aria-live="polite"] {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+/* Plain tooltip variant */
+.tooltip--plain {
+  padding: var(--padding-small) var(--padding-default);
+  background-color: var(--bg-neutral-inverse);
+  color: var(--text-neutral-inverse);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+  border-radius: var(--radius-soft);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+  max-width: 300px; /* Max width, but text will wrap if needed */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.tooltip--plain .tooltip__content {
+  display: block;
+  white-space: nowrap; /* Prevent wrapping - single line tooltips */
+}
+
+/* Rich tooltip variant */
+.tooltip--rich {
+  padding: var(--padding-x-large); /* 20px on all sides */
+  background-color: var(--bg-neutral-alt);
+  color: var(--text-neutral-default);
+  font-family: var(--font-family-body);
+  border: var(--border-default) solid var(--border-default-subtle);
+  border-radius: var(--radius-input);
+  pointer-events: all;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  width: max-content; /* Hug content */
+  max-width: 320px; /* Fallback max-width, will be overridden by size middleware */
+}
+
+.tooltip--rich .tooltip__rich {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tooltip--rich .tooltip__title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-highlight);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+  margin: 0;
+  margin-bottom: var(--padding-small);
+}
+
+.tooltip--rich .tooltip__body {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-body-sm);
+  color: var(--text-neutral-subtle);
+  margin: 0;
+  margin-bottom: var(--padding-default);
+}
+
+.tooltip--rich .tooltip__action-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--padding-small);
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.tooltip--rich .tooltip__action {
+  /* Button component handles its own styling */
+  /* Override any spacing if needed */
+  margin: 0;
+}
+

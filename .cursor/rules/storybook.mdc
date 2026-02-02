@@ -1,0 +1,24 @@
+---
+alwaysApply: true
+---
+
+# Storybook conventions (for agents and contributors)
+
+When creating or updating component stories:
+
+1. **One default story only**
+   - Do **not** create separate stories per state (e.g. no "WithValue", "Error", "Disabled", "Primary", "Secondary" stories).
+   - Export a single story (e.g. `Default`) that renders the component.
+
+2. **One docs (MDX)**
+   - One `ComponentName.mdx` that documents the component.
+   - Embed the default story with `<Canvas of={ComponentNameStoriesNamed.Default} />`.
+   - In the docs, state that users should use the **Controls** panel to try different states.
+
+3. **Use the property panel (Controls) for states**
+   - Expose all state-affecting props in `argTypes`: `label`, `required`, `errorMessage`, `disabled`, `readOnly`, placeholder, helper text, variant, etc.
+   - Users explore default, error, disabled, with value, etc. by changing args in the Controls panel—not by switching stories.
+   - For initial/value-like props that aren’t directly on the component (e.g. `value` for controlled inputs), use a dedicated arg such as `initialValue` with a select control (e.g. "empty" | "today" | "2026-06-25") and map it in the story’s `render` function.
+
+4. **CSF3**
+   - Use CSF3 format: `Meta`, `StoryObj`, named exports for the default story, `args` and `argTypes` on meta or the story.

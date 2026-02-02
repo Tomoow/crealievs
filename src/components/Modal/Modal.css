@@ -1,0 +1,126 @@
+/* Backdrop: dimmed overlay, click to close */
+.modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999;
+}
+
+/* Dialog panel */
+.modal__dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-large);
+  padding: var(--padding-x-large);
+  max-block-size: 60vh;
+  background-color: var(--bg-neutral-default);
+  border-radius: var(--radius-overlay);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.modal__dialog:focus {
+  outline: none;
+}
+
+.modal__dialog--small {
+  inline-size: min(100vw - 2rem, 400px);
+}
+
+.modal__dialog--medium {
+  inline-size: min(100vw - 2rem, 560px);
+}
+
+.modal__dialog--large {
+  inline-size: min(100vw - 2rem, 800px);
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--padding-default);
+  flex-shrink: 0;
+}
+
+.modal__title {
+  margin: 0;
+  flex: 1 0 0;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-highlight);
+  line-height: var(--line-height-default-lg);
+  color: var(--text-neutral-default);
+}
+
+.modal__close-wrap {
+  flex-shrink: 0;
+}
+
+.modal__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-body-md);
+  font-weight: var(--font-weight-default);
+  color: var(--text-neutral-default);
+}
+
+.modal__footer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--padding-small);
+  flex-shrink: 0;
+}
+
+.modal__footer--left {
+  justify-content: flex-start;
+}
+
+.modal__footer--right {
+  justify-content: flex-end;
+}
+
+/* Mobile: bottom sheet (slide-up panel). */
+@media (max-width: 767px) {
+  .modal__dialog {
+    inset: unset;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    inline-size: 100%;
+    max-inline-size: 100%;
+    border-radius: var(--radius-overlay) var(--radius-overlay) 0 0;
+    transform: translateY(100%);
+    transition: transform 0.25s ease-out;
+  }
+
+  .modal__dialog--visible {
+    transform: translateY(0);
+  }
+
+  .modal__footer {
+    width: 100%;
+  }
+
+  .modal__footer .button {
+    flex: 1 0 0;
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal__dialog {
+    transition: none;
+  }
+}

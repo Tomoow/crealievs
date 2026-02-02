@@ -1,0 +1,49 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import SegmentedButtonsStories from './SegmentedButtons.stories';
+import * as SegmentedButtonsStoriesNamed from './SegmentedButtons.stories';
+
+<Meta of={SegmentedButtonsStories} />
+
+# SegmentedButtons
+
+Segmented Buttons are a single-select group built from **segment instances**: each segment has an optional icon and label, with default, selected, hover, and disabled states. One option is selected at a time.
+
+## Overview
+
+- **Container**: Horizontal group with rounded corners and a light border; segments are separated by dividers.
+- **Segment instance**: One option—optional icon + label; states: default (transparent), selected (light blue fill + blue border), hover (darker blue), disabled (grey).
+- **Accessibility**: `role="radiogroup"` and `role="radio"` with `aria-checked`; arrow keys move selection; provide `aria-label` for the group.
+
+## When to use
+
+- When the user must choose one option from a small, fixed set (e.g. view mode: List / Grid).
+- When options are always visible and switching is frequent.
+
+## Example
+
+<Canvas of={SegmentedButtonsStoriesNamed.Default} />
+
+## Props
+
+<Controls of={SegmentedButtonsStoriesNamed.Default} />
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `options` | `SegmentOption[]` | Each option: `value`, `label`, optional `icon` (LucideIcon), optional `disabled` |
+| `value` | `string \| null` | Currently selected value |
+| `onChange` | `(value: string) => void` | Called when selection changes |
+| `size` | `'default' \| 'small'` | Size of segments |
+| `aria-label` | `string` | Accessible name for the group |
+
+## Accessibility
+
+- Use `aria-label` on the group.
+- Arrow Left/Right move selection; segments are `role="radio"` with `aria-checked`.
+- Focus ring uses `--border-action-focus`.
+
+## Design tokens
+
+- **Container**: `--bg-neutral-default`, `--border-default-subtle`, `--radius-input`
+- **Selected**: `--bg-primary-subtle`, `--border-action-default`, `--text-primary-brand`, `--icon-primary-brand`
+- **Hover**: `--bg-primary-subtle-hover`, `--border-action-hover`
+- **Disabled**: `--opacity-disabled`, `--text-neutral-placeholder`, `--icon-neutral-placeholder`

@@ -1,0 +1,78 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import TagStories from './Tag.stories';
+import * as TagStoriesNamed from './Tag.stories';
+
+<Meta of={TagStories} />
+
+# Tag
+
+Tags are used to label, categorize, or organize items. They can display icons, be dismissible, and have different visual states.
+
+## Usage
+
+Tags are typically used to:
+- Label and categorize content
+- Display metadata or attributes
+- Show selected/filtered states
+- Allow users to remove or dismiss items
+
+## Features
+
+- **Selected State**: Boolean prop to toggle selected styling (blue background, white text)
+- **Icons**: Support for icons on the left side (always left-aligned)
+- **Selected with Icon**: When selected is true, the Check icon always appears and replaces any original icon
+
+## Examples
+
+<Canvas of={TagStoriesNamed.Default} />
+
+## Code Example
+
+```tsx
+import { Tag } from '@crealievs/components';
+import { Calendar, Check, Star } from 'lucide-react';
+
+// Basic tag
+<Tag>Tag</Tag>
+
+// With icon (always on left)
+<Tag showIcon={true}>Tag</Tag>
+<Tag showIcon={true} icon={Calendar}>Tag</Tag>
+<Tag showIcon={true} icon={Star}>Tag</Tag>
+
+// Selected state (always shows Check icon)
+<Tag selected={true}>Tag</Tag>
+
+// Selected with icon (icon prop is ignored, Check icon is always shown)
+<Tag selected={true} showIcon={true} icon={Star}>Tag</Tag>
+```
+
+## Props
+
+<Controls of={TagStoriesNamed.Default} />
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | The content to display inside the tag |
+| `selected` | `boolean` | `false` | Whether the tag is in selected state |
+| `showIcon` | `boolean` | `false` | Show an icon before the tag text (always on the left). When selected is `true`, the Check icon is always shown. |
+| `icon` | `LucideIcon` | `Calendar` | Lucide icon component to display. Only used when `showIcon` is `true` and `selected` is `false`. When `selected` is `true`, this is ignored and Check icon is always used. |
+| `state` | `'default' \| 'hover' \| 'pressed' \| 'focus'` | `'default'` | Visual state of the tag for demonstration purposes |
+| `className` | `string` | `''` | Additional CSS class name for custom styling. Use sparingly - prefer design tokens and component props. |
+
+## Design Tokens
+
+The Tag component uses the following design tokens:
+
+- **Colors**: Semantic color tokens (`--bg-neutral-default`, `--bg-primary-default`, `--text-neutral-default`, etc.)
+- **Spacing**: Semantic spacing tokens (`--padding-x-small`, `--padding-default`)
+- **Typography**: Font family and size tokens
+- **Border Radius**: `--radius-pill` for rounded tags
+- **Border**: `--border-default` for border width
+
+## Accessibility
+
+- Tags use the `role="status"` attribute for screen readers
+- Close buttons include proper `aria-label` attributes
+- Keyboard navigation is supported for closable tags
+- Color contrast meets WCAG AA standards

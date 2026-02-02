@@ -1,0 +1,15 @@
+---
+alwaysApply: true
+---
+
+# Accessibility (for agents and contributors)
+
+- **DatePicker (and similar calendar components)**  
+  Month and year navigation should offer **dropdowns** (not only prev/next arrows) so users can jump to any month or year without many arrow clicks. Use:
+  - Trigger: `aria-haspopup="listbox"`, `aria-expanded`, clear label (e.g. "Select month", "Select year").
+  - List: `role="listbox"`, options with `role="option"` and `aria-selected`.
+  - Escape closes the dropdown (and the calendar when no dropdown is open).
+  - Same **IconButton** component for prev/next arrows as elsewhere; `state="disabled"` when at min/max.
+
+- **Consistency with other components**  
+  Reuse patterns from DropdownField and InputField: separator between actions (clear | calendar), semantic tokens, ARIA on trigger and popover, keyboard (Escape, Tab, Enter).

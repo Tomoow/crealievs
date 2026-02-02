@@ -1,0 +1,144 @@
+/* Segmented Buttons – Figma container: flex, padding gap-very-tight, pill radius, bg-neutral-elevated */
+.segmented-buttons {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-very-tight);
+  padding: var(--gap-very-tight);
+  border-radius: var(--pill);
+  background: var(--bg-neutral-elevated);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  font-weight: var(--font-weight-default);
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+/* Sliding pill: sits behind segments (z-index 0); no scale on active so it never peeks out */
+.segmented-buttons__indicator {
+  position: absolute;
+  border-radius: var(--pill);
+  background: var(--bg-neutral-default);
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    left 0.25s ease,
+    top 0.25s ease,
+    width 0.25s ease,
+    height 0.25s ease;
+}
+
+/* Segment instance – Figma: default state – text/neutral/default, icon/neutral/default, gap/tight */
+.segmented-buttons__segment {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-small); /* Figma gap/tight = 8 */
+  padding: var(--padding-small) var(--padding-large);
+  min-height: 2.75rem;
+  border-radius: var(--pill); /* Figma: segment instance is fully rounded on all corners */
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  color: var(--text-neutral-default);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease;
+  outline: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* Segment instance – hover state: subtle-hover token per Figma segment instance */
+.segmented-buttons__segment:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-primary-subtle-hover);
+}
+
+/* Segment instance – pressed state: subtle-active only (no scale, so indicator never peeks out) */
+.segmented-buttons__segment:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-primary-subtle-active);
+}
+
+.segmented-buttons__segment:focus-visible {
+  outline: var(--border-active) solid var(--border-action-focus);
+  outline-offset: calc(-1 * var(--border-active));
+  z-index: 1;
+}
+
+/* Selected segment: avoid double “active” look when it keeps focus after click */
+.segmented-buttons__segment[aria-checked="true"]:focus-visible {
+  outline-color: var(--border-default-subtle);
+  outline-offset: 2px;
+}
+
+/* Segment instance – active state (selected): white from indicator, bold */
+.segmented-buttons__segment[aria-checked="true"] {
+  background-color: transparent;
+  color: var(--text-primary-brand);
+  font-weight: var(--font-weight-highlight);
+}
+
+/* Selected segment: no hover background so hover doesn’t “stick” when switching */
+.segmented-buttons__segment[aria-checked="true"]:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: transparent;
+}
+
+.segmented-buttons__segment[aria-checked="true"] .segmented-buttons__icon {
+  color: var(--icon-primary-brand);
+}
+
+/* Segment instance – disabled state */
+.segmented-buttons__segment:disabled,
+.segmented-buttons__segment[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+  color: var(--text-neutral-placeholder);
+}
+
+.segmented-buttons__segment:disabled .segmented-buttons__icon,
+.segmented-buttons__segment[aria-disabled="true"] .segmented-buttons__icon {
+  color: var(--icon-neutral-placeholder);
+}
+
+/* Segment instance – icon uses icon/neutral/default (inherits in active/disabled) */
+.segmented-buttons__icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--icon-neutral-default);
+}
+
+/* Size small */
+.segmented-buttons--small .segmented-buttons__segment {
+  padding: var(--padding-small) var(--padding-default);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+}
+
+.segmented-buttons--small .segmented-buttons__icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .segmented-buttons__segment {
+    transition: none;
+  }
+
+  .segmented-buttons__segment:active:not(:disabled):not([aria-disabled="true"]) {
+    /* no scale in reduced-motion */
+  }
+
+  .segmented-buttons__indicator {
+    transition: none;
+  }
+}

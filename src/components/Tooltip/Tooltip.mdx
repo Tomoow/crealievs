@@ -1,0 +1,130 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import TooltipStories from './Tooltip.stories';
+import * as TooltipStoriesNamed from './Tooltip.stories';
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+Tooltips provide additional context and information when users hover over or focus on an element. They are useful for explaining functionality, providing hints, or displaying supplementary information.
+
+## Usage
+
+Tooltips are used when:
+- You need to provide additional context without cluttering the interface
+- Explaining icon-only buttons or actions
+- Providing hints or helpful information
+- Displaying supplementary details that don't need to be always visible
+
+## Variants
+
+### Plain Tooltip
+Simple dark tooltip with text only. Best for short, concise information.
+
+- Dark background with white text
+- Small, compact size
+- Rounded corners
+- No arrow pointer
+
+### Rich Tooltip
+White tooltip with title, body text, and optional link button. Best for more detailed information.
+
+- White background with subtle border
+- Larger size to accommodate more content
+- Title (bold), body text, and optional link button positioned bottom right
+- More rounded corners
+- No arrow pointer
+
+## When not to use
+
+Avoid using tooltips for:
+- **Critical information**: Users might miss it if they don't hover
+- **Long content**: Tooltips should be concise
+- **Primary actions**: Use labels or buttons with text instead
+- **Mobile interfaces**: Tooltips don't work well on touch devices
+
+## Examples
+
+### Default
+
+<Canvas of={TooltipStoriesNamed.Default} />
+
+Use the controls below to interact with the tooltip and see different variants and positions.
+
+## Accessibility
+
+### Keyboard Navigation
+- Tooltips appear on focus for keyboard users
+- Tooltips disappear on blur
+- Ensure trigger elements are keyboard accessible
+
+### Screen Readers
+- Use `aria-label` on icon-only buttons that have tooltips
+- Tooltips use `role="tooltip"` and `aria-live="polite"` for announcements
+
+### Best Practices
+1. **Keep content concise**: Tooltips should be brief and to the point
+2. **Use for supplementary info**: Don't rely on tooltips for critical information
+3. **Test keyboard navigation**: Ensure tooltips work with keyboard focus
+4. **Consider mobile**: Tooltips may not work well on touch devices
+5. **Dynamic positioning**: Tooltips automatically adjust to stay within viewport bounds
+
+## Implementation
+
+```tsx
+import { Tooltip } from './components/Tooltip';
+import { IconButton } from './components/IconButton';
+import { Info } from 'lucide-react';
+
+// Plain tooltip
+<Tooltip title="This is a tooltip" variant="plain">
+  <IconButton icon={Info} aria-label="Information" />
+</Tooltip>
+
+// Rich tooltip with button (default)
+<Tooltip
+  variant="rich"
+  title="Rich tooltip title"
+  body="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  buttonLabel="Learn more"
+  onAction={() => console.log('Action clicked')}
+  showButton={true}
+>
+  <IconButton icon={Info} aria-label="Information" />
+</Tooltip>
+
+// Rich tooltip without button
+<Tooltip
+  variant="rich"
+  title="Rich tooltip title"
+  body="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  showButton={false}
+>
+  <IconButton icon={Info} aria-label="Information" />
+</Tooltip>
+
+// Different positions
+<Tooltip title="Tooltip on top" position="top">
+  <Button>Hover me</Button>
+</Tooltip>
+
+<Tooltip title="Tooltip on bottom" position="bottom">
+  <Button>Hover me</Button>
+</Tooltip>
+```
+
+## Props
+
+<Controls of={TooltipStoriesNamed.Default} />
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'plain' \| 'rich'` | `'plain'` | Variant of the tooltip |
+| `title` | `string` | - | The text content for plain tooltip, or title for rich tooltip (required) |
+| `children` | `React.ReactElement` | - | The element that triggers the tooltip (required). This is the interactive element (like a button) that the tooltip wraps to add hover/focus behavior. |
+| `position` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Position of the tooltip relative to the trigger |
+| `body` | `string` | - | For rich tooltip: body text content |
+| `buttonLabel` | `string` | - | For rich tooltip: button label text (link button positioned bottom right) |
+| `onAction` | `() => void` | - | For rich tooltip: action button click handler |
+| `showButton` | `boolean` | `true` | For rich tooltip: whether to show the action button |
+| `className` | `string` | `''` | Additional CSS class name for custom styling |

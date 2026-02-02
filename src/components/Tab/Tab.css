@@ -1,0 +1,126 @@
+/* Tab – Figma 67:580 (underline bar), 67:581 (tab instance). Tokens: text/neutral/default, gap/tight, padding/large, weight/highlight, weight/default. */
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-small); /* Figma gap/tight = 8 */
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+  box-sizing: border-box;
+}
+
+/* Tab instance – base (Figma 67:581) */
+.tab__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-default) var(--padding-large); /* Figma padding/default 12, padding/large 16 */
+  min-height: 2.75rem;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: var(--font-weight-default);
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease;
+  outline: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.tab__item:hover:not(:disabled):not([aria-disabled="true"]) {
+  /* state set per variant */
+}
+
+.tab__item:active:not(:disabled):not([aria-disabled="true"]) {
+  /* state set per variant */
+}
+
+.tab__item:focus-visible {
+  outline: var(--border-active) solid var(--border-action-focus);
+  outline-offset: 2px;
+}
+
+.tab__item:disabled,
+.tab__item[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+  color: var(--text-neutral-placeholder);
+}
+
+.tab__label {
+  display: inline-block;
+}
+
+/* ----- Underline variant: base border + sliding pill indicator (5px, pill radius) ----- */
+.tab--underline {
+  position: relative;
+  border-bottom: var(--border-default) solid var(--border-default-default);
+}
+
+.tab--underline .tab__item {
+  margin-bottom: calc(-1 * var(--border-default));
+}
+
+.tab--underline .tab__item:hover:not(:disabled):not([aria-disabled="true"]) {
+  color: var(--text-neutral-default);
+}
+
+.tab--underline .tab__item[aria-selected="true"] {
+  font-weight: var(--font-weight-highlight);
+}
+
+/* Sliding pill: 5px height, full pill radius, centered on border (move down 3px) */
+.tab__indicator {
+  position: absolute;
+  bottom: -3px;
+  height: 5px;
+  border-radius: var(--pill);
+  background: var(--border-highlight-default);
+  pointer-events: none;
+  transition:
+    left 0.25s ease,
+    width 0.25s ease;
+}
+
+/* ----- Pill variant (Figma 67:581): bg states ----- */
+.tab--pill .tab__item {
+  border-radius: var(--pill);
+}
+
+.tab--pill .tab__item:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-highlight-hover);
+}
+
+.tab--pill .tab__item:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-highlight-active);
+  transform: scale(0.95);
+}
+
+.tab--pill .tab__item[aria-selected="true"] {
+  font-weight: var(--font-weight-highlight);
+  background-color: var(--bg-highlight-brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab__item {
+    transition: none;
+  }
+
+  .tab__indicator {
+    transition: none;
+  }
+
+  .tab--pill .tab__item:active:not(:disabled):not([aria-disabled="true"]) {
+    transform: none;
+  }
+}

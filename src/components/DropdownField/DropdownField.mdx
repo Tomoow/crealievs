@@ -1,0 +1,76 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import DropdownFieldStories from './DropdownField.stories';
+import * as DropdownFieldStoriesNamed from './DropdownField.stories';
+
+<Meta of={DropdownFieldStories} />
+
+## DropdownField
+
+`DropdownField` combines an input-like trigger with a dropdown list of options for single or multi-select choices.
+
+### Overview
+
+The component matches the design from Figma and follows the same layout pattern as `InputField`:
+
+- **Label** above the field (or `aria-label` when no visible label is present)
+- **Input-like trigger** with optional left icon and clear button
+- **Dropdown list** with selectable options
+- **Helper or error text** below the field
+
+### Example
+
+<Canvas of={DropdownFieldStoriesNamed.Default} />
+
+### Accessibility
+
+- Provide either `label` (visible) or `aria-label` (required when no visible label)
+- The trigger uses `role="combobox"` semantics via ARIA attributes
+- The menu uses `role="listbox"` and each item uses `role="option"`
+- `aria-invalid` is automatically set when `errorMessage` is provided
+- `aria-required` is set when `required={true}`
+- `aria-describedby` links to helper text or error message
+
+### Design Tokens
+
+`DropdownField` reuses the same semantic tokens as `InputField`:
+
+- **Colors**:
+  - Background: `--bg-neutral-default`
+  - Border: `--border-default-default` (default), `--border-action-hover` (hover), `--border-action-active` (focus), `--border-error-default` (error)
+  - Text: `--text-neutral-default` (value), `--text-neutral-placeholder` (placeholder), `--text-error-default` (error)
+- **Spacing**: `--padding-default` and `--padding-large` for internal padding and gaps
+- **Typography**: `--font-family-body`, `--font-size-md`, `--line-height-default-md`
+- **Border Radius**: `--radius-input` for the trigger, `--radius-container` for the dropdown
+
+### Implementation
+
+```tsx
+import {
+  DropdownField,
+  type DropdownFieldOption,
+  type DropdownFieldMultiValue,
+} from '@crealievs/design-system';
+
+const options: DropdownFieldOption[] = [
+  { value: 'keuze', label: 'Keuze' },
+  { value: 'keuze-1', label: 'Keuze' },
+];
+
+// Single-select
+<DropdownField
+  label="Label"
+  options={options}
+  value={selected}
+  onChange={setSelected}
+/>
+
+// Multi-select
+<DropdownField
+  label="Label"
+  multiple
+  options={options}
+  value={selectedMany}
+  onChange={setSelectedMany}
+/>
+```
+

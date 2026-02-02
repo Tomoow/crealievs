@@ -1,0 +1,82 @@
+{
+  "name": "@crealievs/design-system",
+  "version": "1.0.0",
+  "description": "🎨 Crealievs Design System - React components built from Figma",
+  "type": "module",
+  "main": "./dist/crealievs.cjs",
+  "module": "./dist/crealievs.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/crealievs.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/crealievs.cjs"
+      }
+    },
+    "./styles/tokens.css": "./dist/tokens.css",
+    "./styles/components.css": "./dist/style.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:types && npm run build:lib && npm run build:css",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build:lib": "vite build",
+    "build:css": "node scripts/build-css.js",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006 --host localhost",
+    "build-storybook": "storybook build",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "design-system",
+    "components",
+    "ui",
+    "figma",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
+    "@floating-ui/react-dom": "^2.1.6",
+    "lottie-react": "^2.4.0",
+    "lucide-react": "^0.406.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "8.6.15",
+    "@storybook/addon-interactions": "8.6.15",
+    "@storybook/addon-links": "8.6.15",
+    "@storybook/blocks": "8.6.15",
+    "@storybook/react": "8.6.15",
+    "@storybook/react-vite": "8.6.15",
+    "@storybook/test": "8.6.15",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "storybook": "8.6.15",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  }
+}

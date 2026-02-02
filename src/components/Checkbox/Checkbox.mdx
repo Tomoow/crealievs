@@ -1,0 +1,83 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import CheckboxStories from './Checkbox.stories';
+import * as CheckboxStoriesNamed from './Checkbox.stories';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+Checkboxes allow users to select one or more options from a list. They are used for binary choices and can be used individually or in groups.
+
+## Usage
+
+Checkboxes are used when:
+- Users need to select one or more options from a list
+- Multiple selections are allowed
+- You want to show a clear visual indication of selected state
+- Users need to toggle a setting or preference
+
+## States
+
+Checkboxes have several states:
+
+- **Unchecked**: Default state when no selection is made (white background with border)
+- **Checked**: When the option is selected (primary blue background with white checkmark)
+- **Disabled**: When the option is not available for selection (use `state="disabled"`)
+- **Hover**: Visual feedback when hovering over the checkbox
+- **Focus**: Visual feedback when the checkbox receives keyboard focus
+
+## Examples
+
+### Default
+
+<Canvas of={CheckboxStoriesNamed.Default} />
+
+Use the controls below to interact with the checkbox and see different states.
+
+## Accessibility
+
+### Target Size
+- Meets WCAG 2.5.8 AA with 24×24px minimum hit area
+
+### Accessible Name
+- Provide either `label` (visible) or `ariaLabel` (required when no visible label)
+- The component will warn in development if neither is provided
+
+### Keyboard Navigation
+- Fully keyboard accessible via native checkbox behavior
+- Focus ring appears on the checkbox
+
+## Best Practices
+
+1. **Use clear labels**: Always provide descriptive labels that explain what the checkbox controls
+2. **Group related options**: Use checkboxes in groups when multiple related options can be selected
+3. **Visual feedback**: Ensure hover and focus states are clearly visible
+4. **Disabled state**: Clearly indicate when options are unavailable
+5. **Spacing**: Maintain adequate spacing between checkboxes and their labels
+
+## Implementation
+
+```tsx
+import { Checkbox } from './components/Checkbox';
+
+// Basic usage with label
+<Checkbox 
+  label="Accept terms and conditions"
+  checked={isAccepted}
+  onChange={(checked) => setIsAccepted(checked)}
+/>
+
+// Without visible label (requires ariaLabel)
+<Checkbox
+  ariaLabel="Accept terms and conditions"
+  checked={isAccepted}
+  onChange={(checked) => setIsAccepted(checked)}
+/>
+
+// Disabled state
+<Checkbox
+  label="Disabled option"
+  state="disabled"
+  checked={false}
+/>
+```

@@ -1,0 +1,128 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import SliderStories from './Slider.stories';
+import * as SliderStoriesNamed from './Slider.stories';
+
+<Meta of={SliderStories} />
+
+# Slider
+
+Sliders allow users to select a value or range of values from a continuous scale. They provide visual feedback through the filled track and tooltip display.
+
+## Usage
+
+Sliders are used when:
+- Users need to select a value from a continuous range
+- You want to provide visual feedback about the selected value
+- The exact value is less important than the relative position
+- You need to select a range of values (ranged variant)
+
+## Variants
+
+### Default (Single Thumb)
+A single thumb slider for selecting one value from a range.
+
+### Ranged (Two Thumbs)
+A ranged slider with two thumbs for selecting a minimum and maximum value.
+
+## States
+
+Sliders have several states:
+
+- **Default**: Normal interactive state
+- **Hover**: Visual feedback when hovering over the slider
+- **Pressed**: Visual feedback when actively dragging a thumb
+- **Focus**: Visual feedback when the slider receives keyboard focus (orange outline)
+- **Disabled**: When the slider is not available for interaction
+
+## Examples
+
+### Default Variant
+
+<Canvas of={SliderStoriesNamed.Default} />
+
+### Ranged Variant
+
+<Canvas of={SliderStoriesNamed.Ranged} />
+
+Use the controls below to interact with the slider and see different states.
+
+## Accessibility
+
+### Keyboard Navigation
+- **Arrow keys**: Move the slider value by the step amount
+  - ArrowRight/ArrowUp: Increase value
+  - ArrowLeft/ArrowDown: Decrease value
+- **Home**: Move to minimum value
+- **End**: Move to maximum value
+- **Tab**: Navigate to/from the slider
+- For ranged sliders, each thumb can be focused and controlled independently
+
+### Accessible Name
+- Provide either `label` (visible) or `ariaLabel` (required when no visible label)
+- The component will warn in development if neither is provided
+
+### Focus Management
+- Focus ring appears on the active thumb (orange outline)
+- Tooltip displays current value when focused, hovered, or pressed
+- Screen readers announce the current value and range
+
+## Best Practices
+
+1. **Use clear labels**: Always provide descriptive labels that explain what the slider controls
+2. **Appropriate step values**: Choose step values that make sense for your use case
+3. **Visual feedback**: The tooltip provides immediate feedback about the current value
+4. **Disabled state**: Clearly indicate when the slider is unavailable
+5. **Range selection**: Use the ranged variant when users need to select a range of values
+6. **Format values**: Use the `formatValue` prop to format displayed values (e.g., currency, percentages)
+
+## Implementation
+
+```tsx
+import { Slider } from './components/Slider';
+
+// Basic default slider
+<Slider 
+  label="Price"
+  value={50}
+  min={0}
+  max={100}
+  step={1}
+  onChange={(value) => setPrice(value as number)}
+/>
+
+// Ranged slider
+<Slider
+  variant="ranged"
+  label="Price range"
+  value={[20, 60]}
+  min={0}
+  max={100}
+  step={5}
+  onChange={(value) => setPriceRange(value as [number, number])}
+/>
+
+// With custom value formatting
+<Slider
+  label="€ Price"
+  value={50}
+  min={0}
+  max={1000}
+  step={10}
+  formatValue={(val) => `€${val}`}
+  onChange={(value) => setPrice(value as number)}
+/>
+
+// Disabled state
+<Slider
+  label="Disabled slider"
+  value={50}
+  state="disabled"
+/>
+
+// Without visible label (requires ariaLabel)
+<Slider
+  ariaLabel="Volume control"
+  value={75}
+  onChange={(value) => setVolume(value as number)}
+/>
+```

@@ -1,0 +1,117 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-x-small);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-default);
+  border-radius: var(--radius-pill);
+  border: var(--border-default) solid;
+  white-space: nowrap;
+  padding: var(--padding-x-small) var(--padding-default);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+  height: fit-content;
+}
+
+.tag__icon {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+.tag__text {
+  display: inline-block;
+}
+
+/* Variant styles */
+.tag--default {
+  background-color: var(--bg-neutral-default);
+  color: var(--text-neutral-default);
+  border-color: var(--border-default-default);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.tag--default:hover {
+  border-color: var(--border-action-subtle-hover);
+}
+
+.tag--default:active {
+  border-color: var(--border-action-subtle-active);
+  transform: scale(0.95);
+}
+
+.tag--default:focus {
+  outline: 2px solid var(--border-action-focus);
+  outline-offset: 2px;
+}
+
+.tag--default:focus-visible {
+  outline: 2px solid var(--border-action-focus);
+  outline-offset: 2px;
+}
+
+.tag--default .tag__icon {
+  color: var(--icon-neutral-default);
+}
+
+.tag--selected {
+  background-color: var(--bg-primary-default);
+  color: var(--text-neutral-inverse);
+  border-color: var(--bg-primary-default);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.tag--selected:hover {
+  background-color: var(--bg-primary-hover);
+  border-color: var(--bg-primary-hover);
+}
+
+.tag--selected:active {
+  background-color: var(--bg-primary-active);
+  border-color: var(--bg-primary-active);
+  transform: scale(0.95);
+}
+
+.tag--selected:focus {
+  outline: 2px solid var(--border-action-focus);
+  outline-offset: 2px;
+}
+
+.tag--selected:focus-visible {
+  outline: 2px solid var(--border-action-focus);
+  outline-offset: 2px;
+}
+
+.tag--selected .tag__icon {
+  color: var(--icon-neutral-inverse);
+}
+
+/* State classes for Storybook demonstration */
+.tag--state-hover {
+  border-color: var(--border-action-subtle-hover);
+}
+
+.tag--selected.tag--state-hover {
+  background-color: var(--bg-primary-hover);
+  border-color: var(--bg-primary-hover);
+}
+
+.tag--state-pressed {
+  border-color: var(--border-action-subtle-active);
+  transform: scale(0.95);
+}
+
+.tag--selected.tag--state-pressed {
+  background-color: var(--bg-primary-active);
+  border-color: var(--bg-primary-active);
+  transform: scale(0.95);
+}
+
+.tag--state-focus {
+  outline: 2px solid var(--border-action-focus);
+  outline-offset: 2px;
+}
+

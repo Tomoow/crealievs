@@ -1,0 +1,35 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import CardStories from './Card.stories';
+import * as CardStoriesNamed from './Card.stories';
+
+<Meta of={CardStories} />
+
+# Card
+
+Card with an icon (in a filled circle) top left, title and subtitle, optional 3-dot actions button top right, subtext, and optional footer (e.g. two buttons: Annuleren, Bevestigen).
+
+Use the **Controls** panel to try different title, subtitle, subtext, and toggling the actions button.
+
+## Usage
+
+- **icon**: Renders in a circular container with primary subtle background; icon color is inverse (white).
+- **title** / **subtitle**: Header text next to the icon.
+- **onActionsClick**: When set, a default 3-dot (MoreVertical) IconButton appears top right.
+- **subtext**: Body content below the header.
+- **footer**: Optional ReactNode (e.g. two `Button` components: secondary left, primary right).
+
+## Example
+
+<Canvas of={CardStoriesNamed.Default} />
+
+<Controls of={CardStoriesNamed.Default} />
+
+## Design tokens
+
+Card uses semantic tokens only: `--bg-neutral-default`, `--bg-primary-subtle`, `--border-default-subtle`, `--radius-container`, `--padding-x-large`, `--padding-large`, typography and text color tokens.
+
+## Accessibility
+
+- Semantic `<article>`, `<header>`, `<footer>`.
+- IconButton for actions has `aria-label="More actions"`.
+- Title is `<h2>` for heading hierarchy.

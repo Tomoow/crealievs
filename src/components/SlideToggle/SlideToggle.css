@@ -1,0 +1,166 @@
+.slide-toggle-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-small);
+  cursor: pointer;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+}
+
+.slide-toggle-wrapper:has(.slide-toggle-input:disabled) {
+  cursor: not-allowed;
+}
+
+.slide-toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.slide-toggle {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 2.75rem; /* 44px - WCAG AA compliant minimum tap target width */
+  height: 1.5rem; /* 24px - WCAG AA compliant minimum tap target height */
+  box-sizing: border-box;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-neutral-strong); /* Light grey background for off state */
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  position: relative;
+  margin-top: 0.125rem; /* Slight top margin to align with first line of text */
+  padding: 0.125rem; /* Padding for knob movement */
+}
+
+.slide-toggle__knob {
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+  border-radius: var(--radius-max);
+  background-color: var(--bg-neutral-default); /* White knob */
+  position: absolute;
+  left: 0.125rem; /* Start position (off) */
+  transition: transform 0.2s ease, left 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Checked state - knob moves to right, track becomes blue */
+.slide-toggle--checked {
+  background-color: var(--bg-primary-default);
+}
+
+.slide-toggle--checked .slide-toggle__knob {
+  left: calc(100% - 1.25rem - 0.125rem); /* End position (on) - 20px knob + 2px padding */
+  transform: translateX(0);
+}
+
+/* Hover states - triggered from wrapper, but not when disabled */
+.slide-toggle-wrapper:hover .slide-toggle-input:not(:disabled) + .slide-toggle--checked {
+  background-color: var(--bg-primary-hover);
+
+}
+
+.slide-toggle-wrapper:hover .slide-toggle-input:not(:disabled) + .slide-toggle:not(.slide-toggle--checked) {
+  background-color: var(--bg-primary-subtle-hover);
+}
+
+/* Active/pressed states - must come after hover and have higher specificity, but not when disabled */
+.slide-toggle-wrapper:active .slide-toggle-input:not(:disabled) + .slide-toggle--checked,
+.slide-toggle-input:active:not(:disabled):checked + .slide-toggle--checked {
+  background-color: var(--bg-primary-active);
+  transform: scale(0.95);
+}
+
+.slide-toggle-wrapper:active .slide-toggle-input:not(:disabled) + .slide-toggle:not(.slide-toggle--checked),
+.slide-toggle-input:active:not(:disabled):not(:checked) + .slide-toggle:not(.slide-toggle--checked) {
+  background-color: var(--bg-primary-subtle-active);
+  transform: scale(0.95);
+}
+
+/* Focus state - orange halo/ring */
+.slide-toggle-input:focus-visible + .slide-toggle {
+  outline: 0.125rem solid var(--border-action-focus);
+  outline-offset: 0.125rem;
+}
+
+/* Disabled state */
+.slide-toggle-input:disabled + .slide-toggle,
+.slide-toggle--state-disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  background-color: var(--bg-neutral-strong);
+}
+
+.slide-toggle-input:disabled:checked + .slide-toggle,
+.slide-toggle--checked.slide-toggle--state-disabled {
+  background-color: var(--bg-primary-default);
+  opacity: var(--opacity-disabled);
+}
+
+/* Content wrapper */
+.slide-toggle__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  flex: 1;
+}
+
+/* Label */
+.slide-toggle__label {
+  color: var(--text-neutral-default);
+  user-select: none;
+  font-weight: var(--font-weight-default);
+}
+
+.slide-toggle__description {
+  color: var(--text-neutral-subtle);
+  user-select: none;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+}
+
+.slide-toggle-wrapper:has(.slide-toggle-input:disabled) .slide-toggle__label,
+.slide-toggle-wrapper:has(.slide-toggle-input:disabled) .slide-toggle__description {
+  color: var(--text-neutral-placeholder);
+  opacity: var(--opacity-disabled);
+}
+
+/* Storybook state classes */
+.slide-toggle--state-hover:not(.slide-toggle--checked) {
+  background-color: var(--bg-primary-subtle-hover);
+}
+
+.slide-toggle--checked.slide-toggle--state-hover {
+  background-color: var(--bg-primary-hover);
+}
+
+.slide-toggle--state-focus {
+  outline: 0.125rem solid var(--border-action-focus);
+  outline-offset: 0.125rem;
+}
+
+.slide-toggle--state-disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  background-color: var(--bg-neutral-strong);
+}
+
+.slide-toggle--checked.slide-toggle--state-disabled {
+  background-color: var(--bg-primary-default);
+  opacity: var(--opacity-disabled);
+}
+
+/* Storybook active state for checked */
+.slide-toggle--checked.slide-toggle--state-active {
+  background-color: var(--bg-primary-active) !important;
+  transform: scale(0.95);
+}
+
+/* Storybook active state for unchecked - must override hover */
+.slide-toggle:not(.slide-toggle--checked).slide-toggle--state-active {
+  background-color: var(--bg-primary-subtle-active) !important;
+  transform: scale(0.95);
+}

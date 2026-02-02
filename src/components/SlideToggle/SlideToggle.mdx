@@ -1,0 +1,93 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import SlideToggleStories from './SlideToggle.stories';
+import * as SlideToggleStoriesNamed from './SlideToggle.stories';
+
+<Meta of={SlideToggleStories} />
+
+# SlideToggle
+
+Slide toggles allow users to switch between two states (on/off). They are used for binary choices and provide immediate visual feedback through the sliding animation.
+
+## Usage
+
+Slide toggles are used when:
+- Users need to toggle a setting or preference on/off
+- You want to show immediate visual feedback for a binary choice
+- The setting should be clearly visible and easy to toggle
+- You want a more prominent control than a checkbox for important settings
+
+## States
+
+Slide toggles have several states:
+
+- **Off**: Default state when not checked (light grey track with knob on the left)
+- **On**: When the toggle is checked (primary blue track with knob on the right)
+- **Disabled**: When the toggle is not available for interaction (use `state="disabled"`)
+- **Hover**: Visual feedback when hovering over the toggle
+- **Focus**: Visual feedback when the toggle receives keyboard focus (orange outline)
+
+## Examples
+
+### Default
+
+<Canvas of={SlideToggleStoriesNamed.Default} />
+
+Use the controls below to interact with the toggle and see different states.
+
+## Accessibility
+
+### Target Size
+- Meets WCAG 2.5.8 AA with 44×24px minimum hit area
+
+### Accessible Name
+- Provide either `label` (visible) or `ariaLabel` (required when no visible label)
+- The component will warn in development if neither is provided
+
+### Keyboard Navigation
+- Fully keyboard accessible via native checkbox behavior (with role="switch")
+- Focus ring appears on the toggle (orange halo)
+- Spacebar toggles the switch state
+
+## Best Practices
+
+1. **Use clear labels**: Always provide descriptive labels that explain what the toggle controls
+2. **Visual feedback**: The sliding animation provides clear visual feedback for state changes
+3. **Disabled state**: Clearly indicate when the toggle is unavailable
+4. **Spacing**: Maintain adequate spacing between toggles and their labels
+5. **Use for binary choices**: Slide toggles are best for simple on/off settings
+
+## Implementation
+
+```tsx
+import { SlideToggle } from './components/SlideToggle';
+
+// Basic usage with label
+<SlideToggle 
+  label="Enable notifications"
+  checked={notificationsEnabled}
+  onChange={(checked) => setNotificationsEnabled(checked)}
+/>
+
+// Without visible label (requires ariaLabel)
+<SlideToggle
+  ariaLabel="Enable notifications"
+  checked={notificationsEnabled}
+  onChange={(checked) => setNotificationsEnabled(checked)}
+/>
+
+// Disabled state
+<SlideToggle
+  label="Disabled setting"
+  state="disabled"
+  checked={false}
+/>
+
+// With description
+<SlideToggle
+  label="Dark mode"
+  description="Switch to dark theme"
+  showDescription={true}
+  checked={darkMode}
+  onChange={(checked) => setDarkMode(checked)}
+/>
+```

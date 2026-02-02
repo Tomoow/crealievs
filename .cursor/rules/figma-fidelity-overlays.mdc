@@ -1,0 +1,18 @@
+---
+description: Figma fidelity + overlay focus rules (no auto-focus)
+alwaysApply: true
+---
+
+# Figma fidelity (no freewheeling)
+
+- **Never invent styles**. Always pull exact values from Figma (use the node’s inspected CSS/typography + tokens) and implement those.
+- **Typography must match**: font family, size, weight, line-height, and semantic token color exactly as specified in Figma.
+- **Prefer semantic tokens** (e.g. `--text-neutral-default`, `--padding-x-large`, `--radius-overlay`) over raw values unless Figma uses a raw value.
+
+# Overlays (Modal/DatePicker/Dropdown/etc.)
+
+- **No auto-focus on open** (tooltips show on focus and look broken). Do not focus the close icon, first button, or container when opening.
+- **Keyboard entry**: while open, intercept **Tab** if focus is outside and move focus into the overlay (user-initiated).
+- **Escape closes** (document-level listener is OK).
+- **Mobile pattern**: use the **bottom-sheet slide-in** pattern (same as `DropdownField` mobile sheet).
+- **Height constraints**: if Figma specifies a max height (e.g. **60vh**), implement it for both desktop and mobile.

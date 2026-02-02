@@ -1,0 +1,415 @@
+.dropdown-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-small);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  width: 100%;
+  position: relative;
+}
+
+.dropdown-field__label {
+  color: var(--text-neutral-default);
+  font-weight: var(--font-weight-highlight);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  user-select: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown-field__required-indicator {
+  color: var(--text-neutral-default);
+  margin-left: 0;
+}
+
+.dropdown-field-wrapper--error .dropdown-field__label,
+.dropdown-field__label--error {
+  color: var(--text-error-default);
+}
+
+.dropdown-field-wrapper--error .dropdown-field__required-indicator {
+  color: var(--text-error-default);
+}
+
+.dropdown-field-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--padding-small);
+  width: 100%;
+  background-color: var(--bg-neutral-default);
+  border: var(--border-default) solid var(--border-default-default);
+  border-radius: var(--radius-input);
+  padding: var(--padding-default) var(--padding-large);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.dropdown-field-container:hover:not(.dropdown-field-container--readonly):not(.dropdown-field-container--disabled) {
+  border-color: var(--border-action-hover);
+}
+
+.dropdown-field-container--error {
+  border-color: var(--border-error-default);
+}
+
+.dropdown-field-container--error:hover:not(.dropdown-field-container--readonly):not(.dropdown-field-container--disabled) {
+  border-color: var(--border-error-default);
+}
+
+.dropdown-field-container--readonly {
+  background-color: var(--bg-neutral-alt);
+  border-color: var(--border-default-default);
+}
+
+.dropdown-field-container--disabled {
+  background-color: var(--bg-neutral-alt);
+  border-color: var(--border-default-subtle);
+  opacity: 0.7;
+}
+
+/* Active state: when dropdown is open or trigger has focus (e.g. Tab landed) */
+.dropdown-field-container--open,
+.dropdown-field-container--focused {
+  border-color: var(--border-action-active);
+  box-shadow: inset 0 0 0 calc(var(--border-active) - var(--border-default)) var(--border-action-active);
+}
+
+/* Remove any focus-within styles that create unwanted borders */
+/* Focus is handled by individual IconButton components, not the container */
+
+.dropdown-field__left-icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--icon-neutral-placeholder);
+}
+
+.dropdown-field__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--padding-small);
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+}
+
+.dropdown-field__trigger:focus {
+  outline: none;
+}
+
+.dropdown-field-container--readonly .dropdown-field__trigger,
+.dropdown-field-container--disabled .dropdown-field__trigger {
+  cursor: default;
+}
+
+.dropdown-field__value {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-neutral-default);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  font-weight: var(--font-weight-default);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-field__value--placeholder {
+  color: var(--text-neutral-placeholder);
+}
+
+.dropdown-field__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-small);
+  flex-shrink: 0;
+}
+
+.dropdown-field__clear-button {
+  flex-shrink: 0;
+}
+
+.dropdown-field__separator {
+  width: 1px;
+  height: 16px;
+  background-color: var(--border-default-subtle);
+  flex-shrink: 0;
+}
+
+.dropdown-field__chevron-button {
+  flex-shrink: 0;
+}
+
+.dropdown-field__menu {
+  background-color: var(--bg-neutral-default);
+  border: var(--border-default) solid var(--border-default-default);
+  border-radius: var(--radius-container);
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+}
+
+/* Mobile: bottom sheet (slide-up panel). */
+.dropdown-field__sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999;
+}
+
+.dropdown-field__sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 70vh;
+  background-color: var(--bg-neutral-default);
+  border-radius: var(--radius-container) var(--radius-container) 0 0;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(100%);
+  transition: transform 0.25s ease-out;
+}
+
+.dropdown-field__sheet--visible {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdown-field__sheet {
+    transition: none;
+  }
+}
+
+.dropdown-field__menu--sheet {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Subtle scrollbar styling */
+.dropdown-field__menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dropdown-field__menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dropdown-field__menu::-webkit-scrollbar-thumb {
+  background-color: var(--border-default-subtle);
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.dropdown-field__menu::-webkit-scrollbar-thumb:hover {
+  background-color: var(--border-default-default);
+}
+
+/* Firefox scrollbar */
+.dropdown-field__menu {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default-subtle) transparent;
+}
+
+.dropdown-field__option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--padding-small);
+  padding: var(--padding-large);
+  background-color: var(--bg-neutral-default);
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+}
+
+/* Default hover/active states - only apply when NOT selected and NOT indeterminate */
+.dropdown-field__option:not(.dropdown-field__option--selected):not(.dropdown-field__option--indeterminate):hover:not(.dropdown-field__option--disabled):not(:active),
+.dropdown-field__option:not(.dropdown-field__option--selected):not(.dropdown-field__option--indeterminate).dropdown-field__option--active:not(:active) {
+  background-color: var(--bg-primary-subtle-hover);
+}
+
+/* Pressed/active state - only apply when NOT selected and NOT indeterminate */
+.dropdown-field__option:not(.dropdown-field__option--selected):not(.dropdown-field__option--indeterminate):active:not(.dropdown-field__option--disabled),
+.dropdown-field__option:not(.dropdown-field__option--selected):not(.dropdown-field__option--indeterminate).dropdown-field__option--active:active {
+  background-color: var(--bg-primary-subtle-active);
+}
+
+/* Selected state - always takes precedence */
+.dropdown-field__option--selected {
+  background-color: var(--bg-highlight-active);
+}
+
+.dropdown-field__option--selected:hover:not(.dropdown-field__option--disabled):not(:active) {
+  background-color: var(--bg-highlight-hover);
+}
+
+.dropdown-field__option--selected:active:not(.dropdown-field__option--disabled) {
+  background-color: var(--bg-highlight-active);
+}
+
+/* Selected state with active class (keyboard navigation) */
+.dropdown-field__option--selected.dropdown-field__option--active:not(:active) {
+  background-color: var(--bg-highlight-hover);
+}
+
+.dropdown-field__option--disabled {
+  cursor: not-allowed;
+  color: var(--text-neutral-subtle);
+}
+
+/* Focus state: same as hover (background only, no shadow border) */
+.dropdown-field__option:focus-visible {
+  outline: none;
+}
+
+.dropdown-field__option-icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--icon-neutral-default);
+}
+
+.dropdown-field__option-label {
+  flex: 1;
+}
+
+.dropdown-field__option-checkbox-wrapper {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.dropdown-field__option-checkbox {
+  margin: 0;
+}
+
+/* Checkbox inputs are made non-focusable via JavaScript (tabIndex = -1) */
+
+/* Checkbox hover/active states - consolidated rules */
+/* Base selector for all checkbox interactions */
+.dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox {
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Unchecked checkboxes: subtle hover/active (exclude indeterminate) */
+.dropdown-field__option:not(.dropdown-field__option--selected):hover:not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox:not(.checkbox--checked):not(.checkbox--indeterminate),
+.dropdown-field__option:not(.dropdown-field__option--selected).dropdown-field__option--active:not(:active):not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox:not(.checkbox--checked):not(.checkbox--indeterminate) {
+  border: var(--border-default) solid var(--border-action-subtle-hover);
+  background-color: var(--bg-primary-subtle-hover);
+}
+
+.dropdown-field__option:not(.dropdown-field__option--selected):active:not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox:not(.checkbox--checked):not(.checkbox--indeterminate) {
+  background-color: var(--bg-primary-subtle-active);
+  border: var(--border-default) solid var(--border-action-subtle-active);
+  transform: scale(0.95);
+}
+
+/* Checked/indeterminate checkboxes: primary hover/active */
+.dropdown-field__option:hover:not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--checked,
+.dropdown-field__option:hover:not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--indeterminate,
+.dropdown-field__option.dropdown-field__option--active:not(:active):not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--checked,
+.dropdown-field__option.dropdown-field__option--active:not(:active):not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--indeterminate {
+  background-color: var(--bg-primary-hover);
+  border: var(--border-default) solid var(--bg-primary-hover);
+}
+
+.dropdown-field__option:active:not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--checked,
+.dropdown-field__option:active:not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--indeterminate {
+  background-color: var(--bg-primary-active);
+  border: var(--border-default) solid var(--bg-primary-active);
+  transform: scale(0.95);
+}
+
+.dropdown-field__option--select-all {
+  border-bottom: var(--border-default) solid var(--border-default-subtle);
+}
+
+/* Selected state for select all (when all items are selected) */
+.dropdown-field__option--select-all.dropdown-field__option--selected {
+  background-color: var(--bg-highlight-active);
+}
+
+.dropdown-field__option--select-all.dropdown-field__option--selected:hover:not(.dropdown-field__option--disabled):not(:active) {
+  background-color: var(--bg-highlight-hover);
+}
+
+.dropdown-field__option--select-all.dropdown-field__option--selected:active:not(.dropdown-field__option--disabled) {
+  background-color: var(--bg-highlight-active);
+}
+
+/* Indeterminate state for select all (when some items are selected) */
+.dropdown-field__option--select-all.dropdown-field__option--indeterminate {
+  background-color: var(--bg-highlight-subtle);
+}
+
+.dropdown-field__option--select-all.dropdown-field__option--indeterminate:hover:not(.dropdown-field__option--disabled):not(:active) {
+  background-color: var(--bg-highlight-hover);
+}
+
+.dropdown-field__option--select-all.dropdown-field__option--indeterminate:active:not(.dropdown-field__option--disabled) {
+  background-color: var(--bg-highlight-active);
+}
+
+/* Select all checkbox uses same rules as regular options (inherited from above) */
+/* Indeterminate checkbox needs explicit rest state for contrast */
+
+/* Indeterminate checkbox: use default (primary) colors for rest, hover, active - not subtle - for better contrast on highlight-subtle row */
+.dropdown-field__option--select-all.dropdown-field__option--indeterminate .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--indeterminate {
+  background-color: var(--bg-primary-default);
+  border: var(--border-default) solid var(--bg-primary-default);
+}
+
+/* Hover: trigger when row is hovered OR when checkbox area is hovered */
+.dropdown-field__option--select-all.dropdown-field__option--indeterminate:hover:not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--indeterminate,
+.dropdown-field__option--select-all.dropdown-field__option--indeterminate .dropdown-field__option-checkbox-wrapper:hover .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--indeterminate,
+.dropdown-field__option--select-all.dropdown-field__option--indeterminate.dropdown-field__option--active:not(:active) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--indeterminate {
+  background-color: var(--bg-primary-hover);
+  border: var(--border-default) solid var(--bg-primary-hover);
+}
+
+.dropdown-field__option--select-all.dropdown-field__option--indeterminate:active:not(.dropdown-field__option--disabled) .dropdown-field__option-checkbox-wrapper .checkbox-wrapper .checkbox-input:not(:disabled) + .checkbox--indeterminate {
+  background-color: var(--bg-primary-active);
+  border: var(--border-default) solid var(--bg-primary-active);
+  transform: scale(0.95);
+}
+
+.dropdown-field__helper-text {
+  display: block;
+  color: var(--text-neutral-placeholder);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+}
+
+.dropdown-field__helper-text--error {
+  color: var(--text-error-default);
+}
+

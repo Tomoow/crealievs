@@ -1,0 +1,13 @@
+.radio-group {
+  display: flex;
+}
+
+.radio-group--vertical {
+  flex-direction: column;
+  gap: var(--padding-default);
+}
+
+.radio-group--horizontal {
+  flex-direction: row;
+  gap: var(--padding-large);
+}

@@ -1,0 +1,167 @@
+/* Wrapper - 3 parts with 8px gap */
+.search-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-small); /* 8px gap between all parts */
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  width: 100%;
+  overflow: visible; /* Allow tooltips to escape */
+}
+
+/* Top: Label */
+.search-field__label {
+  color: var(--text-neutral-default); /* #2e2e48 */
+  font-weight: var(--font-weight-highlight); /* 600 - bold */
+  font-size: var(--font-size-md); /* 16px */
+  line-height: var(--line-height-default-md); /* 20px */
+  user-select: none;
+  display: block;
+  cursor: pointer; /* Indicate label is clickable */
+}
+
+.search-field__required-indicator {
+  color: var(--text-neutral-default); /* Same color as label */
+  margin-left: 0;
+}
+
+.search-field-wrapper--error .search-field__label,
+.search-field__label--error {
+  color: var(--text-error-default); /* #a40101 */
+}
+
+.search-field-wrapper--error .search-field__required-indicator {
+  color: var(--text-error-default); /* #a40101 */
+}
+
+/* Middle: Search Container */
+.search-field-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--padding-small); /* 8px gap between icon, text, and buttons */
+  width: 100%;
+  background-color: var(--bg-neutral-default); /* #ffffff */
+  border: var(--border-default) solid var(--border-default-default); /* 1px solid #c6c6cc */
+  border-radius: var(--radius-input); /* 12px */
+  padding: var(--padding-default); /* 12px padding */
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: visible; /* Allow tooltip to go outside */
+  outline: none; /* No outline by default - only show on keyboard navigation */
+  box-sizing: border-box; /* Border included in width calculation */
+}
+
+/* Search icon - always visible on the left */
+.search-field__search-icon {
+  flex-shrink: 0;
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+  color: var(--icon-neutral-placeholder); /* #c6c6cc - default state */
+  display: block;
+}
+
+/* Search field - fills remaining space */
+.search-field {
+  flex: 1;
+  min-width: 0; /* Allow truncation */
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-neutral-default); /* #2e2e48 */
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md); /* 16px */
+  line-height: var(--line-height-default-md); /* 20px */
+  font-weight: var(--font-weight-default); /* 400 */
+  padding: 0; /* No padding, container handles it */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Hide browser default clear button for search inputs */
+.search-field::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search-field::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.search-field::placeholder {
+  color: var(--text-neutral-placeholder); /* #747486 */
+  opacity: 1;
+}
+
+.search-field[readonly] {
+  cursor: default;
+  color: var(--text-neutral-subtle); /* #606073 for read-only */
+}
+
+.search-field__clear-button,
+.search-field__microphone-button {
+  flex-shrink: 0;
+}
+
+/* Bottom: Helper text / Error message */
+.search-field__helper-text {
+  display: block;
+  color: var(--text-neutral-placeholder); /* #747486 */
+  font-size: var(--font-size-sm); /* 14px */
+  line-height: var(--line-height-default-sm); /* 18px */
+}
+
+.search-field__helper-text--error {
+  color: var(--text-error-default); /* #a40101 */
+}
+
+/* States */
+/* Hover state - CSS handles this automatically */
+.search-field-container:hover:not(.search-field-container--readonly) {
+  border-color: var(--border-action-hover);
+}
+
+/* Focus state - works for both mouse clicks and keyboard navigation */
+.search-field:focus {
+  outline: none;
+}
+
+.search-field-container:focus-within:not(.search-field-container--readonly) {
+  border-color: var(--border-action-active);
+  /* Use inset box-shadow to add extra border width without affecting layout */
+  box-shadow: inset 0 0 0 calc(var(--border-active) - var(--border-default)) var(--border-action-active);
+}
+
+/* Listening state - when microphone is active */
+.search-field-container--listening {
+  border-color: var(--border-action-active);
+}
+
+/* Read-only state */
+.search-field-container--readonly {
+  background-color: var(--bg-neutral-alt) !important; /* #f8f8fa */
+  border-color: var(--border-default-default) !important; /* #c6c6cc */
+}
+
+.search-field-container--readonly .search-field {
+  color: var(--text-neutral-subtle) !important; /* #606073 */
+}
+
+/* Error state */
+.search-field-container--error {
+  border-color: var(--border-error-default); /* #d00b0b */
+}
+
+.search-field-container--error .search-field__search-icon {
+  color: var(--icon-error-default); /* #a40101 - red in error state */
+}
+
+/* Error state with focus */
+.search-field-container--error:focus-within:not(.search-field-container--readonly) {
+  border-color: var(--border-error-default);
+}
+
+.search-field-container--error:hover:not(.search-field-container--readonly) {
+  border-color: var(--border-error-default);
+}

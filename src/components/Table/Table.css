@@ -1,0 +1,363 @@
+/* Table – MUI-style. Semantic table, design tokens only. min-width on col to prevent overlap. */
+
+.table-root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-default);
+  width: 100%;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+  box-sizing: border-box;
+}
+
+.table-root__view-switcher {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .table-root {
+    padding-inline: var(--padding-default);
+  }
+
+  .table-root__view-switcher {
+    display: block;
+    width: 100%;
+  }
+
+  .table-root__view-switcher .segmented-buttons {
+    width: 100%;
+    display: flex;
+  }
+
+  .table-root__view-switcher .segmented-buttons .segmented-buttons__segment {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .table-root--card-view .table-root__scroll {
+    display: none;
+  }
+
+  .table-root--card-view .table-root__cards {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .table-root--card-view .table-root__card {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}
+
+.table-root__scroll {
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
+  margin: 0;
+}
+
+.table-root__scroll .table-root__table {
+  margin: 0;
+}
+
+/* Subtle scrollbar (same approach as dropdown) */
+.table-root__scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-root__scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-root__scroll::-webkit-scrollbar-thumb {
+  background-color: var(--border-default-subtle);
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.table-root__scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--border-default-default);
+}
+
+.table-root__scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default-subtle) transparent;
+}
+
+.table-root__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-neutral-default);
+  table-layout: auto;
+}
+
+/* Header – explicit background so cells never transparent */
+.table-root__th {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+  font-weight: var(--font-weight-highlight);
+  padding: var(--padding-default);
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: var(--border-default) solid var(--border-default-subtle);
+  background: var(--bg-neutral-default);
+  white-space: nowrap;
+}
+
+/* Body – explicit background so cells never overlap visually. No row hover (rows not selectable). */
+.table-root__td {
+  padding: var(--padding-default);
+  vertical-align: middle;
+  border-bottom: var(--border-default) solid var(--border-default-subtle);
+  background: var(--bg-neutral-default);
+  transition: background-color 0.2s ease;
+}
+
+tbody tr.table-root__tr--selected .table-root__td {
+  background: var(--bg-highlight-active);
+}
+
+tbody tr.table-root__tr--selected:hover .table-root__td {
+  background: var(--bg-highlight-active);
+}
+
+/* Sticky columns – left: 0 / 44px so they stick from first scroll; no offset from container */
+.table-root__cell--sticky-1 {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--bg-neutral-default);
+  box-shadow: 2px 0 0 0 var(--border-default-subtle);
+  /* Prevent shift: stick from first pixel of scroll */
+  margin-left: 0;
+}
+
+.table-root__cell--sticky-2 {
+  position: sticky;
+  left: var(--table-sticky-2-left, 0);
+  z-index: 2;
+  background: var(--bg-neutral-default);
+  box-shadow: 2px 0 0 0 var(--border-default-subtle);
+  margin-left: 0;
+}
+
+/* Last sticky: subtle inner right shadow (stays visible when scrolled, no hard border) */
+.table-root__cell--sticky-last {
+  box-shadow:
+    2px 0 0 0 var(--border-default-subtle),
+    6px 0 12px -4px rgba(0, 0, 0, 0.12),
+    inset -6px 0 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+thead .table-root__cell--sticky-1,
+thead .table-root__cell--sticky-2,
+thead .table-root__cell--sticky-last {
+  z-index: 3;
+  background: var(--bg-neutral-default);
+}
+
+/* Checkbox column – keep table-cell so cell fills full row height; center content with vertical-align */
+.table-root__th--cb,
+.table-root__td--cb {
+  width: 44px;
+  min-width: 44px;
+  padding-left: var(--padding-x-small);
+  padding-right: var(--padding-x-small);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-root__th--cb .checkbox-wrapper,
+.table-root__td--cb .checkbox-wrapper {
+  display: inline-block;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.table-root__th--cb .checkbox,
+.table-root__td--cb .checkbox {
+  margin-top: 0;
+  vertical-align: middle;
+}
+
+/* Actions column – right-aligned, gap between buttons */
+.table-root__th--actions {
+  text-align: right;
+}
+
+.table-root__td--actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.table-root__actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Gap between buttons: small – inner wrappers are flex with gap */
+.table-root__actions-desktop,
+.table-root__actions-mobile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--padding-small);
+}
+
+.table-root__actions-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .table-root__actions-desktop {
+    display: none;
+  }
+
+  .table-root__actions-mobile {
+    display: inline-flex;
+  }
+}
+
+.table-root__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Card view */
+.table-root__cards {
+  display: none;
+  flex-direction: column;
+  gap: var(--padding-default);
+  width: 100%;
+  min-width: 0;
+}
+
+.table-root__card {
+  width: 100%;
+  min-width: 0;
+  padding: var(--padding-large);
+  border-radius: var(--radius-input);
+  border: var(--border-default) solid var(--border-default-subtle);
+  background: var(--bg-neutral-default);
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.table-root__card--selected {
+  background: var(--bg-highlight-active);
+}
+
+.table-root__card-head {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-small);
+  margin-bottom: var(--padding-default);
+  padding-bottom: var(--padding-default);
+  border-bottom: var(--border-default) solid var(--border-default-subtle);
+}
+
+.table-root__card-cb {
+  flex-shrink: 0;
+}
+
+/* Card header/title: default neutral text */
+.table-root__card-title {
+  flex: 1;
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-highlight);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+}
+
+.table-root__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-default);
+  padding: var(--padding-default) 0;
+}
+
+/* 2-column card content when space allows */
+.table-root__card-body--2-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--padding-default);
+}
+
+@media (min-width: 380px) {
+  .table-root__card-body--2-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.table-root__card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--padding-small);
+  margin-top: var(--padding-default);
+  padding-top: var(--padding-default);
+  border-top: var(--border-default) solid var(--border-default-subtle);
+}
+
+.table-root__card-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-x-small);
+}
+
+/* Field label in card: default neutral */
+.table-root__card-label {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-highlight);
+  color: var(--text-neutral-default);
+}
+
+/* Field value in card: subtle neutral */
+.table-root__card-value {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-default);
+  color: var(--text-neutral-subtle);
+}
+
+/* Card view FAB + menu (mobile only): tertiary FAB with 3-dot menu */
+.table-root__card-fab-wrapper {
+  display: none;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+@media (max-width: 768px) {
+  .table-root--card-view .table-root__card-fab-wrapper {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .table-root__td,
+  .table-root__card {
+    transition: none;
+  }
+}

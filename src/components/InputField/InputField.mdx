@@ -1,0 +1,145 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import InputFieldStories from './InputField.stories';
+import * as InputFieldStoriesNamed from './InputField.stories';
+
+<Meta of={InputFieldStories} />
+
+# InputField
+
+Input fields allow users to enter and edit text. They are the primary way users input data into forms and applications.
+
+## Overview
+
+Input fields provide a way for users to enter text data. They support various input types (text, email, password, etc.), validation states, helper text, and optional icons or clear buttons.
+
+## When to use
+
+Use input fields to:
+- **Collect user data**: Names, emails, addresses, and other text-based information
+- **Search functionality**: Allow users to search for content
+- **Form inputs**: As part of forms for data entry
+- **Filtering**: Enable users to filter lists or data
+
+## When not to use
+
+Avoid using input fields for:
+- **Long-form text**: Use textarea components for multi-line content
+- **Rich content**: Use rich text editors for formatted content
+- **File uploads**: Use file input components instead
+- **Date selection**: Use date picker components
+
+## States
+
+Input fields have several interactive states:
+
+- **Default**: The normal, resting state of the input
+- **Hover**: When the user hovers over the input (desktop only)
+- **Focus**: When the input receives keyboard focus (orange outline)
+- **Error**: When validation fails or an error occurs (red border and text)
+- **Read-only**: When the input is not editable but still visible
+
+## Example
+
+<Canvas of={InputFieldStoriesNamed.Default} />
+
+Use the controls below to interact with the input field and see different states and configurations.
+
+## Accessibility
+
+### Accessible Name
+- Provide either `label` (visible) or `aria-label` (required when no visible label)
+- The component automatically associates labels with inputs using `htmlFor` and `id`
+
+### Keyboard Navigation
+- Fully keyboard accessible via native input behavior
+- Focus ring appears on the input (orange outline)
+- Clear button is keyboard accessible
+- Tab key navigates to/from the input
+
+### ARIA Attributes
+- `aria-invalid` is automatically set when in error state
+- `aria-required` is set when `required={true}`
+- `aria-describedby` links to helper text or error message
+
+### Focus Management
+- Focus ring appears on the input when focused (orange outline)
+
+## Design Tokens
+
+The InputField component uses the following design tokens:
+
+- **Colors**: 
+  - Background: `--bg-neutral-default` (white)
+  - Border: `--border-default-default` (default), `--border-action-hover` (hover), `--border-action-active` (focus), `--border-error-default` (error)
+  - Text: `--text-neutral-default` (default), `--text-neutral-placeholder` (placeholder), `--text-error-default` (error)
+  - Icons: `--icon-neutral-default` (default), `--icon-error-default` (error)
+- **Spacing**: `--padding-default` (12px) for internal padding
+- **Typography**: `--font-family-body`, `--font-size-md`, `--line-height-default-md`
+- **Border Radius**: `--radius-input` (12px)
+- **Border Width**: `--border-default` (1px), `--border-active` (focus ring thickness)
+
+## Best Practices
+
+### Do
+- ✅ Always provide a label or `aria-label` for accessibility
+- ✅ Use helper text to provide context or instructions
+- ✅ Show clear error messages when validation fails
+- ✅ Use appropriate input types (email, password, etc.)
+- ✅ Mark required fields with `required={true}`
+
+### Don't
+- ❌ Don't use input fields without labels or `aria-label`
+- ❌ Don't use placeholder text as the only label
+- ❌ Don't hide error messages - always display them clearly
+- ❌ Don't disable inputs without explaining why
+- ❌ Don't use input fields for long-form text (use textarea)
+
+## Implementation
+
+```tsx
+import { InputField } from '@crealievs/components';
+
+// Basic usage
+<InputField
+  label="Email"
+  type="email"
+  placeholder="Enter your email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+/>
+
+// With helper text
+<InputField
+  label="Password"
+  type="password"
+  placeholder="Enter password"
+  helperText="Must be at least 8 characters"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+/>
+
+// With error
+<InputField
+  label="Email"
+  type="email"
+  value={email}
+  errorMessage="Please enter a valid email address"
+  onChange={(e) => setEmail(e.target.value)}
+/>
+
+// With icons
+<InputField
+  label="Search"
+  placeholder="Search..."
+  leftIcon={Search}
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
+/>
+```
+
+## Related Components
+
+- **Button**: For form submission actions
+- **Checkbox**: For binary choices
+- **RadioButton**: For single selection from a group
+- **SlideToggle**: For on/off settings

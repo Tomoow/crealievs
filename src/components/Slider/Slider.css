@@ -1,0 +1,304 @@
+/* ----------------------------------------
+   LAYOUT
+---------------------------------------- */
+
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-small);
+  width: 100%;
+  font: var(--font-weight-default) var(--font-size-md) var(--font-family-body);
+  line-height: var(--line-height-default-md);
+}
+
+.slider__label {
+  display: inline-flex;
+  gap: var(--padding-small);
+  align-items: center;
+  color: var(--text-neutral-default);
+  user-select: none;
+}
+
+.slider-wrapper:has(.slider-input:disabled) .slider__label {
+  color: var(--text-neutral-placeholder);
+  opacity: var(--opacity-disabled);
+}
+
+.slider__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--icon-neutral-default);
+}
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* ----------------------------------------
+   INPUT (hidden native range)
+---------------------------------------- */
+
+.slider-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.slider-input:focus-visible {
+  pointer-events: auto;
+}
+
+/* ----------------------------------------
+   TRACK
+---------------------------------------- */
+
+.slider-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-neutral-strong);
+  cursor: pointer;
+  touch-action: none;
+}
+
+.slider-wrapper:has(.slider-input:disabled) .slider-track {
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+
+/* Filled section */
+.slider-track__filled {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--bg-primary-default);
+  transition:
+    background-color 0.2s ease,
+    left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: left, width;
+}
+
+/* Disable transition when actively dragging for instant feedback */
+.slider-thumb-wrapper:has(.slider-thumb--active) {
+  transition: none;
+}
+
+.slider-track:has(.slider-thumb--active) .slider-track__filled {
+  transition: background-color 0.2s ease;
+}
+
+/* Hover (only if not dragging) */
+.slider-wrapper:hover .slider-track:not(.slider-track--active):not(.slider-track--focused)
+  .slider-track__filled {
+  background-color: var(--bg-primary-hover);
+}
+
+/* Focus state */
+.slider-track--focused .slider-track__filled {
+  background-color: var(--bg-primary-default);
+}
+
+/* Active state */
+.slider-track--active .slider-track__filled {
+  background-color: var(--bg-primary-active);
+}
+
+/* Prevent track hover effects when actively dragging */
+.slider-track:has(.slider-thumb--active):hover {
+  background-color: var(--bg-neutral-strong) !important;
+}
+
+.slider-track:has(.slider-thumb--active):hover .slider-track__filled {
+  background-color: var(--bg-primary-active) !important;
+}
+
+/* Disabled state - track */
+.slider-wrapper:has(.slider-input:disabled) .slider-track__filled {
+  background-color: var(--bg-primary-default);
+  opacity: var(--opacity-disabled);
+}
+
+/* ----------------------------------------
+   THUMB
+---------------------------------------- */
+
+.slider-thumb-wrapper {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: left;
+}
+
+.slider-thumb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-max);
+  background: var(--bg-primary-default);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  touch-action: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
+  pointer-events: auto;
+}
+
+/* Hit area */
+.slider-thumb::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  cursor: inherit;
+  touch-action: none;
+  z-index: -1;
+}
+
+/* Hover */
+.slider-thumb--hovered:not(.slider-thumb--active):not(.slider-thumb--focused) {
+  background: var(--bg-primary-hover);
+}
+
+/* Active (only the thumb being dragged) */
+.slider-thumb--active {
+  background: var(--bg-primary-active) !important;
+  transform: translate(-50%, -50%) scale(1.1) !important;
+  cursor: grabbing;
+}
+
+/* Focus */
+.slider-thumb--focused {
+  outline: var(--border-thick) solid var(--border-action-focus);
+  outline-offset: 2px;
+  background-color: var(--bg-primary-default);
+}
+
+.slider-wrapper:hover .slider-thumb--focused {
+  background-color: var(--bg-primary-default);
+}
+
+/* Disabled */
+.slider-wrapper:has(.slider-input:disabled) .slider-thumb {
+  background: var(--bg-primary-default);
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* Prevent hover on other thumbs while dragging */
+.slider-thumb--active ~ .slider-thumb--hovered,
+.slider-thumb--hovered ~ .slider-thumb--active {
+  background: var(--bg-primary-default) !important;
+}
+
+/* ----------------------------------------
+   TOOLTIP
+---------------------------------------- */
+
+.slider-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  will-change: opacity, transform;
+  z-index: 10;
+}
+
+.slider-tooltip--plain {
+  padding: var(--padding-small) var(--padding-default);
+  background: var(--bg-neutral-inverse);
+  color: var(--text-neutral-inverse);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+  border-radius: var(--radius-soft);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: nowrap;
+}
+
+.slider-tooltip--visible {
+  opacity: 1 !important;
+  transform: translateX(-50%) translateY(0) !important;
+}
+
+.slider-tooltip__content {
+  display: block;
+}
+
+/* ----------------------------------------
+   RANGE VARIANT
+---------------------------------------- */
+
+.slider-thumb--min {
+  z-index: 2;
+}
+
+.slider-thumb--max {
+  z-index: 1;
+}
+
+/* ----------------------------------------
+   STORYBOOK STATE CLASSES
+---------------------------------------- */
+
+.slider--state-hover .slider-track {
+  background-color: var(--bg-neutral-strong);
+}
+
+.slider--state-hover .slider-track__filled {
+  background-color: var(--bg-primary-hover);
+}
+
+.slider--state-hover .slider-thumb {
+  background-color: var(--bg-primary-hover);
+}
+
+.slider--state-pressed .slider-track__filled {
+  background-color: var(--bg-primary-active);
+}
+
+.slider--state-pressed .slider-thumb {
+  background-color: var(--bg-primary-active);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.slider--state-disabled .slider-track {
+  background-color: var(--bg-neutral-strong);
+  opacity: var(--opacity-disabled);
+}
+
+.slider--state-disabled .slider-track__filled {
+  background-color: var(--bg-primary-default);
+  opacity: var(--opacity-disabled);
+}
+
+.slider--state-disabled .slider-thumb {
+  background-color: var(--bg-primary-default);
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}

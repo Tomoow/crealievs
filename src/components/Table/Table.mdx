@@ -1,0 +1,54 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import TableStories from './Table.stories';
+import * as TableStoriesNamed from './Table.stories';
+
+<Meta of={TableStories} />
+
+# Table
+
+Data table (MUI-style semantic `<table>`). Configurable columns with min-width to avoid overlap, optional header, sticky columns when horizontal scroll, optional row selection, and row actions. On mobile, a List/Card view switcher appears; list view can show icon actions via `renderRowActionsMobile`.
+
+## Overview
+
+- **Columns**: Each column has `key`, `header`, and optional `width` (e.g. `"1fr"`, `"2fr"`, `"minmax(100px, 1fr)"`). Widths are mapped to min-width in px so columns don’t overlap.
+- **Header**: Optional header row (default on). Uses design tokens for typography and borders.
+- **Sticky columns**: When `stickyFirstColumn` is true and selection is on: checkbox column + first data column are sticky. When sticky and no selection: only the first data column is sticky. Last sticky column has a subtle shadow to indicate overflow.
+- **Selection**: Optional. Pass `selectedRowIds` and `onSelectionChange` to show checkboxes and selected row state.
+- **Row actions**: `renderRowActions(row)` for desktop (e.g. Button secondary + primary). `renderRowActionsMobile(row)` for mobile list (e.g. IconButton secondary + primary, default size).
+- **Mobile**: When `mobileViewSwitcher` is true, SegmentedButtons (List | Card) appears; Card view renders each row as a card with actions in the footer.
+
+## When to use
+
+- Tabular data with many columns or rows.
+- When users need to select rows and perform bulk or per-row actions.
+- When the same data should be shown as a table on desktop and as cards on mobile.
+
+## Example
+
+<Canvas of={TableStoriesNamed.Default} />
+
+## Props
+
+<Controls of={TableStoriesNamed.Default} />
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `columns` | `TableColumn[]` | Column defs: `key`, `header`, optional `width` (grid value) |
+| `rows` | `TableRow[]` | Rows: `id` plus cell values keyed by column key |
+| `header` | `boolean` | Show header row (default true) |
+| `stickyFirstColumn` | `boolean` | First column sticky when horizontal scroll (default false) |
+| `selectedRowIds` | `string[]` | Controlled selected row ids (with `onSelectionChange`) |
+| `onSelectionChange` | `(ids: string[]) => void` | Selection change (enables checkboxes) |
+| `renderRowActions` | `(row) => ReactNode` | Per-row actions (e.g. Delete, Edit) |
+| `mobileViewSwitcher` | `boolean` | Show List/Card switcher on mobile (default true) |
+| `aria-label` | `string` | Accessible name for the table |
+
+## Accessibility
+
+- Use `aria-label` on the table. Header and cells use appropriate roles. Checkboxes and buttons are keyboard accessible. Sticky column and scroll work with keyboard.
+
+## Design tokens (Figma)
+
+- **Cells**: `--padding-default`, `--padding-small`, `--border-default`, `--border-default-subtle`, `--text-neutral-default`, `--font-size-md`, `--font-size-sm`, `--font-weight-highlight`.
+- **Row states**: `--bg-primary-subtle-hover` (hover), `--bg-highlight-active` (selected).
+- **Cards**: `--padding-large`, `--radius-input`, `--border-default-subtle`, `--text-neutral-subtle`.

@@ -1,0 +1,96 @@
+/* Card – Figma 419:17380. Icon+title/subtitle, 3-dot actions, subtext, footer. Semantic tokens only. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-large);
+  padding: var(--padding-x-large);
+  border-radius: var(--radius-container);
+  background-color: var(--bg-neutral-default);
+  border: var(--border-default) solid var(--border-default-subtle);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+  box-sizing: border-box;
+}
+
+/* Header: icon+title/subtitle left, 3-dot button right */
+.card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--padding-small);
+  min-height: 0;
+}
+
+.card__head-main {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--padding-default);
+  min-width: 0;
+  flex: 1;
+}
+
+/* Icon in circle with primary subtle bg (Figma: light blue fill) */
+.card__icon-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-primary-subtle);
+  color: var(--icon-primary-brand);
+}
+
+.card__icon-wrap svg {
+  color: var(--icon-primary-brand);
+  stroke: var(--icon-primary-brand);
+}
+
+.card__head-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.card__title {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-highlight);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+}
+
+.card__subtitle {
+  margin: var(--padding-x-small) 0 0;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+  color: var(--text-neutral-subtle);
+}
+
+.card__actions {
+  flex-shrink: 0;
+}
+
+.card__body {
+  min-width: 0;
+}
+
+.card__subtext {
+  margin: 0;
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  font-weight: var(--font-weight-default);
+  color: var(--text-neutral-default);
+}
+
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--padding-small);
+  flex-wrap: wrap;
+}

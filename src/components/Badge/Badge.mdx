@@ -1,0 +1,157 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import BadgeStories from './Badge.stories';
+import * as BadgeStoriesNamed from './Badge.stories';
+
+<Meta of={BadgeStories} />
+
+# Badge
+
+Badges are used to display status, labels, or small pieces of information. They are compact, non-interactive elements that help users quickly understand context.
+
+## Usage
+
+Badges are typically used to:
+- Show status or state (success, error, warning)
+- Display labels or tags
+- Indicate categories or types
+- Highlight important information
+
+## Variants
+
+Badges come in eight variants, each with a specific semantic meaning and default icon:
+
+- **Default**: Neutral state with outline circle icon
+- **Neutral**: Neutral state with minus icon
+- **Pending**: Pending or in-progress state with plus icon (purple)
+- **Info**: Informational messages with info icon (blue)
+- **Success**: Successful operations with checkmark icon (green)
+- **Warning**: Cautionary information with exclamation icon (orange)
+- **Error**: Errors or critical issues with X icon (red)
+- **Hot**: Trending or highlighted content with flame icon (yellow-orange)
+
+## Sizes
+
+Badges are available in three sizes:
+
+- **Small**: Compact badges for tight spaces
+- **Default**: Standard size for most use cases
+- **Large**: Prominent badges for emphasis
+
+## Examples
+
+<Canvas of={BadgeStoriesNamed.Default} />
+
+## Code Example
+
+```tsx
+import { Badge } from '@crealievs/components';
+import { Check, X, AlertCircle, Info, Star, Bell, Heart, CheckCircle } from 'lucide-react';
+
+// Basic usage (default variant with icon)
+<Badge>Badge</Badge>
+
+// All variants
+<Badge variant="default">Badge</Badge>
+<Badge variant="neutral">Badge</Badge>
+<Badge variant="pending">Badge</Badge>
+<Badge variant="info">Badge</Badge>
+<Badge variant="success">Badge</Badge>
+<Badge variant="warning">Badge</Badge>
+<Badge variant="error">Badge</Badge>
+<Badge variant="hot">Hot</Badge>
+
+// With size
+<Badge size="small">Small Badge</Badge>
+<Badge size="default">Default Badge</Badge>
+<Badge size="large">Large Badge</Badge>
+
+// With icon - default Check icon
+import { Check, X, Star, AlertCircle, Heart } from 'lucide-react';
+
+<Badge showIcon={true}>With Default Icon</Badge>
+
+// With icon - custom Lucide icon
+<Badge showIcon={true} icon={Check}>Success</Badge>
+<Badge showIcon={true} icon={X} variant="error">Error</Badge>
+<Badge showIcon={true} icon={Star} variant="highlight">Featured</Badge>
+<Badge showIcon={true} icon={AlertCircle} variant="warning">Warning</Badge>
+<Badge showIcon={true} icon={Heart}>Favorite</Badge>
+
+// Without icon
+<Badge showIcon={false}>No Icon</Badge>
+
+// Combined
+<Badge variant="primary" size="large" icon={Star}>Primary Large Badge</Badge>
+
+// Without icon (icon prop is false by default)
+<Badge variant="neutral">No Icon</Badge>
+```
+
+## Props
+
+<Controls of={BadgeStoriesNamed.Default} />
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | The content to display inside the badge |
+| `variant` | `'default' \| 'neutral' \| 'pending' \| 'info' \| 'success' \| 'warning' \| 'error' \| 'hot'` | `'default'` | Visual style variant of the badge |
+| `size` | `'small' \| 'default' \| 'large'` | `'default'` | Size of the badge |
+| `showIcon` | `boolean` | `true` | Show an icon before the badge text |
+| `icon` | `LucideIcon` | Based on variant | Lucide icon component to display. Only used when `showIcon` is `true`. If not provided, defaults to variant-specific icon (Circle for default, Minus for minus, Plus for add, etc.). |
+| `className` | `string` | `''` | Additional CSS class name for custom styling. Use sparingly - prefer design tokens and component props for styling. |
+
+## Icons
+
+The Badge component includes icons by default. Each variant has a default icon, but you can customize it:
+
+- `showIcon` (boolean): Toggle whether an icon is displayed (default: `true`)
+- `icon` (LucideIcon): Specify a custom icon (only used when `showIcon` is `true`)
+
+**Default icons by variant:**
+- `default`: Circle (outline)
+- `neutral`: Minus
+- `pending`: Plus
+- `info`: Info
+- `success`: CheckCircle2
+- `warning`: AlertCircle
+- `error`: X
+- `hot`: Flame
+
+**Example:**
+```tsx
+import { Badge } from '@crealievs/components';
+import { Star, Heart } from 'lucide-react';
+
+// Default icon for variant
+<Badge variant="success">Badge</Badge>
+
+// Custom icon
+<Badge variant="default" icon={Star}>Featured</Badge>
+<Badge variant="info" icon={Heart}>Favorite</Badge>
+
+// No icon
+<Badge showIcon={false}>No Icon</Badge>
+```
+
+Icons are 16px by default and scale with badge size:
+- **Small badges**: 14px icons
+- **Default badges**: 16px icons  
+- **Large badges**: 18px icons
+
+You can use any icon from the [Lucide Icons](https://lucide.dev/) library.
+
+## Design Tokens
+
+The Badge component uses the following design tokens:
+
+- **Colors**: Semantic color tokens (`--bg-primary-subtle`, `--text-primary-brand`, etc.)
+- **Spacing**: Semantic spacing tokens (`--padding-x-small`, `--padding-small`, etc.)
+- **Typography**: Font family and size tokens
+- **Border Radius**: `--radius-soft` (4px) for rounded corners
+- **Border**: `--border-default` for border width
+
+## Accessibility
+
+- Badges use the `role="status"` attribute for screen readers
+- Color contrast meets WCAG AA standards
+- Text is readable at all sizes

@@ -1,0 +1,48 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import TabStories from './Tab.stories';
+import * as TabStoriesNamed from './Tab.stories';
+
+<Meta of={TabStories} />
+
+# Tab
+
+Tabs are a single-select list of **tab instances**. Two variants from Figma: **underline** (67:580) and **pill** (67:581). Use the **Controls** panel to try different `value`, `variant`, and tab options.
+
+## Overview
+
+- **Underline variant**: Tab bar with a grey bottom border; active tab has bold text and an orange underline (highlight). Inactive tabs use regular weight.
+- **Pill variant**: Tab instances are pill-shaped; default transparent, hover = highlight hover, active = highlight brand, pressed = highlight active. Disabled uses reduced opacity and placeholder color.
+- **Accessibility**: `role="tablist"` and `role="tab"` with `aria-selected`; Arrow Left/Right, Home, End; provide `aria-label` for the list.
+
+## When to use
+
+- To switch between views or sections (e.g. Settings: General / Security / Billing).
+- Underline for content-heavy UIs; pill for more compact or secondary navigation.
+
+## Example
+
+<Canvas of={TabStoriesNamed.Default} />
+
+## Props
+
+<Controls of={TabStoriesNamed.Default} />
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `tabs` | `TabOption[]` | Each tab: `value`, `label`, optional `disabled` |
+| `value` | `string \| null` | Currently selected tab value |
+| `onChange` | `(value: string) => void` | Called when selection changes |
+| `variant` | `'underline' \| 'pill'` | Visual style (underline or pill) |
+| `aria-label` | `string` | Accessible name for the tab list |
+
+## Accessibility
+
+- Use `aria-label` on the tab list.
+- Arrow Left/Right move focus and selection; Home/End go to first/last tab.
+- Focus ring uses `--border-action-focus`. Respects `prefers-reduced-motion`.
+
+## Design tokens (Figma)
+
+- **Underline**: `--border-default-default` (base line), `--border-thick`, `--border-highlight-default` (active underline), `--font-weight-highlight` (active).
+- **Pill**: `--bg-highlight-brand` (active), `--bg-highlight-hover` (hover), `--bg-highlight-active` (pressed), `--pill`, `--padding-default`, `--padding-large`, `--gap-tight`.
+- **Disabled**: `--opacity-disabled`, `--text-neutral-placeholder`.

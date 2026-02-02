@@ -1,0 +1,177 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import IconButtonStories from './IconButton.stories';
+import * as IconButtonStoriesNamed from './IconButton.stories';
+
+<Meta of={IconButtonStories} />
+
+# IconButton
+
+Icon buttons are compact, icon-only buttons that allow users to take actions with a single tap. They are space-efficient and ideal for toolbars, action menus, and compact interfaces.
+
+## Overview
+
+Icon buttons provide a minimalist way to trigger actions without text labels. They are particularly useful in space-constrained layouts where every pixel counts, such as toolbars, data tables, and mobile interfaces.
+
+## When to use
+
+Use icon buttons to:
+- **Save space**: When you need compact action buttons in toolbars or tight layouts
+- **Repeated actions**: For actions that are repeated across multiple items (e.g., edit, delete in a list)
+- **Universal icons**: When the icon meaning is universally understood (e.g., plus for add, trash for delete)
+- **Toolbar actions**: In toolbars, action menus, or command palettes
+
+## When not to use
+
+Avoid using icon buttons for:
+- **Unclear actions**: When the icon meaning is ambiguous or requires explanation
+- **Primary actions**: Use text buttons for the main call-to-action
+- **Complex actions**: When the action requires multiple steps or confirmation
+- **Accessibility concerns**: Always provide an `aria-label` for screen readers
+
+## Variants
+
+Icon buttons come in four variants, each serving a different purpose:
+
+### Default
+Default icon buttons have no background and are used for subtle, secondary actions.
+
+- **Use for**: Subtle actions, secondary options, less prominent actions
+- **Visual**: Transparent background, blue icon
+
+### Primary
+Primary icon buttons have a filled background and are used for the most important icon-only action.
+
+- **Use for**: Main icon-only action, primary toolbar button
+- **Visual**: Filled blue background, white icon
+
+### Secondary
+Secondary icon buttons have an outline and are used for important but not primary actions.
+
+- **Use for**: Important icon-only actions, alternative options
+- **Visual**: White background, blue border, blue icon
+
+### Tertiary
+Tertiary icon buttons have a subtle background and are used for less prominent actions.
+
+- **Use for**: Less prominent icon-only actions
+- **Visual**: Light blue background, blue icon
+
+## Sizes
+
+Icon buttons are available in two sizes; the button size is the tap target:
+
+- **Default**: 40px × 40px (20px icon)
+- **Small**: 32px × 32px (18px icon)
+
+## States
+
+Icon buttons have several interactive states:
+
+- **Default**: The normal, resting state of the button
+- **Hover**: When the user hovers over the button (desktop only)
+- **Active**: When the user clicks or taps the button
+- **Disabled**: When the button is not available for interaction
+- **Focus**: When the button receives keyboard focus (for accessibility)
+
+## Destructive
+
+Icon buttons can be marked as destructive to indicate dangerous or irreversible actions. When `destructive={true}`, all variants use red color schemes instead of blue.
+
+- **Use for**: Delete actions, destructive operations, irreversible changes
+- **Visual**: Red color scheme (red backgrounds, borders, and icons) instead of blue
+
+## Examples
+
+<Canvas of={IconButtonStoriesNamed.Default} />
+
+## Code Example
+
+```tsx
+import { IconButton } from '@crealievs/components';
+import { Plus, Trash2, Edit, Download } from 'lucide-react';
+
+// Default variant
+<IconButton icon={Plus} aria-label="Add item" />
+
+// Primary variant
+<IconButton icon={Plus} variant="primary" aria-label="Add item" />
+
+// Secondary variant
+<IconButton icon={Edit} variant="secondary" aria-label="Edit item" />
+
+// Tertiary variant
+<IconButton icon={Download} variant="tertiary" aria-label="Download" />
+
+// With sizes
+<IconButton icon={Plus} size="default" aria-label="Add item" />
+<IconButton icon={Plus} size="small" aria-label="Add item" />
+
+// Destructive buttons
+<IconButton icon={Trash2} variant="primary" destructive aria-label="Delete item" />
+<IconButton icon={Trash2} variant="secondary" destructive aria-label="Delete item" />
+
+// With click handler
+<IconButton 
+  icon={Plus} 
+  onClick={() => console.log('Clicked!')}
+  aria-label="Add item"
+/>
+```
+
+## Props
+
+<Controls of={IconButtonStoriesNamed.Default} />
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `LucideIcon` | - | Lucide icon component to display (required) |
+| `variant` | `'default' \| 'primary' \| 'secondary' \| 'tertiary'` | `'default'` | Visual style variant of the icon button |
+| `size` | `'default' \| 'small'` | `'default'` | Size of the icon button. Default: 40px × 40px. Small: 32px × 32px. |
+| `state` | `'default' \| 'hover' \| 'active' \| 'disabled' \| 'focus'` | `'default'` | Visual state of the icon button for demonstration purposes. Use 'disabled' state instead of a separate disabled prop. |
+| `destructive` | `boolean` | `false` | Whether the icon button represents a destructive action |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type attribute for form handling |
+| `onClick` | `(e: React.MouseEvent<HTMLButtonElement>) => void` | - | Click handler function. Standard React prop for handling button clicks. |
+| `className` | `string` | `''` | Additional CSS class name for custom styling. Use sparingly - prefer design tokens and component props for styling. |
+| `aria-label` | `string` | - | Accessibility label for screen readers (required) |
+
+## Accessibility
+
+- **Required `aria-label`**: Icon buttons must always include an `aria-label` prop to describe the action for screen readers
+- **Tap target**: Default (40×40px) and small (32×32px) sizes provide adequate tap targets
+- **Keyboard accessible**: Icon buttons can be activated with Enter or Space
+- **Focus states**: Focus states are clearly visible with a peach outline (`--border-action-focus`)
+- **Disabled state**: Disabled buttons are properly marked with `aria-disabled` and visual opacity
+- **Tooltip**: Tooltip appears after 1 second on hover to avoid distraction; focus uses the same delay
+
+## Design Tokens
+
+The IconButton component uses the following design tokens:
+
+- **Colors**: Semantic color tokens (`--bg-primary-default`, `--text-primary-brand`, `--border-action-default`, etc.)
+- **Spacing**: Semantic spacing tokens for padding and sizing
+- **Typography**: Font family tokens
+- **Border Radius**: `--radius-pill` for rounded corners
+- **Border**: `--border-default` (1px) for border width
+- **Opacity**: `--opacity-disabled` (0.35) for disabled state
+- **Focus**: `--border-action-focus` (highlight-peach-500) for focus outline
+
+## Best Practices
+
+### Do
+- ✅ Always provide an `aria-label` for accessibility
+- ✅ Use universally understood icons (plus, trash, edit, etc.)
+- ✅ Use small size for space-constrained layouts
+- ✅ Use destructive variant for delete/remove actions
+- ✅ Provide clear visual feedback for all interactive states
+
+### Don't
+- ❌ Don't use icon buttons without `aria-label`
+- ❌ Don't use ambiguous icons that require explanation
+- ❌ Don't use icon buttons for primary actions (use text buttons)
+- ❌ Don't use icon buttons for complex multi-step actions
+
+## Related Components
+
+- **Button**: For text buttons with labels
+- **Badge**: For status indicators
+- **Tag**: For labels and categories

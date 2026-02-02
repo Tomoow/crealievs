@@ -1,0 +1,352 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import FABStories from './FAB.stories';
+import * as FABStoriesNamed from './FAB.stories';
+
+<Meta of={FABStories} />
+
+# FAB (Floating Action Button)
+
+Floating Action Buttons (FABs) are prominent, circular buttons that float above the content and are used for the primary action on a screen. They remain visible and accessible as users scroll, making them ideal for sticky actions that should always be available.
+
+## Overview
+
+FABs are elevated buttons that appear to float above the UI, typically positioned in the bottom-right corner. They use a softer corner radius than icon buttons and include shadow effects to create depth. FABs are perfect for primary actions that need to be accessible at all times, such as "Add", "Create", or "Compose".
+
+## When to use
+
+Use FABs to:
+- **Primary actions**: The most important action on a screen (e.g., "Add item", "Compose message")
+- **Sticky actions**: Actions that should remain accessible while scrolling
+- **Prominent CTAs**: When you need a highly visible call-to-action
+- **Quick actions**: Frequently used actions that benefit from always being visible
+
+## When not to use
+
+Avoid using FABs for:
+- **Secondary actions**: Use regular buttons or icon buttons instead
+- **Navigation**: FABs are for actions, not navigation
+- **Multiple primary actions**: Only one FAB per screen
+- **Destructive actions**: Use regular destructive buttons with appropriate warnings
+- **Complex workflows**: If the action requires multiple steps, consider a different pattern
+
+## Variants
+
+FABs come in four variants, similar to icon buttons:
+
+### Primary
+Primary FABs have a filled background and are used for the most important floating action.
+
+- **Use for**: Main floating action, primary CTA
+- **Visual**: Filled blue background, white icon, shadow
+
+### Secondary
+Secondary FABs have an outline and are used for important but not primary floating actions.
+
+- **Use for**: Important floating actions, alternative options
+- **Visual**: White background, blue border, blue icon, shadow
+
+### Tertiary
+Tertiary FABs have a subtle background and are used for less prominent floating actions.
+
+- **Use for**: Less prominent floating actions
+- **Visual**: Light blue background, blue icon, shadow
+
+### Default
+Default FABs have no background and are used for subtle floating actions.
+
+- **Use for**: Subtle floating actions, minimal styling
+- **Visual**: Transparent background, blue icon, no shadow
+
+## Positioning
+
+FABs can be positioned in four corners or left unpositioned for custom placement:
+
+- **bottom-right** (default): Fixed in bottom-right corner
+- **bottom-left**: Fixed in bottom-left corner
+- **top-right**: Fixed in top-right corner
+- **top-left**: Fixed in top-left corner
+- **none**: No automatic positioning (use for custom placement)
+
+You can customize the offset from edges using the `offset` prop:
+
+```tsx
+<FAB 
+  icon={Plus} 
+  position="bottom-right"
+  offset={{ x: '2rem', y: '2rem' }}
+  aria-label="Add"
+/>
+```
+
+## Custom Animations
+
+The FAB component is designed to support custom animations for expanding patterns (like Material Design's expanding FAB). You can add animations in your project without modifying the design system component.
+
+### Method 1: CSS Class Override
+
+```tsx
+// In your project CSS
+.fab-expand {
+  animation: expandToDialog 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+@keyframes expandToDialog {
+  from {
+    transform: scale(1);
+    border-radius: 4px;
+  }
+  to {
+    transform: scale(20);
+    border-radius: 16px;
+  }
+}
+
+// Usage
+<FAB 
+  icon={Plus} 
+  className="fab-expand"
+  aria-label="Add"
+/>
+```
+
+### Method 2: Inline Styles
+
+```tsx
+const [isExpanded, setIsExpanded] = useState(false);
+
+<FAB 
+  icon={Plus}
+  style={{
+    transform: isExpanded ? 'scale(20)' : 'scale(1)',
+    borderRadius: isExpanded ? '16px' : '4px',
+    transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.3s',
+  }}
+  onClick={() => setIsExpanded(!isExpanded)}
+  aria-label="Add"
+/>
+```
+
+### Method 3: CSS Custom Properties
+
+The FAB component exposes CSS custom properties that you can override:
+
+```css
+/* Override animation timing */
+.my-fab {
+  --fab-transition-duration: 0.3s;
+  --fab-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --fab-transform-scale: 1;
+}
+```
+
+### Method 4: Wrapper Component (Recommended for Complex Animations)
+
+```tsx
+// In your project
+import { FAB } from '@crealievs/components';
+import { useState } from 'react';
+
+function ExpandingFAB({ onExpand, ...fabProps }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  const handleClick = () => {
+    setIsExpanded(!isExpanded);
+    onExpand?.(!isExpanded);
+  };
+  
+  return (
+    <div className="fab-expand-wrapper">
+      <FAB 
+        {...fabProps}
+        className={isExpanded ? 'fab-expanded' : ''}
+        onClick={handleClick}
+      />
+      {isExpanded && (
+        <div className="fab-dialog">
+          {/* Your dialog content */}
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### Container Transform Pattern (Material Design)
+
+For seamless expanding animations, use the container transform pattern:
+
+```tsx
+// Wrapper with container transform
+<div className="fab-container">
+  <FAB 
+    icon={Plus}
+    className={isExpanded ? 'fab-expanded' : ''}
+    aria-label="Add"
+  />
+  <div className={`fab-surface ${isExpanded ? 'fab-surface-visible' : ''}`}>
+    {/* Dialog or menu content */}
+  </div>
+</div>
+```
+
+```css
+.fab-container {
+  position: relative;
+}
+
+.fab-expanded {
+  transform: scale(20);
+  border-radius: 16px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fab-surface {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.fab-surface-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+```
+
+## Examples
+
+<Canvas of={FABStoriesNamed.Default} />
+
+## Code Example
+
+```tsx
+import { FAB } from '@crealievs/components';
+import { Plus, Edit, Trash2 } from 'lucide-react';
+
+// Basic FAB (bottom-right by default)
+<FAB icon={Plus} aria-label="Add item" />
+
+// Different positions
+<FAB icon={Plus} position="bottom-left" aria-label="Add item" />
+<FAB icon={Plus} position="top-right" aria-label="Add item" />
+<FAB icon={Plus} position="top-left" aria-label="Add item" />
+
+// Custom offset
+<FAB 
+  icon={Plus} 
+  position="bottom-right"
+  offset={{ x: '2rem', y: '2rem' }}
+  aria-label="Add item"
+/>
+
+// Variants
+<FAB icon={Plus} variant="primary" aria-label="Add" />
+<FAB icon={Edit} variant="secondary" aria-label="Edit" />
+<FAB icon={Plus} variant="tertiary" aria-label="Add" />
+<FAB icon={Plus} variant="default" aria-label="Add" />
+
+// Destructive
+<FAB icon={Trash2} variant="primary" destructive aria-label="Delete" />
+
+// Custom animation example
+<FAB 
+  icon={Plus}
+  className="fab-expand"
+  style={{ transform: 'scale(1)' }}
+  aria-label="Add"
+/>
+
+// No positioning (for custom placement)
+<FAB 
+  icon={Plus}
+  position="none"
+  style={{ position: 'absolute', bottom: '20px', right: '20px' }}
+  aria-label="Add"
+/>
+```
+
+## Props
+
+<Controls of={FABStoriesNamed.Default} />
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `LucideIcon` | - | Lucide icon component to display (required) |
+| `variant` | `'default' \| 'primary' \| 'secondary' \| 'tertiary'` | `'primary'` | Visual style variant of the FAB |
+| `state` | `'default' \| 'hover' \| 'active' \| 'disabled' \| 'focus'` | `'default'` | Visual state of the FAB for demonstration purposes |
+| `destructive` | `boolean` | `false` | Whether the FAB represents a destructive action |
+| `position` | `'bottom-right' \| 'bottom-left' \| 'top-right' \| 'top-left' \| 'none'` | `'bottom-right'` | Position for sticky/fixed positioning |
+| `offset` | `{ x?: string, y?: string }` | `{ x: '1rem', y: '1rem' }` | Offset from the edge when using position |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type attribute for form handling |
+| `onClick` | `(e: React.MouseEvent<HTMLButtonElement>) => void` | - | Click handler function |
+| `className` | `string` | `''` | Additional CSS class name for custom styling and animations |
+| `style` | `React.CSSProperties` | - | Inline styles for custom animations and positioning |
+| `aria-label` | `string` | - | Accessibility label for screen readers (required) |
+
+## Design Tokens
+
+The FAB component uses the following design tokens:
+
+- **Colors**: Semantic color tokens (`--bg-primary-default`, `--text-primary-brand`, `--border-action-default`, etc.)
+- **Spacing**: Semantic spacing tokens for positioning
+- **Typography**: Font family tokens
+- **Border Radius**: `--radius-soft` (4px) for softer rounded corners (not pill)
+- **Border**: `--border-default` (1px) for border width
+- **Opacity**: `--opacity-disabled` (0.35) for disabled state
+- **Focus**: `--border-action-focus` (highlight-peach-500) for focus outline
+
+## CSS Custom Properties for Animation
+
+The FAB component exposes these CSS custom properties that can be overridden:
+
+- `--fab-transition-duration`: Transition duration (default: `0.2s`)
+- `--fab-transition-timing`: Transition timing function (default: `ease`)
+- `--fab-transform-scale`: Transform scale value (default: `1`)
+
+Override these in your project CSS:
+
+```css
+.my-custom-fab {
+  --fab-transition-duration: 0.3s;
+  --fab-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+```
+
+## Accessibility
+
+- **Required `aria-label`**: FABs must always include an `aria-label` prop to describe the action for screen readers
+- **Keyboard accessible**: FABs can be activated with Enter or Space
+- **Focus states**: Focus states are clearly visible with a peach outline (`--border-action-focus`)
+- **Disabled state**: Disabled FABs are properly marked with `aria-disabled` and visual opacity
+- **Color contrast**: Color contrast meets WCAG AA standards for all variants and states
+- **Z-index**: FABs use `z-index: 1000` when positioned to ensure they appear above other content
+
+## Best Practices
+
+### Do
+- ✅ Use FABs for the primary action on a screen
+- ✅ Keep FABs in consistent positions (usually bottom-right)
+- ✅ Use clear, action-oriented icons (Plus, Edit, etc.)
+- ✅ Always provide an `aria-label` for accessibility
+- ✅ Use shadows to create depth and floating effect
+- ✅ Add custom animations for expanding patterns in your project
+
+### Don't
+- ❌ Don't use multiple FABs on one screen
+- ❌ Don't use FABs for navigation
+- ❌ Don't use FABs for destructive actions without warnings
+- ❌ Don't place FABs where they'll obscure important content
+- ❌ Don't forget to test custom animations on different devices
+
+## Related Components
+
+- **IconButton**: For icon-only buttons in toolbars and compact spaces
+- **Button**: For text buttons with labels
+- **Badge**: For status indicators
+- **Tag**: For labels and categories

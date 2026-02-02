@@ -1,0 +1,49 @@
+# Source files (consumers get dist/)
+src/
+.storybook/
+*.stories.tsx
+*.stories.ts
+*.mdx
+
+# Development
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts (keep dist/)
+*.tsbuildinfo
+
+# Dependencies
+node_modules/
+
+# Documentation (keep README.md and LICENSE)
+GETTING_STARTED.md
+PROJECT_STRUCTURE.md
+COMPONENTS_ANALYSIS.md
+DESIGN_SYSTEM_SUMMARY.md
+tokens.md
+NPM_PUBLISH_PLAN.md
+
+# Config (keep package.json, but not all configs)
+vite.config.ts
+tsconfig.json
+tsconfig.node.json
+tsconfig.build.json
+
+# Git
+.git/
+.gitignore
+
+# Other
+.env
+.env.local
+*.log
+.DS_Store
+Thumbs.db
+1.lottie
+
+# Test files (if added later)
+**/*.test.tsx
+**/*.test.ts
+**/__tests__/

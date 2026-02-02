@@ -1,0 +1,151 @@
+.radio-button-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-small);
+  cursor: pointer;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+}
+
+.radio-button-wrapper:has(.radio-button-input:disabled) {
+  cursor: not-allowed;
+}
+
+.radio-button-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.radio-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.5rem; /* 24px - WCAG AA compliant minimum tap target */
+  height: 1.5rem; /* 24px - WCAG AA compliant minimum tap target */
+  box-sizing: border-box;
+  border: var(--border-default) solid var(--border-default-strong);
+  border-radius: var(--radius-max); /* Circular */
+  background-color: var(--bg-neutral-default); /* White background */
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+  position: relative;
+  margin-top: 0.125rem; /* Slight top margin to align with first line of text */
+}
+
+.radio-button__dot {
+  width: 0.625rem; /* 10px */
+  height: 0.625rem; /* 10px */
+  border-radius: var(--radius-max);
+  background-color: var(--bg-neutral-default); /* White dot */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.2s ease;
+}
+
+/* Checked state */
+.radio-button--checked {
+  background-color: var(--bg-primary-default);
+  border: var(--border-default) solid var(--bg-primary-default);
+}
+
+/* Hover states - only for unchecked radio buttons (selected ones don't have hover) */
+.radio-button-wrapper:hover .radio-button-input:not(:disabled):not(:checked) + .radio-button:not(.radio-button--checked) {
+  border: var(--border-default) solid var(--border-action-subtle-hover);
+  background-color: var(--bg-primary-subtle-hover);
+}
+
+/* Active/pressed states - only for unchecked radio buttons */
+.radio-button-wrapper:active .radio-button-input:not(:disabled):not(:checked) + .radio-button:not(.radio-button--checked),
+.radio-button-input:active:not(:disabled):not(:checked) + .radio-button:not(.radio-button--checked) {
+  background-color: var(--bg-primary-subtle-active);
+  border: var(--border-default) solid var(--border-action-subtle-active);
+  transform: scale(0.95);
+}
+
+/* Focus state - orange halo/ring */
+.radio-button-input:focus-visible + .radio-button {
+  outline: 0.125rem solid var(--border-action-focus);
+  outline-offset: 0.125rem;
+}
+
+/* Disabled state */
+.radio-button-input:disabled + .radio-button,
+.radio-button--state-disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  background-color: var(--bg-neutral-alt);
+  border: var(--border-default) solid var(--border-default-strong);
+}
+
+.radio-button-input:disabled:checked + .radio-button,
+.radio-button--checked.radio-button--state-disabled {
+  background-color: var(--bg-primary-default);
+  border: var(--border-default) solid var(--bg-primary-default);
+  opacity: var(--opacity-disabled);
+}
+
+/* Content wrapper */
+.radio-button__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  flex: 1;
+}
+
+/* Label */
+.radio-button__label {
+  color: var(--text-neutral-default);
+  user-select: none;
+  font-weight: var(--font-weight-default);
+}
+
+.radio-button__description {
+  color: var(--text-neutral-subtle);
+  user-select: none;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+}
+
+.radio-button-wrapper:has(.radio-button-input:disabled) .radio-button__label,
+.radio-button-wrapper:has(.radio-button-input:disabled) .radio-button__description {
+  color: var(--text-neutral-placeholder);
+  opacity: var(--opacity-disabled);
+}
+
+/* Storybook state classes */
+.radio-button--state-hover:not(.radio-button--checked) {
+  border: var(--border-default) solid var(--border-action-subtle-hover);
+  background-color: var(--bg-primary-subtle-hover);
+}
+
+.radio-button--state-focus {
+  outline: 0.125rem solid var(--border-action-focus);
+  outline-offset: 0.125rem;
+}
+
+.radio-button--state-disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  background-color: var(--bg-neutral-default);
+  border: var(--border-default) solid var(--border-default-strong);
+}
+
+.radio-button--checked.radio-button--state-disabled {
+  background-color: var(--bg-primary-default);
+  border: var(--border-default) solid var(--bg-primary-default);
+  opacity: var(--opacity-disabled);
+}
+
+/* Storybook active state for unchecked - must override hover */
+.radio-button:not(.radio-button--checked).radio-button--state-active {
+  background-color: var(--bg-primary-subtle-active) !important;
+  border: var(--border-default) solid var(--border-action-subtle-active) !important;
+  transform: scale(0.95);
+}

@@ -1,0 +1,260 @@
+/* Import Open Sans (body) and Oswald (heading) from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Oswald:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Base Colors */
+  --primary-blue-100: #F7FAFC;
+  --primary-blue-200: #EDF2FA;
+  --primary-blue-300: #DCE8F5;
+  --primary-blue-400: #CEDFF2;
+  --primary-blue-500: #B6CDF2;
+  --primary-blue-600: #8BAFE5;
+  --primary-blue-700: #4E7EC7;
+  --primary-blue-800: #2c60af;
+  --primary-blue-900: #255194;
+  --primary-blue-1000: #17335c;
+  --secondary-metal-100: #f8f8fa;
+  --secondary-metal-200: #f4f4f7;
+  --secondary-metal-300: #ededf0;
+  --secondary-metal-400: #c6c6cc;
+  --secondary-metal-500: #9f9fab;
+  --secondary-metal-600: #888897;
+  --secondary-metal-700: #747486;
+  --secondary-metal-800: #606073;
+  --secondary-metal-900: #494960;
+  --secondary-metal-950: #2e2e48;
+  --secondary-metal-1000: #181826;
+  --neutral-neutral-100: #ffffff;
+  --neutral-neutral-200: #f2f4f7;
+  --neutral-neutral-300: #edeff2;
+  --neutral-neutral-400: #e5e7ea;
+  --neutral-neutral-500: #9fa0a2;
+  --neutral-neutral-600: #88898b;
+  --neutral-neutral-700: #757677;
+  --neutral-neutral-800: #606162;
+  --neutral-neutral-900: #4a4b4c;
+  --neutral-neutral-950: #303031;
+  --neutral-neutral-1000: #19191a;
+  --highlight-peach-100: #fff8ec;
+  --highlight-peach-200: #fff5e5;
+  --highlight-peach-300: #fff0d9;
+  --highlight-peach-400: #ffd794;
+  --highlight-peach-500: #ffbb4d;
+  --highlight-peach-600: #d09330;
+  --highlight-peach-700: #986511;
+  --accent-purple-100: #f5f2fa;
+  --accent-purple-200: #f1edf7;
+  --accent-purple-300: #ebe5f4;
+  --accent-purple-400: #daceea;
+  --accent-purple-500: #ae95d2;
+  --accent-purple-600: #9a7ac7;
+  --accent-purple-700: #8864bd;
+  --accent-purple-800: #754ab3;
+  --accent-purple-900: #4b287d;
+  --accent-purple-950: #3c2261;
+  --accent-purple-1000: #201234;
+  --error-red-100: #fcefef;
+  --error-red-200: #f4dcdc;
+  --error-red-300: #f4b8b8;
+  --error-red-400: #d00b0b;
+  --error-red-500: #a40101;
+  --error-red-600: #890101;
+  --error-red-700: #650101;
+  --warning-orange-100: #fff1e7;
+  --warning-orange-200: #ffe2cc;
+  --warning-orange-300: #ffc89e;
+  --warning-orange-400: #ff7913;
+  --warning-orange-500: #b24d00;
+  --warning-orange-600: #7d3600;
+  --success-green-100: #f2faf2;
+  --success-green-200: #d8f5d7;
+  --success-green-300: #c8ebc7;
+  --success-green-400: #4eb54c;
+  --success-green-500: #3f7a3d;
+  --success-green-600: #255524;
+  --neutral-neutral-overlay: #19191a;
+
+  /* Semantic Colors */
+  --bg-primary-default: var(--primary-blue-800);
+  --bg-primary-hover: var(--primary-blue-900);
+  --bg-primary-active: var(--primary-blue-1000);
+  --bg-primary-subtle: var(--primary-blue-200);
+  --bg-primary-subtle-hover: var(--primary-blue-300);
+  --bg-primary-subtle-active: var(--primary-blue-400);
+  --bg-neutral-default: var(--neutral-neutral-100);
+  --bg-neutral-alt: var(--secondary-metal-100);
+  --bg-neutral-elevated: var(--secondary-metal-200);
+  --bg-neutral-inverse: var(--secondary-metal-950);
+  --bg-neutral-overlay: var(--neutral-neutral-overlay);
+  --bg-error-subtle: var(--error-red-100);
+  --bg-error-default: var(--error-red-400);
+  --text-primary-brand: var(--primary-blue-800);
+  --text-info-default: var(--primary-blue-900);
+  --text-error-default: var(--error-red-500);
+  --text-neutral-default: var(--secondary-metal-950);
+  --text-neutral-inverse: var(--neutral-neutral-100);
+  --border-default-subtle: var(--secondary-metal-300);
+  --border-action-default: var(--primary-blue-800);
+  --border-action-hover: var(--primary-blue-900);
+  --border-action-active: var(--primary-blue-1000);
+  --border-action-focus: var(--highlight-peach-500);
+  --border-success-default: var(--success-green-400);
+  --border-warning-default: var(--warning-orange-400);
+  --border-error-default: var(--error-red-400);
+  --border-default-default: var(--secondary-metal-400);
+  --border-default-inverse: var(--secondary-metal-800);
+  --border-default-strong: var(--secondary-metal-500);
+  --border-info-default: var(--primary-blue-700);
+  --icon-primary-brand: var(--primary-blue-800);
+  --icon-info-default: var(--primary-blue-700);
+  --icon-success-default: var(--success-green-400);
+  --icon-warning-default: var(--warning-orange-400);
+  --icon-error-default: var(--error-red-500);
+  --text-primary-hover: var(--primary-blue-900);
+  --text-primary-active: var(--primary-blue-1000);
+  --icon-primary-hover: var(--primary-blue-900);
+  --icon-primary-active: var(--primary-blue-1000);
+  --text-neutral-subtle: var(--secondary-metal-800);
+  --text-neutral-placeholder: var(--secondary-metal-700);
+  --bg-highlight-brand: var(--highlight-peach-400);
+  --bg-highlight-subtle: var(--highlight-peach-100);
+  --icon-highlight-default: var(--highlight-peach-400);
+  --icon-highlight-subtle: var(--highlight-peach-100);
+  --border-highlight-default: var(--highlight-peach-400);
+  --border-highlight-subtle: var(--highlight-peach-200);
+  --bg-neutral-strong: var(--secondary-metal-400);
+  --icon-neutral-placeholder: var(--secondary-metal-400);
+  --icon-neutral-subtle: var(--secondary-metal-700);
+  --icon-neutral-default: var(--secondary-metal-950);
+  --icon-neutral-inverse: var(--neutral-neutral-100);
+  --border-action-subtle-hover: var(--primary-blue-500);
+  --border-action-subtle-active: var(--primary-blue-600);
+  --bg-highlight-hover: var(--highlight-peach-200);
+  --bg-highlight-active: var(--highlight-peach-300);
+  --bg-error-sublte-hover: var(--error-red-200);
+  --bg-error-sublte-active: var(--error-red-300);
+  --bg-error-hover: var(--error-red-500);
+  --bg-error-active: var(--error-red-600);
+  --text-error-hover: var(--error-red-600);
+  --text-error-active: var(--error-red-700);
+  --bg-accent-subtle: var(--accent-purple-200);
+  --bg-accent-sublte-hover: var(--accent-purple-300);
+  --bg-accent-sublte-active: var(--accent-purple-400);
+  --bg-accent-default: var(--accent-purple-500);
+  --bg-accent-hover: var(--accent-purple-700);
+  --bg-accent-active: var(--accent-purple-900);
+  --icon-pending-pending: var(--accent-purple-700);
+  --icon-highlight-strong: var(--highlight-peach-700);
+  --bg-primary-light: var(--primary-blue-500);
+  --bg-info-subtle: var(--primary-blue-200);
+  --bg-info-sublte-hover: var(--primary-blue-300);
+  --bg-info-sublte-active: var(--primary-blue-400);
+  --bg-info-default: var(--primary-blue-700);
+  --bg-info-hover: var(--primary-blue-800);
+  --bg-info-active: var(--primary-blue-900);
+  --bg-success-subtle: var(--success-green-100);
+  --bg-success-sublte-hover: var(--success-green-200);
+  --bg-success-sublte-active: var(--success-green-300);
+  --bg-success-default: var(--success-green-400);
+  --bg-success-hover: var(--success-green-500);
+  --bg-success-active: var(--success-green-600);
+  --bg-warning-subtle: var(--warning-orange-100);
+  --bg-warning-sublte-hover: var(--warning-orange-200);
+  --bg-warning-sublte-active: var(--warning-orange-300);
+  --bg-warning-default: var(--warning-orange-400);
+  --bg-warning-hover: var(--warning-orange-500);
+  --bg-warning-active: var(--warning-orange-600);
+  --text-success-default: var(--success-green-500);
+  --text-warning-default: var(--warning-orange-500);
+
+  /* Base Spacing */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-14: 56px;
+
+  /* Semantic Spacing */
+  --margin-small: var(--spacing-2);
+  --margin-default: var(--spacing-3);
+  --margin-large: var(--spacing-4);
+  --padding-small: var(--spacing-2);
+  --padding-default: var(--spacing-3);
+  --padding-large: var(--spacing-4);
+  --padding-x-small: var(--spacing-1);
+  --padding-x-large: var(--spacing-5);
+  --padding-2x-large: var(--spacing-6);
+  --margin-x-small: var(--spacing-1);
+  --margin-x-large: var(--spacing-5);
+  --margin-2x-large: var(--spacing-6);
+  --padding-3x-large: var(--spacing-8);
+  --margin-3x-large: var(--spacing-8);
+  /** Figma: gap/very-tight = 4px – container padding for Segmented Buttons */
+  --gap-very-tight: var(--spacing-1);
+  /** Figma: container-padding/normal = 16px – Accordion trigger/panel padding */
+  --container-padding-normal: var(--spacing-4);
+  /** Figma: atom-stacking/wide = 12px – Accordion internal gap */
+  --atom-stacking-wide: var(--spacing-3);
+
+  /* Typography */
+  --font-family-heading: "Oswald", sans-serif;
+  --font-family-body: "Open Sans", sans-serif;
+  --font-weight-default: 400;
+  --font-weight-highlight: 600;
+  --font-weight-cursive: italic;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 32px;
+  --line-height-default-xs: 16px;
+  --line-height-default-sm: 18px;
+  --line-height-default-md: 20px;
+  --line-height-default-lg: 28px;
+  --line-height-default-xl: 32px;
+  --line-height-default-xxl: 36px;
+  --line-height-body-xs: 21px;
+  --line-height-body-sm: 24.5px;
+  --line-height-body-md: 28px;
+
+  /* Border Radius */
+  --radius-1: 4px;
+  --radius-2: 12px;
+  --radius-3: 16px;
+  --radius-4: 20px;
+  --radius-max: 999px;
+  --radius-soft: var(--radius-1);
+  --radius-input: var(--radius-2);
+  --radius-overlay: var(--radius-4);
+  --radius-container: var(--radius-3);
+  --radius-pill: var(--radius-max);
+  /** Figma: pill = 999px – full pill shape for Segmented Buttons */
+  --pill: var(--radius-max);
+
+  /* Border Width */
+  --border-default: 1px;
+  --border-active: 2px;
+  --border-thick: 3px;
+
+  /* Layout */
+  --screen-margin-desktop: 120px;
+  --grid-gutter-desktop: 24px;
+  --screen-max-width: 1200px;
+  --screen-margin-mobile: 16px;
+  --grid-gutter-mobile: 16px;
+  /** Max width for form fields (inputs, date picker, dropdown). Fluid on small screens, capped on large. */
+  --field-max-width: 24rem;
+  /** Viewport breakpoint: below this width, form fields take full width to stay inside viewport. */
+  --field-full-width-breakpoint: 768px;
+
+  /* Opacity */
+  --opacity-disabled: 0.35;
+}

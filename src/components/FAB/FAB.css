@@ -1,0 +1,389 @@
+/* FAB - Floating Action Button */
+.fab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-body);
+  border-radius: var(--radius-soft); /* Softer corner radius (4px) instead of pill */
+  border: var(--border-default) solid;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  
+  /* CSS custom properties for animation timing - can be overridden by projects */
+  --fab-transition-duration: 0.2s;
+  --fab-transition-timing: ease;
+  --fab-transform-scale: 1;
+  
+  transition: 
+    background-color var(--fab-transition-duration) var(--fab-transition-timing),
+    border-color var(--fab-transition-duration) var(--fab-transition-timing),
+    color var(--fab-transition-duration) var(--fab-transition-timing),
+    transform var(--fab-transition-duration) var(--fab-transition-timing),
+    box-shadow var(--fab-transition-duration) var(--fab-transition-timing);
+  
+  transform: scale(var(--fab-transform-scale));
+}
+
+.fab:disabled,
+.fab[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+
+.fab__icon {
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+/* Size - FAB is always 2.75rem x 2.75rem (44px) for accessibility */
+.fab {
+  width: 2.75rem; /* 44px */
+  height: 2.75rem; /* 44px */
+}
+
+.fab .fab__icon {
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+}
+
+/* Positioning */
+.fab--position-bottom-right {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.fab--position-bottom-left {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 1000;
+}
+
+.fab--position-top-right {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.fab--position-top-left {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+}
+
+/* Variant styles - Default */
+.fab--default {
+  background-color: transparent;
+  color: var(--text-primary-brand);
+  border-color: transparent;
+}
+
+.fab--default:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-primary-subtle-hover);
+  border-color: transparent;
+}
+
+.fab--default:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-primary-subtle-active);
+  border-color: transparent;
+  transform: scale(0.95);
+}
+
+.fab--default .fab__icon {
+  color: var(--icon-primary-brand);
+}
+
+/* Variant styles - Primary */
+.fab--primary {
+  background-color: var(--bg-primary-default);
+  color: var(--text-neutral-inverse);
+  border-color: var(--bg-primary-default);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
+}
+
+.fab--primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-primary-hover);
+  border-color: var(--bg-primary-hover);
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--primary:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-primary-active);
+  border-color: var(--bg-primary-active);
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--primary .fab__icon {
+  color: var(--icon-neutral-inverse);
+}
+
+/* Variant styles - Secondary */
+.fab--secondary {
+  background-color: var(--bg-neutral-default);
+  color: var(--text-primary-brand);
+  border-color: var(--border-action-default);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
+}
+
+.fab--secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-primary-subtle);
+  border-color: var(--border-action-hover);
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--secondary:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-primary-subtle-hover);
+  border-color: var(--border-action-active);
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--secondary .fab__icon {
+  color: var(--icon-primary-brand);
+}
+
+/* Variant styles - Tertiary */
+.fab--tertiary {
+  background-color: var(--bg-primary-subtle);
+  color: var(--text-primary-brand);
+  border-color: transparent;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
+}
+
+.fab--tertiary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-primary-subtle-hover);
+  border-color: transparent;
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--tertiary:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-primary-subtle-active);
+  border-color: transparent;
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--tertiary .fab__icon {
+  color: var(--icon-primary-brand);
+}
+
+/* Destructive variants - Default */
+.fab--destructive.fab--default {
+  background-color: transparent;
+  color: var(--text-error-default);
+  border-color: transparent;
+}
+
+.fab--destructive.fab--default:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-error-sublte-hover);
+  border-color: transparent;
+}
+
+.fab--destructive.fab--default:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-error-sublte-active);
+  border-color: transparent;
+  transform: scale(0.95);
+}
+
+.fab--destructive.fab--default .fab__icon {
+  color: var(--icon-error-default);
+}
+
+/* Destructive variants - Primary */
+.fab--destructive.fab--primary {
+  background-color: var(--bg-error-default);
+  color: var(--text-neutral-inverse);
+  border-color: var(--bg-error-default);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
+}
+
+.fab--destructive.fab--primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-error-hover);
+  border-color: var(--bg-error-hover);
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--primary:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-error-active);
+  border-color: var(--bg-error-active);
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--primary .fab__icon {
+  color: var(--icon-neutral-inverse);
+}
+
+/* Destructive variants - Secondary */
+.fab--destructive.fab--secondary {
+  background-color: var(--bg-neutral-default);
+  color: var(--text-error-default);
+  border-color: var(--border-error-default);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
+}
+
+.fab--destructive.fab--secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-error-subtle);
+  border-color: var(--border-error-default);
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--secondary:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-error-sublte-hover);
+  border-color: var(--border-error-default);
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--secondary .fab__icon {
+  color: var(--icon-error-default);
+}
+
+/* Destructive variants - Tertiary */
+.fab--destructive.fab--tertiary {
+  background-color: var(--bg-error-subtle);
+  color: var(--text-error-default);
+  border-color: transparent;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
+}
+
+.fab--destructive.fab--tertiary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-error-sublte-hover);
+  border-color: transparent;
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--tertiary:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-error-sublte-active);
+  border-color: transparent;
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--tertiary .fab__icon {
+  color: var(--icon-error-default);
+}
+
+/* Focus state */
+.fab:focus-visible {
+  outline: 0.125rem solid var(--border-action-focus);
+  outline-offset: 0.125rem;
+}
+
+/* State classes for Storybook demonstration */
+.fab--state-hover {
+  background-color: var(--bg-primary-hover);
+  border-color: var(--bg-primary-hover);
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--state-hover {
+  background-color: var(--bg-error-hover);
+  border-color: var(--bg-error-hover);
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--secondary.fab--state-hover {
+  background-color: var(--bg-primary-subtle);
+  border-color: var(--border-action-hover);
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--secondary.fab--state-hover {
+  background-color: var(--bg-error-subtle);
+  border-color: var(--border-error-default);
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--tertiary.fab--state-hover {
+  background-color: var(--bg-primary-subtle-hover);
+  border-color: transparent;
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--tertiary.fab--state-hover {
+  background-color: var(--bg-error-sublte-hover);
+  border-color: transparent;
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--default.fab--state-hover {
+  background-color: var(--bg-primary-subtle-hover);
+  border-color: transparent;
+}
+
+.fab--destructive.fab--default.fab--state-hover {
+  background-color: var(--bg-error-sublte-hover);
+  border-color: transparent;
+}
+
+.fab--state-active {
+  background-color: var(--bg-primary-active);
+  border-color: var(--bg-primary-active);
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--state-active {
+  background-color: var(--bg-error-active);
+  border-color: var(--bg-error-active);
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--secondary.fab--state-active {
+  background-color: var(--bg-primary-subtle-hover);
+  border-color: var(--border-action-active);
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--secondary.fab--state-active {
+  background-color: var(--bg-error-sublte-hover);
+  border-color: var(--border-error-default);
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--tertiary.fab--state-active {
+  background-color: var(--bg-primary-subtle-active);
+  border-color: transparent;
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--destructive.fab--tertiary.fab--state-active {
+  background-color: var(--bg-error-sublte-active);
+  border-color: transparent;
+  transform: scale(0.95);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.fab--default.fab--state-active {
+  background-color: var(--bg-primary-subtle-active);
+  border-color: transparent;
+  transform: scale(0.95);
+}
+
+.fab--destructive.fab--default.fab--state-active {
+  background-color: var(--bg-error-sublte-active);
+  border-color: transparent;
+  transform: scale(0.95);
+}
+
+.fab--state-disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.fab--state-focus {
+  outline: 0.125rem solid var(--border-action-focus);
+  outline-offset: 0.125rem;
+}

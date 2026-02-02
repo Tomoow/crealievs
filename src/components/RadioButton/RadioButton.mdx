@@ -1,0 +1,135 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import RadioButtonStories from './RadioButton.stories';
+import * as RadioButtonStoriesNamed from './RadioButton.stories';
+
+<Meta of={RadioButtonStories} />
+
+# RadioButton
+
+Radio buttons allow users to select exactly one option from a group of options. They are used for mutually exclusive choices and must always be used in groups of at least two.
+
+The component consists of two parts:
+- **RadioGroup**: Manages the state and provides context for all radio options
+- **RadioOption**: Individual radio button that must be used within a RadioGroup
+
+## Usage
+
+Radio buttons are used when:
+- Users need to select exactly one option from a list
+- Only one selection is allowed at a time
+- Options are mutually exclusive
+- You want to show a clear visual indication of the selected state
+
+**Important:** Radio buttons must always be used in groups (at least 2, never alone). Use the `RadioGroup` component to wrap `RadioOption` components. The `RadioGroup` manages the state and ensures proper accessibility.
+
+## States
+
+Radio buttons have several states:
+
+- **Unchecked**: Default state when not selected (white background with border)
+- **Checked**: When the option is selected (primary blue background with white dot)
+- **Disabled**: When the option is not available for selection (use `state="disabled"`)
+- **Hover**: Visual feedback when hovering over unchecked radio buttons (selected ones don't have hover state)
+- **Focus**: Visual feedback when the radio button receives keyboard focus (orange halo)
+
+**Note:** Selected/checked radio buttons do not have hover or pressed states since you cannot select what is already selected.
+
+## Examples
+
+### Default
+
+<Canvas of={RadioButtonStoriesNamed.Default} />
+
+Use the controls below to interact with the radio buttons and see different states.
+
+## Accessibility
+
+### Target Size
+- Meets WCAG 2.5.8 AA with 24×24px minimum hit area
+
+### Accessible Name
+- Provide either `label` (visible) or `ariaLabel` (required when no visible label)
+- The component will warn in development if neither is provided
+
+### Keyboard Navigation
+- Fully keyboard accessible via native radio button behavior
+- Focus ring appears on the radio button (orange halo)
+- Arrow keys can be used to navigate between radio buttons in a group
+
+### Grouping
+- Radio buttons must always be used in groups (at least 2, never alone)
+- Use `RadioGroup` to wrap `RadioOption` components
+- The `RadioGroup` manages the selected value and provides context to all options
+- All radio options in a group automatically share the same `name` attribute
+
+## Best Practices
+
+1. **Always use RadioGroup**: Wrap `RadioOption` components in a `RadioGroup` - this is required
+2. **State management**: The `RadioGroup` owns the state - manage `value` and `onChange` at the group level
+3. **Use clear labels**: Always provide descriptive labels that explain what each option represents
+4. **Group related options**: Use radio buttons when options are mutually exclusive
+5. **Visual feedback**: Ensure hover and focus states are clearly visible (hover only applies to unchecked buttons)
+6. **Disabled state**: Clearly indicate when options are unavailable using the `state` prop
+7. **Description toggle**: Use `showDescription` prop to control visibility of description text (defaults to `false`)
+8. **Spacing**: Maintain adequate spacing between radio buttons in a group
+9. **Default selection**: Consider providing a default selection when appropriate
+
+## Implementation
+
+```tsx
+import { RadioGroup, RadioOption } from './components/RadioButton';
+import { useState } from 'react';
+
+// Basic usage with RadioGroup
+function RadioButtonGroup() {
+  const [value, setValue] = useState<string | null>('option1');
+  
+  return (
+    <RadioGroup name="choices" value={value} onChange={setValue}>
+      <RadioOption
+        value="option1"
+        label="First option"
+        description="Additional information"
+        showDescription={true}
+      />
+      <RadioOption
+        value="option2"
+        label="Second option"
+        description="Additional information"
+        showDescription={true}
+      />
+    </RadioGroup>
+  );
+}
+
+// With only primary label (description hidden by default)
+<RadioGroup name="simple" value={value} onChange={setValue}>
+  <RadioOption value="yes" label="Yes" />
+  <RadioOption value="no" label="No" />
+</RadioGroup>
+
+// Disabled state
+<RadioGroup name="choices" value={value} onChange={setValue}>
+  <RadioOption
+    value="disabled-option"
+    label="Disabled option"
+    state="disabled"
+  />
+</RadioGroup>
+
+// With description toggle
+<RadioGroup name="with-description" value={value} onChange={setValue}>
+  <RadioOption
+    value="option1"
+    label="Keuze"
+    description="Extra informatie"
+    showDescription={true}
+  />
+  <RadioOption
+    value="option2"
+    label="Keuze"
+    description="Extra informatie"
+    showDescription={false}
+  />
+</RadioGroup>
+```

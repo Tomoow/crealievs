@@ -1,0 +1,134 @@
+/*
+ * Accordion – Figma 3:53. Each item has a bottom border; only that border changes by state.
+ * Closed: bottom border → subtle-hover (hover), subtle-active (active).
+ * Open: bottom border → hover (hover), active (active).
+ * Tokens: border/default/default, border/action/subtle-hover, border/action/subtle-active,
+ *        border/action/hover, border/action/active.
+ */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: var(--padding-large);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+  box-sizing: border-box;
+}
+
+.accordion__item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Trigger: white bar, question left, chevron right. Has bottom border. */
+.accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--atom-stacking-wide);
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--padding-large);
+  border: none;
+  border-bottom: var(--border-default) solid var(--border-default-subtle);
+  border-radius: 0;
+  background-color: var(--bg-neutral-default);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  font-weight: var(--font-weight-highlight);
+  color: var(--text-neutral-default);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Hover: subtle background fill and border */
+.accordion__trigger:hover {
+  background-color: var(--bg-primary-subtle-hover);
+  border-bottom-color: var(--border-action-subtle-hover);
+}
+
+.accordion__trigger:active {
+  background-color: var(--bg-primary-subtle-active);
+  border-bottom-color: var(--border-action-subtle-active);
+}
+
+/* Expanded: trigger has no bottom border; only the panel has a bottom border. */
+.accordion__trigger[aria-expanded="true"] {
+  border-bottom: none;
+}
+
+.accordion__trigger:focus-visible {
+  outline: 2px solid var(--border-action-focus);
+  outline-offset: -2px;
+}
+
+.accordion__trigger-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.accordion__chevron {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-neutral-default);
+  transition: transform 0.25s ease;
+}
+
+.accordion__chevron--expanded {
+  transform: rotate(180deg);
+}
+
+.accordion__chevron-icon {
+  color: var(--icon-neutral-default);
+  stroke: var(--icon-neutral-default);
+}
+
+.accordion__panel {
+  overflow: hidden;
+  border-bottom: var(--border-default) solid var(--border-default-subtle);
+  transition: border-color 0.2s ease;
+}
+
+.accordion__panel[hidden] {
+  display: none;
+  border-bottom: none;
+}
+
+/* When open: use primary default border */
+.accordion__panel:not([hidden]) {
+  border-bottom-color: var(--border-action-default);
+}
+
+/* When open, item hover/active: panel bottom border uses hover/active */
+.accordion__item:hover .accordion__panel:not([hidden]) {
+  border-bottom-color: var(--border-action-hover);
+}
+
+.accordion__item:active .accordion__panel:not([hidden]) {
+  border-bottom-color: var(--border-action-active);
+}
+
+.accordion__panel-inner {
+  padding: var(--atom-stacking-wide) var(--padding-large);
+  background-color: var(--bg-neutral-default);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-default-md);
+  font-weight: var(--font-weight-default);
+  color: var(--text-neutral-default);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion__trigger,
+  .accordion__panel,
+  .accordion__chevron {
+    transition: none;
+  }
+}

@@ -1,0 +1,15 @@
+---
+alwaysApply: true
+---
+
+You are building a design system.
+
+
+Rules:
+- Prefer simple, flat components over abstractions
+- No premature extensibility
+- Avoid generic “Base”, “Factory”, or “Adapter” patterns
+- Prefer composition over configuration
+- Max 1 level of indirection unless justified
+- If code exceeds 80 lines, explain why
+- Always ask: “Can this be simpler?”

@@ -1,0 +1,233 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import ButtonStories from './Button.stories';
+import * as ButtonStoriesNamed from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Buttons allow users to take actions and make choices with a single tap. They communicate actions that users can take and are typically placed throughout your UI, in places like dialogs, forms, cards, and toolbars.
+
+## Overview
+
+Buttons are one of the most fundamental interactive components in a design system. They provide clear calls to action and help guide users through your interface. The Button component supports multiple variants, sizes, and states to accommodate different use cases and contexts.
+
+## When to use
+
+Use buttons to:
+- **Initiate actions**: Submit forms, save data, confirm choices
+- **Navigate**: Move to different pages or sections
+- **Trigger processes**: Start workflows, open dialogs, download files
+- **Provide clear CTAs**: Guide users toward primary and secondary actions
+
+## When not to use
+
+Avoid using buttons for:
+- **Navigation links**: Use link components instead
+- **Icon-only actions**: Consider icon buttons or icon-only variants
+- **Tertiary actions**: Use text buttons or links for less important actions
+- **Destructive actions**: Use specific error/destructive variants with appropriate warnings
+
+## Variants
+
+Buttons come in six variants, each serving a different purpose in your interface:
+
+### Primary
+Primary buttons are used for the most important action on a screen. They have a filled background and high visual prominence.
+
+- **Use for**: Main call-to-action, primary form submission, critical actions
+- **Visual**: Filled background with primary color, white text
+
+### Secondary
+Secondary buttons are outline buttons used for important actions that are not the primary action.
+
+- **Use for**: Alternative actions, secondary form actions, important but not primary actions
+- **Visual**: White background, blue border, blue text
+
+### Tertiary
+Tertiary buttons have a subtle outline and are used for less prominent actions.
+
+- **Use for**: Less prominent actions, alternative options
+- **Visual**: White background, very light blue border, blue text
+
+### Link
+Link buttons have an underline and are used for less prominent actions. They have no background in default state but share hover and active states with tertiary buttons.
+
+- **Use for**: Low-emphasis actions, cancel buttons, inline actions
+- **Visual**: Transparent background, underlined text, no border in default. Same hover/active states as tertiary.
+
+### Ghost
+Ghost buttons have a border but no background fill in the default state. They are typically used in small size.
+
+- **Use for**: Subtle actions, secondary options
+- **Visual**: Transparent background, blue border, blue text
+
+### Simple
+Simple buttons have no background color, no border, and no top/bottom padding. Only the text color changes between states. All internal padding (between text and icons) uses the small token.
+
+- **Use for**: Minimal styling needs, compact layouts, text-only actions
+- **Visual**: Transparent background, no border, black text (default), blue text on hover/active, no vertical padding
+
+## Sizes
+
+Buttons are available in two sizes:
+
+- **Default**: Standard size with padding: 12px top/bottom (default token), 16px left/right (large token)
+- **Small**: Compact buttons with padding: 8px all sides (small token)
+
+## States
+
+Buttons have several interactive states that provide visual feedback:
+
+- **Default**: The normal, resting state of the button
+- **Hover**: When the user hovers over the button (desktop only)
+- **Active**: When the user clicks or taps the button
+- **Disabled**: When the button is not available for interaction
+- **Focus**: When the button receives keyboard focus (for accessibility)
+
+## Destructive
+
+Buttons can be marked as destructive to indicate dangerous or irreversible actions. When `destructive={true}`, all variants use red color schemes instead of blue.
+
+- **Use for**: Delete actions, destructive operations, irreversible changes
+- **Visual**: Red color scheme (red backgrounds, borders, and text) instead of blue
+
+## Icons
+
+Buttons support icons on both the left and right sides:
+
+- **Left Icon**: Use `showLeftIcon={true}` and provide an `iconLeft` prop
+- **Right Icon**: Use `showRightIcon={true}` and provide an `iconRight` prop
+- Icons can be used independently or together
+- Icon sizes automatically adjust based on button size
+
+## Examples
+
+<Canvas of={ButtonStoriesNamed.Default} />
+
+## Code Example
+
+```tsx
+import { Button } from '@crealievs/components';
+import { Plus, Download, Save } from 'lucide-react';
+
+// Primary button (most common)
+<Button variant="primary">Primary Button</Button>
+
+// Secondary button (outline)
+<Button variant="secondary">Secondary Button</Button>
+
+// Tertiary button
+<Button variant="tertiary">Tertiary Button</Button>
+
+// Link button (with underline)
+<Button variant="link">Link Button</Button>
+
+// Ghost button
+<Button variant="ghost" size="small">Ghost Button</Button>
+
+// Simple button
+<Button variant="simple" size="small">Simple Button</Button>
+
+// With sizes
+<Button size="default">Default</Button>
+<Button size="small">Small</Button>
+
+// Destructive buttons
+<Button variant="primary" destructive>Delete</Button>
+<Button variant="secondary" destructive>Cancel</Button>
+
+// With left icon
+<Button showLeftIcon iconLeft={Plus}>Add Item</Button>
+<Button showLeftIcon iconLeft={Download} variant="secondary">Download</Button>
+
+// With right icon
+<Button showRightIcon iconRight={ArrowRight}>Continue</Button>
+
+// With both icons
+<Button showLeftIcon iconLeft={Plus} showRightIcon iconRight={ArrowRight}>
+  Add and Continue
+</Button>
+
+// Disabled state
+<Button disabled>Disabled Button</Button>
+
+// Submit button in forms
+<Button type="submit" variant="primary">Submit</Button>
+
+// With click handler
+<Button onClick={() => console.log('Clicked!')}>
+  Click Me
+</Button>
+```
+
+## Props
+
+<Controls of={ButtonStoriesNamed.Default} />
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | The content to display inside the button |
+| `variant` | `'primary' \| 'secondary' \| 'tertiary' \| 'link' \| 'ghost' \| 'simple'` | `'primary'` | Visual style variant of the button |
+| `size` | `'default' \| 'small'` | `'default'` | Size of the button. Default: 12px top/bottom, 16px left/right. Small: 8px all sides. |
+| `state` | `'default' \| 'hover' \| 'active' \| 'disabled' \| 'focus'` | `'default'` | Visual state of the button for demonstration purposes. Use 'disabled' state instead of a separate disabled prop. |
+| `destructive` | `boolean` | `false` | Whether the button represents a destructive action |
+| `showLeftIcon` | `boolean` | `false` | Show an icon before the button text |
+| `iconLeft` | `LucideIcon` | - | Lucide icon component to display on the left. Only used when `showLeftIcon` is `true`. |
+| `showRightIcon` | `boolean` | `false` | Show an icon after the button text |
+| `iconRight` | `LucideIcon` | - | Lucide icon component to display on the right. Only used when `showRightIcon` is `true`. |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type attribute |
+| `onClick` | `(e: React.MouseEvent<HTMLButtonElement>) => void` | - | Click handler function. Standard React prop for handling button clicks. Allows parent components to respond to user interactions. If not provided, the button will still render but won't trigger any actions when clicked. |
+| `className` | `string` | `''` | Additional CSS class name for custom styling. Use sparingly - prefer design tokens and component props for styling. |
+
+## Anatomy
+
+A button consists of:
+
+1. **Container**: The button element with background, border, and padding
+2. **Icon** (optional): A leading icon that appears before the text
+3. **Text**: The button label or content
+4. **States**: Visual feedback for interaction (hover, pressed, focus, disabled)
+
+## Design Tokens
+
+The Button component uses the following design tokens:
+
+- **Colors**: Semantic color tokens (`--bg-primary-default`, `--text-primary-brand`, `--border-action-default`, etc.)
+- **Spacing**: Semantic spacing tokens (`--padding-x-small`, `--padding-small`, `--padding-default`, `--padding-large`)
+- **Typography**: Font family (`--font-family-body`), sizes (`--font-size-sm`, `--font-size-md`), and line heights
+- **Border Radius**: `--radius-input` (12px) for rounded corners
+- **Border**: `--border-default` (1px) for border width
+- **Opacity**: `--opacity-disabled` (0.35) for disabled state
+
+## Accessibility
+
+- Buttons are keyboard accessible and can be activated with Enter or Space
+- Focus states are clearly visible with an orange outline (`--border-action-focus`)
+- Disabled buttons are properly marked with `aria-disabled` and visual opacity
+- Button text should be descriptive and indicate the action (avoid generic labels like "Click here")
+- Icon-only buttons should include `aria-label` for screen readers
+- Color contrast meets WCAG AA standards for all variants and states
+
+## Best Practices
+
+### Do
+- ✅ Use primary buttons for the main action on a screen
+- ✅ Keep button labels concise and action-oriented
+- ✅ Use appropriate variants to establish visual hierarchy
+- ✅ Provide clear visual feedback for all interactive states
+- ✅ Use icons to enhance understanding when appropriate
+
+### Don't
+- ❌ Don't use too many primary buttons on one screen
+- ❌ Don't use vague labels like "Click here" or "Submit"
+- ❌ Don't disable buttons without explaining why
+- ❌ Don't use buttons for navigation (use links instead)
+- ❌ Don't make buttons too small to tap easily (especially on mobile)
+
+## Related Components
+
+- **Icon Button**: For icon-only actions
+- **Link**: For navigation actions
+- **Tag**: For labels and categories
+- **Badge**: For status indicators

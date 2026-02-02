@@ -1,0 +1,61 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import AccordionStories from './Accordion.stories';
+import * as AccordionStoriesNamed from './Accordion.stories';
+
+<Meta of={AccordionStories} />
+
+# Accordion
+
+Accordion with collapsible items. Each item has a **trigger** (title + chevron) and a **panel** (content). Chevron points down when collapsed, up when expanded.
+
+Use the **Controls** panel to try allowMultiple and defaultExpandedIds.
+
+## Usage
+
+- **items**: Array of `{ id, title, content }`.
+- **allowMultiple**: When false (default), at most one item is open; when true, multiple can be open.
+- **defaultExpandedIds**: Initial expanded ids (uncontrolled).
+- **expandedIds** / **onExpandedChange**: Controlled mode.
+
+### Single open across multiple accordions (AccordionGroup)
+
+When you have several Accordions on a screen and want only one item open at a time across all of them, wrap them in **AccordionGroup**. Item ids must be unique across all accordions in the group.
+
+```tsx
+import { AccordionGroup, Accordion } from '@your-design-system';
+
+<AccordionGroup>
+  <Accordion items={faq1} aria-label="FAQ section 1" />
+  <Accordion items={faq2} aria-label="FAQ section 2" />
+</AccordionGroup>
+```
+
+## Examples
+
+<Canvas of={AccordionStoriesNamed.Default} />
+
+<Controls of={AccordionStoriesNamed.Default} />
+
+## Design tokens (Figma 3:53 – get_variable_defs only)
+
+Every visual property maps to a token returned by Figma MCP `get_variable_defs` (node 3:53), mapped in `tokens.css`:
+
+| Figma token | tokens.css |
+|-------------|------------|
+| bg/neutral/default | --bg-neutral-default |
+| border/default/default | --border-default-default |
+| container-padding/normal (16px) | --container-padding-normal |
+| atom-stacking/wide (12px) | --atom-stacking-wide |
+| Interface Bold/default (trigger) | --font-family-body, --font-weight-highlight, --font-size-md, --line-height-default-md |
+| Interface Regular/default (panel) | --font-weight-default, --font-size-md, --line-height-default-md |
+| text/neutral/default | --text-neutral-default |
+| icon/neutral/default | --icon-neutral-default |
+| border/action/subtle-hover (hover) | --border-action-subtle-hover |
+| border/action/subtle-active (expanded) | --border-action-subtle-active |
+
+## Accessibility
+
+- Trigger is a `<button>` with `aria-expanded` and `aria-controls`.
+- Panel has `id`, `role="region"`, `aria-labelledby`, and `hidden` when collapsed.
+- Enter/Space on trigger toggles the panel.
+- Focus outline on trigger (`:focus-visible`).

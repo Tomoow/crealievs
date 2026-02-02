@@ -1,0 +1,144 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import SearchFieldStories from './SearchField.stories';
+import * as SearchFieldStoriesNamed from './SearchField.stories';
+
+<Meta of={SearchFieldStories} />
+
+# SearchField
+
+Search fields allow users to enter search queries with optional voice input support. They include a search icon on the left and can show either a microphone button (for voice search) or a clear button depending on the field's state.
+
+## Overview
+
+Search fields provide a specialized input for search functionality. They support voice recognition using the Web Speech API, allowing users to speak their search query instead of typing.
+
+## When to use
+
+Use search fields to:
+- **Search functionality**: Allow users to search for content, products, or information
+- **Voice-enabled search**: Provide voice input as an alternative to typing
+- **Filtering**: Enable users to filter lists or data with search queries
+
+## When not to use
+
+Avoid using search fields for:
+- **General text input**: Use InputField components for regular text entry
+- **Form inputs**: Use InputField for names, emails, or other form fields
+- **Long-form text**: Use TextareaField for multi-line content
+
+## States
+
+Search fields have several interactive states:
+
+- **Default**: The normal, resting state with search icon and microphone button
+- **Hover**: When the user hovers over the search field (desktop only)
+- **Focus**: When the search field receives keyboard focus (orange outline)
+- **With value**: Shows clear button instead of microphone button
+- **Listening**: When voice recognition is active (microphone button shows active state)
+- **Error**: When validation fails or an error occurs (red border and text)
+- **Read-only**: When the search field is not editable but still visible
+
+## Example
+
+<Canvas of={SearchFieldStoriesNamed.Default} />
+
+Use the controls below to interact with the search field and see different states and configurations.
+
+## Voice Recognition
+
+The SearchField component includes built-in voice recognition support using the Web Speech API:
+
+- **Browser Support**: Requires a browser that supports Speech Recognition API (Chrome, Edge, Safari)
+- **Permissions**: Browser will request microphone permission on first use
+- **Language**: Configurable via `voiceLanguage` prop (default: 'en-US')
+- **Automatic**: Recognition stops automatically when user finishes speaking
+- **Error Handling**: Provides callbacks for voice recognition events and errors
+
+### Voice Recognition Events
+
+- `onVoiceStart`: Called when voice recognition starts
+- `onVoiceEnd`: Called when voice recognition ends
+- `onVoiceError`: Called when an error occurs (e.g., no microphone access, no speech detected)
+
+## Accessibility
+
+### Accessible Name
+- Provide either `label` (visible) or `aria-label` (required when no visible label)
+- The component automatically associates labels with search inputs using `htmlFor` and `id`
+
+### Keyboard Navigation
+- Fully keyboard accessible via native input behavior
+- Focus ring appears on the search input (orange outline)
+- Clear button and microphone button are keyboard accessible
+- Tab key navigates to/from the search field
+
+### ARIA Attributes
+- `aria-invalid` is automatically set when in error state
+- `aria-required` is set when `required={true}`
+- `aria-describedby` links to helper text or error message
+
+### Focus Management
+- Focus ring appears on the search input when focused (orange outline)
+
+## Design Tokens
+
+The SearchField component uses the following design tokens:
+
+- **Colors**: 
+  - Background: `--bg-neutral-default` (white)
+  - Border: `--border-default-default` (default), `--border-action-hover` (hover), `--border-action-active` (focus), `--border-error-default` (error)
+  - Text: `--text-neutral-default` (default), `--text-neutral-placeholder` (placeholder), `--text-error-default` (error)
+  - Icons: `--icon-neutral-placeholder` (default), `--icon-error-default` (error)
+- **Spacing**: `--padding-default` (12px) for internal padding
+- **Typography**: `--font-family-body`, `--font-size-md`, `--line-height-default-md`
+- **Border Radius**: `--radius-input` (12px)
+- **Border Width**: `--border-default` (1px), `--border-active` (focus ring thickness)
+
+## Best Practices
+
+### Do
+- ✅ Always provide a label or `aria-label` for accessibility
+- ✅ Use helper text to provide context or instructions
+- ✅ Show clear error messages when validation fails
+- ✅ Handle voice recognition errors gracefully
+- ✅ Inform users about microphone permissions
+
+### Don't
+- ❌ Don't use search fields without labels or `aria-label`
+- ❌ Don't use placeholder text as the only label
+- ❌ Don't hide error messages - always display them clearly
+- ❌ Don't assume voice recognition is always available
+- ❌ Don't use search fields for general form inputs
+
+## Implementation
+
+```tsx
+import { SearchField } from '@crealievs/components';
+
+// Basic usage
+<SearchField
+  label="Search"
+  placeholder="Search products..."
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+/>
+
+// With voice recognition callbacks
+<SearchField
+  label="Search"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  onVoiceStart={() => console.log('Listening...')}
+  onVoiceEnd={() => console.log('Finished')}
+  onVoiceError={(error) => console.error(error)}
+/>
+
+// With error state
+<SearchField
+  label="Search"
+  required
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  errorMessage="This field is required"
+/>
+```

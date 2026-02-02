@@ -1,0 +1,121 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import TextareaFieldStories from './TextareaField.stories';
+import * as TextareaFieldStoriesNamed from './TextareaField.stories';
+
+<Meta of={TextareaFieldStories} />
+
+# TextareaField
+
+Textarea fields allow users to enter and edit multi-line text. They are ideal for longer form content like comments, descriptions, or messages.
+
+## Overview
+
+Textarea fields provide a way for users to enter multi-line text data. They support validation states, helper text, and can be configured for different resize behaviors.
+
+## When to use
+
+Use textarea fields to:
+- **Long-form text**: Comments, descriptions, messages, or any content requiring multiple lines
+- **Form inputs**: As part of forms for multi-line data entry
+- **User feedback**: Allow users to provide detailed feedback or explanations
+
+## When not to use
+
+Avoid using textarea fields for:
+- **Single-line text**: Use InputField components instead
+- **Rich content**: Use rich text editors for formatted content
+- **Short inputs**: Use InputField for names, emails, or other short inputs
+
+## States
+
+Textarea fields have several interactive states:
+
+- **Default**: The normal, resting state of the textarea
+- **Hover**: When the user hovers over the textarea (desktop only)
+- **Focus**: When the textarea receives keyboard focus (orange outline)
+- **Error**: When validation fails or an error occurs (red border and text)
+- **Read-only**: When the textarea is not editable but still visible
+
+## Example
+
+<Canvas of={TextareaFieldStoriesNamed.Default} />
+
+Use the controls below to interact with the textarea field and see different states and configurations.
+
+## Accessibility
+
+### Accessible Name
+- Provide either `label` (visible) or `aria-label` (required when no visible label)
+- The component automatically associates labels with textareas using `htmlFor` and `id`
+
+### Keyboard Navigation
+- Fully keyboard accessible via native textarea behavior
+- Focus ring appears on the textarea (orange outline)
+- Tab key navigates to/from the textarea
+
+### ARIA Attributes
+- `aria-invalid` is automatically set when in error state
+- `aria-required` is set when `required={true}`
+- `aria-describedby` links to helper text or error message
+
+### Focus Management
+- Focus ring appears on the textarea when focused (orange outline)
+
+## Design Tokens
+
+The TextareaField component uses the following design tokens:
+
+- **Colors**: 
+  - Background: `--bg-neutral-default` (white)
+  - Border: `--border-default-default` (default), `--border-action-hover` (hover), `--border-action-active` (focus), `--border-error-default` (error)
+  - Text: `--text-neutral-default` (default), `--text-neutral-placeholder` (placeholder), `--text-error-default` (error)
+- **Spacing**: `--padding-default` (12px) for internal padding
+- **Typography**: `--font-family-body`, `--font-size-md`, `--line-height-default-md`
+- **Border Radius**: `--radius-input` (12px)
+- **Border Width**: `--border-default` (1px), `--border-active` (focus ring thickness)
+
+## Best Practices
+
+### Do
+- ✅ Always provide a label or `aria-label` for accessibility
+- ✅ Use helper text to provide context or instructions
+- ✅ Show clear error messages when validation fails
+- ✅ Use appropriate `rows` value for expected content length
+- ✅ Mark required fields with `required={true}`
+
+### Don't
+- ❌ Don't use textarea fields without labels or `aria-label`
+- ❌ Don't use placeholder text as the only label
+- ❌ Don't hide error messages - always display them clearly
+- ❌ Don't disable textareas without explaining why
+- ❌ Don't use textarea fields for single-line inputs
+
+## Implementation
+
+```tsx
+import { TextareaField } from '@crealievs/components';
+
+// Basic usage
+<TextareaField
+  label="Comments"
+  placeholder="Enter your comments here"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+/>
+
+// With error state
+<TextareaField
+  label="Description"
+  required
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  errorMessage="This field is required"
+/>
+
+// Read-only
+<TextareaField
+  label="Notes"
+  value="This is read-only content"
+  readOnly
+/>
+```

@@ -1,0 +1,50 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import ModalStories from './Modal.stories';
+import * as ModalStoriesNamed from './Modal.stories';
+
+<Meta of={ModalStories} />
+
+# Modal
+
+The Modal is an overlay dialog with a title, body content, optional close button, and optional primary/secondary actions. It matches the design system panel (paneel) from Figma.
+
+## Overview
+
+- **Backdrop**: Dimmed overlay; click to close.
+- **Dialog**: Centered panel with rounded corners, shadow, and semantic tokens.
+- **Header**: Title and optional close (X) IconButton.
+- **Body**: Scrollable content area.
+- **Footer**: Optional primary and secondary buttons; alignment (left/right) and order follow Figma.
+ 
+## Mobile behavior
+
+On viewports under **768px** width, the modal opens as a **bottom sheet** that slides in from the bottom and is constrained to **60vh** max height.
+
+## When to use
+
+- Confirmations, forms, or content that must be completed or dismissed before returning to the page.
+- When you need focus trapped inside the dialog and Escape/backdrop to close.
+
+## States
+
+Explore all states via the **Controls** panel: `title`, `size`, `footerAlignment`, `showCloseButton`, `primaryActionLabel`, `secondaryActionLabel`. Open the modal with the trigger button; close via backdrop, Escape, or close button.
+
+## Example
+
+<Canvas of={ModalStoriesNamed.Default} />
+
+## Accessibility
+
+- Dialog has `role="dialog"`, `aria-modal="true"`, `aria-labelledby` (title), and optional `aria-describedby`.
+- Close button has `aria-label="Close"`.
+- **No auto-focus on open** (prevents tooltips showing out of context).
+- Press **Tab** to move focus into the modal; Tab then cycles within the dialog (focus trap).
+- Focus is restored to the previously focused element when the modal closes.
+- Escape closes the modal.
+
+## Design tokens
+
+- **Backdrop**: dim + blur (matches the mobile sheet pattern used elsewhere).
+- **Dialog**: `--bg-neutral-default`, `--radius-overlay`, `--padding-x-large`, `--padding-large`, max height `60vh`.
+- **Title (Heading/small)**: `--font-family-heading`, `--font-size-lg`, `--font-weight-highlight`, `--line-height-default-lg`, `--text-neutral-default`.
+- **Body**: `--font-family-body`, `--font-size-md`, `--line-height-body-md`, `--text-neutral-default`.

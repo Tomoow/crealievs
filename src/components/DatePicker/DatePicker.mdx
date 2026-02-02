@@ -1,0 +1,74 @@
+import { Meta, Story, Canvas } from '@storybook/blocks';
+import DatePickerStories from './DatePicker.stories';
+import * as DatePickerStoriesNamed from './DatePicker.stories';
+
+<Meta of={DatePickerStories} />
+
+# DatePicker
+
+The DatePicker lets users select a single date via an input field and a calendar popover. It reuses the same input container styling and tokens as InputField and DropdownField.
+
+## Overview
+
+- **Input**: Read-only field showing the selected date in `dd/mm/yyyy` format, or a placeholder.
+- **Separator**: Vertical line between clear and calendar icon (same pattern as DropdownField).
+- **Calendar icon**: Opens the calendar; not in tab order (trigger input opens the calendar).
+- **Clear icon**: Shown when a date is selected; clears the value.
+- **Calendar**: Month/year navigation with **IconButton** arrows (ChevronLeft/ChevronRight); month and year labels have a **chevron** that open dropdowns to jump to any month or year. Weekdays (ma–zo). Day grid: **perfect circles** (2rem, border-radius 50%), today ring, selected fill.
+
+## Mobile overlay
+
+On viewports **&lt;768px**, the calendar opens **centered** with no extra container:
+
+- **Dark transparent backdrop** and **backdrop blur**
+- **Calendar only** in the middle; height hugs content (does not fill the page)
+- **Smaller max width** (18rem) so content doesn’t overflow
+- **Close:** tap backdrop or press **Escape**
+- **Focus** moves to the dialog container (no tooltip flash on nav arrows)
+
+**≥768px:** Floating popover next to the input (unchanged).
+
+## Width (input field)
+
+Like Figma **fill**: the input fills the available width of its parent.
+
+- **Mobile:** The input **always fills** its container. Give the parent 16px horizontal margin (e.g. `padding-inline: var(--screen-margin-mobile)`) so the input has 16px from the viewport edges.
+- **Desktop (≥768px):** The input uses a standard max width (`--field-max-width`, 24rem) so it follows page columns/grid.
+- **fullWidth:** Set to `true` when the input should also fill on desktop (no max-width).
+
+## When to use
+
+- Forms that require a single date (birth date, appointment, deadline).
+- When you want to avoid free-text date input and validation.
+
+## States
+
+Explore all states via the **Controls** panel (no separate stories): default, with value (`initialValue`), error (`errorMessage`), disabled, read-only.
+
+- **Default**: Empty, placeholder visible.
+- **With value**: Selected date shown; clear button visible.
+- **Open**: Calendar visible below the input; active border on container.
+- **Error**: Set `errorMessage` in Controls for red border and message.
+- **Disabled / Read-only**: Toggle in Controls.
+
+## Example
+
+<Canvas of={DatePickerStoriesNamed.Default} />
+
+## Accessibility
+
+- Provide either `label` or `aria-label`.
+- Calendar has `role="dialog"` and `aria-modal="true"`.
+- Escape closes the calendar (and any open month/year dropdown); click outside closes it.
+- Month/year **dropdowns**: Trigger buttons have `aria-haspopup="listbox"` and `aria-expanded`. Lists use `role="listbox"` and options `role="option"` with `aria-selected`. Tab to focus options, Enter to select; Escape closes the dropdown. This allows jumping to any month or year without repeated arrow clicks.
+- Month/year **arrows**: Same IconButton component as elsewhere; keyboard accessible, `aria-label` for previous/next month/year.
+- Day cells are focusable buttons with `aria-label` (full date) and `aria-selected` when selected.
+
+## Design tokens
+
+Uses the same semantic tokens as InputField and DropdownField:
+
+- **Container**: `--bg-neutral-default`, `--border-default-default`, `--radius-input`, `--padding-default`, `--padding-large`
+- **Hover/Focus**: `--border-action-hover`, `--border-action-active`, focus ring `--border-action-focus`
+- **Calendar**: `--radius-container`, `--bg-neutral-default`, `--text-neutral-default`, `--bg-primary-default` (selected day), `--text-neutral-inverse` (selected text), `--border-action-default` (today ring)
+- **Weekend**: `--text-neutral-subtle` for za/zo
