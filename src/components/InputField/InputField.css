@@ -91,18 +91,8 @@
   display: block;
 }
 
-/* Clear and password buttons: fit within input height so they don't enlarge the field */
 .input-field__clear-button {
   flex-shrink: 0;
-  width: var(--line-height-default-md);
-  height: var(--line-height-default-md);
-  min-width: var(--line-height-default-md);
-  min-height: var(--line-height-default-md);
-}
-
-.input-field__clear-button .icon-button__icon {
-  width: 1rem;
-  height: 1rem;
 }
 
 /* Stepper layout - horizontal: [Minus] [Input] [Plus] */
@@ -135,11 +125,10 @@
   color: var(--icon-neutral-placeholder); /* #c6c6cc - light grey in read-only */
 }
 
-/* Fixed height for standard input so clear/password button doesn't enlarge the field (exclude stepper) */
 .input-field-container:not(.input-field-container--stepper) {
-  height: calc(2 * var(--border-default) + 2 * var(--padding-default) + var(--line-height-default-md));
-  min-height: calc(2 * var(--border-default) + 2 * var(--padding-default) + var(--line-height-default-md));
-  max-height: calc(2 * var(--border-default) + 2 * var(--padding-default) + var(--line-height-default-md));
+  height: 3rem;
+  min-height: 3rem;
+  max-height: 3rem;
 }
 
 /* Bottom: Helper text / Error message */
