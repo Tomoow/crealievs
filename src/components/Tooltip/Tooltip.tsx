@@ -271,11 +271,13 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
     const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
       const target = e.target as Node;
+      const refEl = refs.reference.current as Node | null;
+      const refContains = refEl && typeof (refEl as Element).contains === 'function' && (refEl as Element).contains(target);
       if (
         refs.floating.current &&
         !refs.floating.current.contains(target) &&
-        refs.reference.current &&
-        !refs.reference.current.contains(target) &&
+        refEl &&
+        !refContains &&
         wrapperRef.current &&
         !wrapperRef.current.contains(target)
       ) {

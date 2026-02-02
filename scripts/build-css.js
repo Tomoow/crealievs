@@ -14,27 +14,36 @@ async function buildCSS() {
     mkdirSync(distDir, { recursive: true });
   }
 
-  // Build CSS bundle
+  // Build CSS bundle: JS entry that only imports CSS so Vite emits one CSS asset
+  const jsEntry = resolve(process.cwd(), 'scripts/css-entry.js');
   await build({
     build: {
       lib: {
-        entry: resolve(process.cwd(), 'src/styles/index.css'),
+        entry: jsEntry,
         name: 'styles',
         formats: ['es'],
-        fileName: () => 'style.css',
+        fileName: () => 'style-css-bundle',
       },
       cssCodeSplit: false,
       cssMinify: true,
       write: true,
-      emptyOutDir: false, // Don't clear dist/ (types and JS already there)
+      emptyOutDir: false,
       outDir: distDir,
       rollupOptions: {
         output: {
           assetFileNames: 'style.css',
+          entryFileNames: 'style-css-bundle.js',
         },
       },
     },
   });
+
+  // Vite emits CSS as style.css (assetFileNames); remove the unused JS bundle and its map
+  const { unlinkSync } = await import('fs');
+  for (const name of ['style-css-bundle.js', 'style-css-bundle.js.map']) {
+    const p = resolve(distDir, name);
+    if (existsSync(p)) unlinkSync(p);
+  }
 
   // Copy tokens.css separately
   const tokensPath = resolve(process.cwd(), 'src/styles/tokens.css');

@@ -6,6 +6,7 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [react()],
   build: {
+    emptyOutDir: false, // preserve dist/*.d.ts from build:types
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'Crealievs',

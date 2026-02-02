@@ -290,20 +290,20 @@ declare global {
   }
 
   interface SpeechRecognitionResultList {
-    length: number;
+    readonly length: number;
     item(index: number): SpeechRecognitionResult;
-    [index: number]: SpeechRecognitionResult;
+    readonly [index: number]: SpeechRecognitionResult;
   }
 
   interface SpeechRecognitionResult {
-    length: number;
+    readonly length: number;
     item(index: number): SpeechRecognitionAlternative;
-    [index: number]: SpeechRecognitionAlternative;
-    isFinal: boolean;
+    readonly [index: number]: SpeechRecognitionAlternative;
+    readonly isFinal: boolean;
   }
 
   interface SpeechRecognitionAlternative {
-    transcript: string;
-    confidence: number;
+    readonly transcript: string;
+    readonly confidence: number;
   }
 }

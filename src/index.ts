@@ -30,7 +30,7 @@ export type { IconButtonProps, IconButtonVariant, IconButtonSize, IconButtonStat
 export { RadioGroup, useRadioGroup } from './components/RadioButton';
 export type { RadioGroupProps, RadioGroupContextType, RadioGroupDirection } from './components/RadioButton';
 export { RadioOption, RadioButton } from './components/RadioButton';
-export type { RadioOptionProps as RadioButtonProps, RadioButtonState } from './components/RadioButton';
+export type { RadioButtonProps, RadioButtonState } from './components/RadioButton';
 
 export { SlideToggle } from './components/SlideToggle';
 export type { SlideToggleProps, SlideToggleState } from './components/SlideToggle';
