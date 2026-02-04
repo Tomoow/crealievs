@@ -42,6 +42,9 @@
   align-items: center;
   gap: var(--padding-small); /* 8px gap between icon, text, and buttons */
   width: 100%;
+  height: var(--input-height);
+  min-height: var(--input-height);
+  max-height: var(--input-height);
   background-color: var(--bg-neutral-default); /* #ffffff */
   border: var(--border-default) solid var(--border-default-default); /* 1px solid #c6c6cc */
   border-radius: var(--radius-input); /* 12px */

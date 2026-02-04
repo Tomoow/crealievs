@@ -8,7 +8,6 @@ const meta: Meta<typeof Tooltip> = {
   title: 'Components/Tooltip',
   component: Tooltip,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component: `

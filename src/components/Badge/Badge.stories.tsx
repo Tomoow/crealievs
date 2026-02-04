@@ -6,9 +6,7 @@ import '../../styles/tokens.css';
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
   component: Badge,
-  parameters: {
-    layout: 'centered',
-  },
+  parameters: {},
   argTypes: {
     children: {
       control: 'text',

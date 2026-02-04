@@ -14,7 +14,7 @@ Data table (MUI-style semantic `<table>`). Configurable columns with min-width t
 - **Header**: Optional header row (default on). Uses design tokens for typography and borders.
 - **Sticky columns**: When `stickyFirstColumn` is true and selection is on: checkbox column + first data column are sticky. When sticky and no selection: only the first data column is sticky. Last sticky column has a subtle shadow to indicate overflow.
 - **Selection**: Optional. Pass `selectedRowIds` and `onSelectionChange` to show checkboxes and selected row state.
-- **Row actions**: `renderRowActions(row)` for desktop (e.g. Button secondary + primary). `renderRowActionsMobile(row)` for mobile list (e.g. IconButton secondary + primary, default size).
+- **Row actions**: `renderRowActions(row)` for desktop (e.g. Button primary + secondary). `renderRowActionsMobile(row)` for mobile list (e.g. IconButton primary + secondary, default size). Primary button should always be the leftmost (first in the group).
 - **Mobile**: When `mobileViewSwitcher` is true, SegmentedButtons (List | Card) appears; Card view renders each row as a card with actions in the footer.
 
 ## When to use

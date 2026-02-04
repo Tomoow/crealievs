@@ -1,0 +1,45 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import HeaderStories from './Header.stories';
+import * as HeaderStoriesNamed from './Header.stories';
+
+<Meta of={HeaderStories} />
+
+# Header
+
+Single app header. Figma DS Header (350-13751).
+
+- **Layout**: Logo (left) | Nav with icon + label (center) | Account = tertiary IconButton (person) + optional title/subtitle (right).
+- **Mobile** (breakpoint): Same header; nav shows icon-only and is right-aligned (labels hidden via CSS).
+- **Colors**: Only the active nav item uses primary blue; others use default (neutral).
+- **Bottom**: Thin (1px) blue line; the active tab’s highlight indicator sits on top of it.
+- **Logo**: Pass an `<img>` (e.g. QUIZ logo) or custom ReactNode; use class `header__logo-img` on the img for contain, 90% size, no border.
+
+## Usage
+
+- **logo**: ReactNode (e.g. `<img src="..." alt="Quiz" className="header__logo-img" />` or icon + text).
+- **navItems**: `{ id, icon, label?, active?, onClick }`. **active** drives the highlight bar and primary color.
+- **account**: `{ onClick?, ariaLabel?, title?, subtitle? }`. Renders a tertiary **IconButton** (person icon) plus optional text.
+
+## Example
+
+<Canvas of={HeaderStoriesNamed.Default} />
+
+<Controls of={HeaderStoriesNamed.Default} />
+
+Resize the viewport to see the mobile layout (icon-only nav, right-aligned).
+
+## Design tokens
+
+| Element | Token |
+|--------|--------|
+| Background | `--bg-neutral-default` |
+| Bottom line (thin) | `--border-action-default` (1px) |
+| Active indicator | `--border-highlight-default` |
+| Inactive nav | `--text-neutral-default` |
+| Active nav / account text | `--text-primary-brand`, `--text-neutral-subtle` |
+
+## Accessibility
+
+- Nav uses `<nav aria-label="Main navigation">` and list semantics.
+- Active item has `aria-current="page"`.
+- Account is a tertiary IconButton with `aria-label` (default "Account").

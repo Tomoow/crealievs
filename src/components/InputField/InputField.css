@@ -95,26 +95,16 @@
   flex-shrink: 0;
 }
 
-/* Stepper layout - horizontal: [Minus] [Input] [Plus] */
-.input-field--stepper {
-  text-align: center;
-  padding: 0; /* Input padding handled by container */
-}
-
 /* Hide browser default spinner arrows for number inputs */
-.input-field--stepper::-webkit-outer-spin-button,
-.input-field--stepper::-webkit-inner-spin-button {
+.input-field[type='number']::-webkit-outer-spin-button,
+.input-field[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.input-field--stepper[type='number'] {
+.input-field[type='number'] {
   appearance: textfield;
   -moz-appearance: textfield;
-}
-
-.input-field__stepper-button {
-  flex-shrink: 0;
 }
 
 .input-field-container--error .input-field__left-icon {
@@ -125,10 +115,10 @@
   color: var(--icon-neutral-placeholder); /* #c6c6cc - light grey in read-only */
 }
 
-.input-field-container:not(.input-field-container--stepper) {
-  height: 3rem;
-  min-height: 3rem;
-  max-height: 3rem;
+.input-field-container {
+  height: var(--input-height);
+  min-height: var(--input-height);
+  max-height: var(--input-height);
 }
 
 /* Bottom: Helper text / Error message */

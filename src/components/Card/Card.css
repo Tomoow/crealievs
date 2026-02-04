@@ -1,4 +1,7 @@
-/* Card – Figma 419:17380. Icon+title/subtitle, 3-dot actions, subtext, footer. Semantic tokens only. */
+/* Card – Figma 419:17380 (default), 419-17403 / 878-1814 (editable).
+ * Default: icon/image + title/subtitle, 3-dot actions (small), subtext, footer (primary left).
+ * Editable: view (key-value rows + edit/delete), edit (upload image link + form + Save/Cancel).
+ */
 
 .card {
   display: flex;
@@ -15,10 +18,10 @@
   box-sizing: border-box;
 }
 
-/* Header: icon+title/subtitle left, 3-dot button right */
+/* Header: icon/image + title (or upload link) left, actions right; vertical center align */
 .card__header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--padding-small);
   min-height: 0;
@@ -26,14 +29,15 @@
 
 .card__head-main {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--padding-default);
   min-width: 0;
   flex: 1;
 }
 
-/* Icon in circle with primary subtle bg (Figma: light blue fill) */
+/* Icon/image circle: no solid background; placeholder = checkerboard when no image */
 .card__icon-wrap {
+  position: relative;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -41,13 +45,38 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-pill);
-  background-color: var(--bg-primary-subtle);
   color: var(--icon-primary-brand);
+  overflow: hidden;
 }
+
+.card__icon-wrap--placeholder {
+  background-color: var(--bg-neutral-default);
+  background-image:
+    linear-gradient(45deg, var(--border-default-subtle) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--border-default-subtle) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--border-default-subtle) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--border-default-subtle) 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+}
+
 
 .card__icon-wrap svg {
   color: var(--icon-primary-brand);
   stroke: var(--icon-primary-brand);
+}
+
+/* Uploaded image: contain, 90% size, centered */
+.card__icon-img {
+  position: absolute;
+  inset: auto;
+  width: 90%;
+  height: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  display: block;
 }
 
 .card__head-text {
@@ -57,7 +86,7 @@
 
 .card__title {
   margin: 0;
-  font-family: var(--font-family-body);
+  font-family: var(--font-family-heading);
   font-weight: var(--font-weight-highlight);
   font-size: var(--font-size-md);
   line-height: var(--line-height-default-md);
@@ -73,6 +102,9 @@
 
 .card__actions {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--padding-x-small);
 }
 
 .card__body {
@@ -87,10 +119,51 @@
   color: var(--text-neutral-default);
 }
 
+/* Footer: primary button left-aligned */
 .card__footer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: var(--padding-small);
   flex-wrap: wrap;
+}
+
+/* --- Editable variant: key-value list (view), grid so labels/values align in columns --- */
+.card__fields {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--padding-small) var(--padding-default);
+  align-items: baseline;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+}
+
+.card__field-row {
+  display: contents;
+}
+
+.card__field-label {
+  margin: 0;
+  font-weight: var(--font-weight-default);
+  color: var(--text-neutral-subtle);
+  text-align: left;
+}
+
+.card__field-value {
+  margin: 0;
+  font-weight: var(--font-weight-default);
+  color: var(--text-neutral-default);
+  text-align: left;
+  min-width: 0;
+}
+
+/* Editable: edit form */
+.card__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-default);
 }

@@ -7,7 +7,6 @@ const meta: Meta<TabProps> = {
   title: 'Components/Tab',
   component: Tab,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component:

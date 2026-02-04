@@ -84,22 +84,24 @@ export const RadioOption: React.FC<RadioOptionProps> = ({
       className={`radio-button-wrapper ${className}`.trim()}
       htmlFor={radioButtonId}
     >
-      <input
-        type="radio"
-        id={radioButtonId}
-        name={name}
-        value={value}
-        checked={checked}
-        disabled={isDisabled}
-        onChange={handleChange}
-        className="radio-button-input"
-        aria-label={ariaLabel || undefined}
-      />
-      <span
-        className={`radio-button ${checkedClass} ${stateClass}`.trim()}
-        aria-hidden="true"
-      >
-        {checked && <span className="radio-button__dot" />}
+      <span className="radio-button__control">
+        <input
+          type="radio"
+          id={radioButtonId}
+          name={name}
+          value={value}
+          checked={checked}
+          disabled={isDisabled}
+          onChange={handleChange}
+          className="radio-button-input"
+          aria-label={ariaLabel || undefined}
+        />
+        <span
+          className={`radio-button ${checkedClass} ${stateClass}`.trim()}
+          aria-hidden="true"
+        >
+          {checked && <span className="radio-button__dot" />}
+        </span>
       </span>
       {(label || (showDescription && description)) && (
         <span className="radio-button__content">

@@ -31,7 +31,7 @@ export type TableProps<T = Record<string, unknown>> = {
   selectedRowIds?: string[];
   /** Called when selection changes (only when selectedRowIds is used) */
   onSelectionChange?: (selectedIds: string[]) => void;
-  /** Render actions for each row (e.g. Delete, Edit). Shown in trailing column on desktop. */
+  /** Render actions for each row (e.g. Edit, Delete). Primary button should be leftmost (first). Shown in trailing column on desktop. */
   renderRowActions?: (row: TableRow<T>) => React.ReactNode;
   /** On mobile list view: small icon buttons shown above the row. If not set, renderRowActions is used. */
   renderRowActionsMobile?: (row: TableRow<T>) => React.ReactNode;

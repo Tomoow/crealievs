@@ -8,7 +8,6 @@ const meta: Meta<typeof Slider> = {
   title: 'Components/Slider',
   component: Slider,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component: `

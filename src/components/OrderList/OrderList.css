@@ -1,0 +1,183 @@
+/*
+ * OrderList, OrderListItem, OrderListSummary.
+ * Figma DS Order List (nodes 856-701, 847-5136, 847-4512, 856-743).
+ * Spacing: padding/default 12, padding/large 16, padding/x-small 4. Typography: size/md 16, weight/highlight.
+ */
+
+/* List container */
+.order-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Item row: image | content | Counter. Thin separator between items. */
+.order-list__item {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-default);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding-top: var(--padding-large);
+  padding-bottom: var(--padding-large);
+  border-bottom: var(--border-default) solid var(--border-default-subtle);
+}
+
+.order-list__item:last-child {
+  border-bottom: none;
+}
+
+.order-list__item-media {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-input);
+  overflow: hidden;
+  background-color: var(--bg-neutral-alt);
+}
+
+.order-list__item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.order-list__item-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-x-small);
+}
+
+.order-list__item-title {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-highlight);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+}
+
+.order-list__item-price-line {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-default);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+}
+
+.order-list__item-price {
+  color: var(--text-primary-brand);
+}
+
+.order-list__item-sep {
+  color: var(--text-neutral-subtle);
+}
+
+.order-list__item-points {
+  color: var(--text-neutral-subtle);
+}
+
+.order-list__item-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-small);
+  flex-wrap: wrap;
+}
+
+.order-list__item-actions {
+  flex-shrink: 0;
+}
+
+/* Counter inside item: fixed width so it doesn't grow */
+.order-list__item .counter {
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* Separator and spacing between last item and summary */
+.order-list + .order-list__summary {
+  margin-top: 0;
+  padding-top: var(--padding-large);
+  border-top: var(--border-default) solid var(--border-default-subtle);
+}
+
+/* Summary: left (label + badges/value) | right (item count). Same vertical padding as items. */
+.order-list__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--padding-default);
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: var(--padding-large);
+}
+
+.order-list__summary-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-small);
+  flex-wrap: wrap;
+}
+
+.order-list__summary-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-x-small);
+  min-width: 0;
+}
+
+.order-list__summary-label {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-highlight);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+}
+
+.order-list__summary-value {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-default);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+}
+
+/* Total amount line: small heading font, primary blue */
+.order-list__summary-price {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-highlight);
+  line-height: var(--line-height-default-sm);
+  color: var(--text-primary-brand);
+}
+
+.order-list__summary-sep {
+  color: var(--text-neutral-subtle);
+}
+
+.order-list__summary-points {
+  color: var(--text-neutral-subtle);
+}
+
+/* Item count on the right: primary blue, heading font, default size */
+.order-list__summary-count {
+  margin: 0;
+  flex-shrink: 0;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-highlight);
+  line-height: var(--line-height-default-md);
+  color: var(--text-primary-brand);
+}

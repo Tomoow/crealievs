@@ -1,8 +1,9 @@
 /**
  * Segmented Buttons: single-select group built from segment instances (icon + label).
  * Uses a sliding pill indicator so the white background animates from one segment to the next.
+ * ResizeObserver keeps the indicator aligned when the viewport or layout changes.
  */
-import React, { useRef, useLayoutEffect, useState } from 'react';
+import React, { useRef, useLayoutEffect, useState, useCallback } from 'react';
 import type { SegmentedButtonsProps, SegmentOption } from './SegmentedButtons.types';
 import './SegmentedButtons.css';
 
@@ -24,7 +25,7 @@ export const SegmentedButtons: React.FC<SegmentedButtonsProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [indicator, setIndicator] = useState<IndicatorStyle>(null);
 
-  useLayoutEffect(() => {
+  const updateIndicator = useCallback(() => {
     if (value === null) {
       setIndicator(null);
       return;
@@ -43,7 +44,19 @@ export const SegmentedButtons: React.FC<SegmentedButtonsProps> = ({
       width: sRect.width,
       height: sRect.height,
     });
-  }, [value, options]);
+  }, [value]);
+
+  useLayoutEffect(() => {
+    updateIndicator();
+  }, [updateIndicator, options]);
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const ro = new ResizeObserver(() => updateIndicator());
+    ro.observe(container);
+    return () => ro.disconnect();
+  }, [updateIndicator]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>, currentIndex: number) => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;

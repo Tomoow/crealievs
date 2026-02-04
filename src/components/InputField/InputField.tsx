@@ -1,5 +1,5 @@
 import React from 'react';
-import { LucideIcon, X, Eye, EyeOff, Plus, Minus } from 'lucide-react';
+import { LucideIcon, X, Eye, EyeOff } from 'lucide-react';
 import { IconButton } from '../IconButton';
 import './InputField.css';
 
@@ -30,7 +30,7 @@ export type InputFieldProps = InputFieldLabelProps & {
   placeholder?: string;
   value: string;
   helperText?: string;
-  /** Left icon (ignored when type='number' for stepper mode) */
+  /** Left icon displayed inside the input */
   leftIcon?: LucideIcon;
   errorMessage?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -108,7 +108,6 @@ export const InputField: React.FC<InputFieldProps> = ({
   const autoId = React.useId();
   const inputId = id ?? `input-field-${autoId}`;
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
-  const liveRegionId = `${inputId}-live`;
 
   const hasError = Boolean(errorMessage);
   const helperOrErrorId = errorMessage || helperText ? `${inputId}-description` : undefined;
@@ -116,38 +115,10 @@ export const InputField: React.FC<InputFieldProps> = ({
 
   const isPasswordType = type === 'password';
   const isNumberType = type === 'number';
-  const shouldShowStepper = isNumberType && !readOnly;
   const effectiveType = isPasswordType && isPasswordVisible ? 'text' : type;
   const hasValue = value.length > 0;
-  const isClearVisible = !isPasswordType && !shouldShowStepper && hasValue && !readOnly;
+  const isClearVisible = !isPasswordType && hasValue && !readOnly;
   const isPasswordToggleVisible = isPasswordType && hasValue && !readOnly;
-
-  // Stepper logic
-  const currentNumericValue = isNumberType && value.trim() ? Number(value) : null;
-  const numericValue = Number.isNaN(currentNumericValue) ? null : currentNumericValue;
-  const effectiveValue = numericValue ?? min ?? 0;
-
-  const canDecrement = typeof min !== 'number' || effectiveValue > min;
-  const canIncrement = typeof max !== 'number' || effectiveValue < max;
-
-  const minusButtonLabel = canDecrement ? 'Decrease value' : "Can't go lower";
-  const plusButtonLabel = canIncrement ? 'Increase value' : "Can't go higher";
-
-  const handleStep = (direction: 1 | -1) => {
-    const base = numericValue ?? min ?? 0;
-    let next = base + direction * step;
-    if (typeof min === 'number') next = Math.max(min, next);
-    if (typeof max === 'number') next = Math.min(max, next);
-    onChange(createChangeEvent(String(next)));
-    // Announce new value to screen readers after a brief delay to ensure DOM update
-    setTimeout(() => {
-      const liveRegion = document.getElementById(liveRegionId);
-      if (liveRegion) {
-        liveRegion.textContent = String(next);
-      }
-    }, 0);
-    // Don't move focus - keep it on the button so user can continue pressing
-  };
 
   const handleClear = () => {
     onClear ? onClear() : onChange(createChangeEvent(''));
@@ -225,77 +196,36 @@ export const InputField: React.FC<InputFieldProps> = ({
       <div
         className={`input-field-container${hasError ? ' input-field-container--error' : ''}${
           readOnly ? ' input-field-container--readonly' : ''
-        }${shouldShowStepper ? ' input-field-container--stepper' : ''}`}
+        }`}
       >
-        {shouldShowStepper ? (
-          <>
-            <IconButton
-              {...iconButtonProps}
-              icon={Minus}
-              onClick={() => handleStep(-1)}
-              aria-label={minusButtonLabel}
-              className="input-field__stepper-button"
-              state={canDecrement ? 'default' : 'disabled'}
-            />
-            <input
-              {...commonInputProps}
-              type="number"
-              min={typeof min === 'number' ? min : undefined}
-              max={typeof max === 'number' ? max : undefined}
-              step={step}
-              onChange={handleNumericChange}
-              onKeyDown={handleNumericKeyDown}
-              className="input-field input-field--stepper"
-            />
-            <IconButton
-              {...iconButtonProps}
-              icon={Plus}
-              onClick={() => handleStep(1)}
-              aria-label={plusButtonLabel}
-              className="input-field__stepper-button"
-              state={canIncrement ? 'default' : 'disabled'}
-            />
-            <div
-              id={liveRegionId}
-              role="status"
-              aria-live="polite"
-              aria-atomic="true"
-              className="sr-only"
-            >
-              {numericValue !== null ? String(numericValue) : ''}
-            </div>
-          </>
-        ) : (
-          <>
-            {LeftIcon && <LeftIcon className="input-field__left-icon" aria-hidden="true" />}
-            <input
-              {...commonInputProps}
-              type={effectiveType}
-              min={isNumberType && typeof min === 'number' ? min : undefined}
-              max={isNumberType && typeof max === 'number' ? max : undefined}
-              step={isNumberType ? step : undefined}
-              onChange={onChange}
-              className="input-field"
-            />
-            {isClearVisible && (
-              <IconButton
-                {...iconButtonProps}
-                icon={X}
-                onClick={handleClear}
-                aria-label={clearButtonAriaLabel}
-                className="input-field__clear-button"
-              />
-            )}
-            {isPasswordToggleVisible && (
-              <IconButton
-                {...iconButtonProps}
-                icon={isPasswordVisible ? EyeOff : Eye}
-                onClick={handleTogglePasswordVisibility}
-                aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
-                className="input-field__clear-button"
-              />
-            )}
-          </>
+        {LeftIcon && <LeftIcon className="input-field__left-icon" aria-hidden="true" />}
+        <input
+          {...commonInputProps}
+          type={effectiveType}
+          min={isNumberType && typeof min === 'number' ? min : undefined}
+          max={isNumberType && typeof max === 'number' ? max : undefined}
+          step={isNumberType ? step : undefined}
+          onChange={isNumberType ? handleNumericChange : onChange}
+          onKeyDown={isNumberType ? handleNumericKeyDown : undefined}
+          className="input-field"
+        />
+        {isClearVisible && (
+          <IconButton
+            {...iconButtonProps}
+            icon={X}
+            onClick={handleClear}
+            aria-label={clearButtonAriaLabel}
+            className="input-field__clear-button"
+          />
+        )}
+        {isPasswordToggleVisible && (
+          <IconButton
+            {...iconButtonProps}
+            icon={isPasswordVisible ? EyeOff : Eye}
+            onClick={handleTogglePasswordVisibility}
+            aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
+            className="input-field__clear-button"
+          />
         )}
       </div>
 

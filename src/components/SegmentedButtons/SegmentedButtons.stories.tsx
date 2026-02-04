@@ -8,7 +8,6 @@ const meta: Meta<SegmentedButtonsProps> = {
   title: 'Components/SegmentedButtons',
   component: SegmentedButtons,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component:

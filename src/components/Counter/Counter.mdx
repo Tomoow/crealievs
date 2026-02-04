@@ -1,0 +1,59 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import CounterStories from './Counter.stories';
+import * as CounterStoriesNamed from './Counter.stories';
+
+<Meta of={CounterStories} />
+
+# Counter
+
+The Counter is a numeric stepper: decrement button, editable number field, and increment button in a single pill-shaped row. It matches the Figma DS Counter component.
+
+## Overview
+
+- **Layout**: Horizontal with `--padding-small` gap between parts; input uses `--radius-input`.
+- **Decrement**: IconButton (minus), **tertiary** variant; disabled when value ≤ min; 34×34px, `--radius-input`.
+- **Center**: Number input, height 34px, min-width 50px, `--radius-input`; border default, **hover** (`--border-action-hover`), focus; editable.
+- **Increment**: IconButton (plus), **primary** variant; disabled when value ≥ max; 34×34px, `--radius-input`.
+
+## When to use
+
+- Quantity selectors (e.g. cart, order lines).
+- Any bounded numeric input where step up/down is the primary interaction.
+
+## States
+
+Explore via **Controls**: `value`, `min`, `max`, `step`, `disabled`. Decrement is disabled at min; increment at max.
+
+## Example
+
+<Canvas of={CounterStoriesNamed.Default} />
+
+## Accessibility
+
+- Group has `role="group"` and optional `aria-label`.
+- Input has `aria-valuenow`, `aria-valuemin`, `aria-valuemax`.
+- Decrement/increment buttons have descriptive `aria-label` (e.g. "Decrease value", "Can't go lower").
+- Live region announces value changes for screen readers.
+
+## Design tokens
+
+- **Gap**: `--padding-small` between decrement, input, and increment.
+- **Input**: height 34px, min-width 50px; `--radius-input`; `--border-default`, `--border-default-default`; hover `--border-action-hover`; focus `--border-action-active`.
+- **Buttons**: 34×34px, `--radius-input`; decrement tertiary, increment primary.
+- **Typography**: `--font-family-body`, `--font-size-md`, `--line-height-default-md`, `--text-neutral-default`.
+- **Decrement**: IconButton tertiary.
+- **Increment**: IconButton primary; `--bg-primary-default`, `--icon-neutral-inverse`.
+
+## Fidelity checklist (Figma DS — Components, Counter, node 120-1933)
+
+| Property | Source | Implementation |
+|----------|--------|----------------|
+| Spacing / gap | small | `--padding-small` between decrement, input field, and increment |
+| Input height / min-width | 34px / 50px | `height: 34px`, `min-width: 50px` on `.counter__field-wrap` |
+| Font sizes / line-heights | size/md, line-height/default/md | `--font-size-md`, `--line-height-default-md` |
+| Colors | Variables | `--text-neutral-default`, `--bg-neutral-default`, `--border-default-default`; hover `--border-action-hover`; focus `--border-action-active`; decrement tertiary, increment primary |
+| Radii | input token | `--radius-input` on input field and both buttons |
+| Borders | default 1px; hover | `--border-default` solid `--border-default-default`; hover `--border-action-hover`; focus inset for 2px |
+| Alignment | Center number | `text-align: center` on input; flex center on field wrap |
+| Disabled | disabled 35% opacity | IconButton state="disabled" uses `--opacity-disabled` |
+| Buttons | tertiary left, primary right | Left IconButton `variant="tertiary"`, right `variant="primary"`; both 34×34px |

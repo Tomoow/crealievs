@@ -250,6 +250,8 @@
   --screen-max-width: 1200px;
   --screen-margin-mobile: 16px;
   --grid-gutter-mobile: 16px;
+  /** Fixed height for single-line form controls (InputField, SearchField, DropdownField, DatePicker). 44px. */
+  --input-height: 2.75rem;
   /** Max width for form fields (inputs, date picker, dropdown). Fluid on small screens, capped on large. */
   --field-max-width: 24rem;
   /** Viewport breakpoint: below this width, form fields take full width to stay inside viewport. */

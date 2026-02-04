@@ -1,0 +1,64 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import OrderListStories from './OrderList.stories';
+import * as OrderListStoriesNamed from './OrderList.stories';
+
+<Meta of={OrderListStories} />
+
+# OrderList
+
+Order list with **OrderListItem** (image, title, price • points, Counter) and **OrderListSummary** (label, total • points, item count). Figma DS nodes 856-701, 847-5136, 847-4512, 856-743.
+
+## Overview
+
+- **OrderList**: Container `<ul>` with `role="list"`; children are list items.
+- **OrderListItem**: Row with product image (40×40), title (semi-bold), price (brand) • points (subtle), and **Counter** on the right.
+- **OrderListSummary**: Two lines on the left (label + total • points), item count on the right; flex `space-between`, aligned to bottom.
+
+## When to use
+
+- Cart or order review: list of items with quantity and a total summary.
+- Any list where each row has image, text, and a quantity control.
+
+## Example
+
+<Canvas of={OrderListStoriesNamed.Default} />
+
+Use the **Controls** panel to change item count, summary visibility, and summary text. Counter is interactive in the story.
+
+## Accessibility
+
+- **OrderList**: `role="list"` for list semantics.
+- **OrderListItem**: Each row is a list item; Counter has `aria-label` including product name.
+- **OrderListSummary**: Wrapper has `role="group"` and `aria-label={label}`.
+
+## Design tokens (from Figma variable_defs, node 856-701)
+
+| Figma variable | Token / value |
+|----------------|----------------|
+| text/neutral/default | `--text-neutral-default` |
+| text/primary/brand | `--text-primary-brand` |
+| text/neutral/placeholder (subtle) | `--text-neutral-subtle` |
+| size/md, line-height/default/md | `--font-size-md`, `--line-height-default-md` |
+| weight/highlight | `--font-weight-highlight` |
+| weight/default | `--font-weight-default` |
+| padding/default | `--padding-default` (12px) |
+| padding/large | `--padding-large` (16px) |
+| padding/x-small | `--padding-x-small` (4px) |
+| bg/neutral/default | `--bg-neutral-default` |
+
+## Fidelity checklist (Figma DS — Order List)
+
+| Property | Figma source | Implementation |
+|----------|--------------|----------------|
+| Item row | Flex, image \| content \| Counter | `.order-list__item`: flex, gap `--padding-default` |
+| Image size | (from frame) | 40×40px, `--radius-input`, object-fit cover |
+| Title | Body/Bold, size 16, weight 600 | `--font-size-md`, `--font-weight-highlight`, `--text-neutral-default` |
+| Price | brand color | `--text-primary-brand` |
+| Points / separator | subtle | `--text-neutral-subtle` |
+| Gap title–price line | padding/x-small 4 | `--padding-x-small` |
+| Counter | DS Counter | Reuse `Counter` component |
+| Summary layout | space-between, align end | Flex justify-content space-between, align-items flex-end |
+| Summary label | semi-bold | `--font-weight-highlight` |
+| Summary value | price brand, points subtle | Same as item row |
+| Gap label–value | padding/x-small 4 | `--padding-x-small` |
+| List gap between items | padding/large 16 | `--padding-large` |

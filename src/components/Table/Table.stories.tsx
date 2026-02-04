@@ -52,21 +52,22 @@ export default meta;
 
 type Story = StoryObj<TableProps<SampleRow> & { multiselect?: boolean }>;
 
+/* Primary button left (design system: primary is always leftmost). */
 const rowActionsDesktop = () => (
   <>
-    <Button variant="secondary" size="small" onClick={() => {}}>
-      Delete
-    </Button>
     <Button variant="primary" size="small" onClick={() => {}}>
       Edit
+    </Button>
+    <Button variant="secondary" size="small" onClick={() => {}}>
+      Delete
     </Button>
   </>
 );
 
 const rowActionsMobile = () => (
   <>
-    <IconButton icon={Trash2} variant="secondary" size="small" aria-label="Delete" onClick={() => {}} />
     <IconButton icon={Pencil} variant="primary" size="small" aria-label="Edit" onClick={() => {}} />
+    <IconButton icon={Trash2} variant="secondary" size="small" aria-label="Delete" onClick={() => {}} />
   </>
 );
 

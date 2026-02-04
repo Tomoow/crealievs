@@ -16,7 +16,7 @@ export { Button } from './components/Button';
 export type { ButtonProps, ButtonVariant, ButtonSize, ButtonState } from './components/Button';
 
 export { Card } from './components/Card';
-export type { CardProps } from './components/Card';
+export type { CardProps, CardVariant, CardViewField, CardEditField } from './components/Card';
 
 export { Checkbox } from './components/Checkbox';
 export type { CheckboxProps, CheckboxState } from './components/Checkbox';
@@ -72,6 +72,39 @@ export type { TabProps, TabOption, TabVariant } from './components/Tab';
 
 export { Table } from './components/Table';
 export type { TableProps, TableColumn, TableRow } from './components/Table';
+
+export { Modal } from './components/Modal';
+export type { ModalProps } from './components/Modal';
+
+export { Counter } from './components/Counter';
+export type { CounterProps } from './components/Counter';
+
+export { InlineAlert } from './components/InlineAlert';
+export type { InlineAlertProps, InlineAlertVariant, InlineAlertSize } from './components/InlineAlert';
+
+export { OrderList, OrderListItem, OrderListSummary } from './components/OrderList';
+export type {
+  OrderListProps,
+  OrderListItemProps,
+  OrderListSummaryProps,
+} from './components/OrderList';
+
+export { OrderCard } from './components/OrderCard';
+export type {
+  OrderCardProps,
+  OrderCardState,
+  OrderCardItem,
+} from './components/OrderCard';
+
+export { Header } from './components/Header';
+export type {
+  HeaderProps,
+  HeaderNavItem,
+  HeaderAccount,
+} from './components/Header';
+
+export { Toast } from './components/Toast';
+export type { ToastProps, ToastVariant } from './components/Toast';
 
 // Note: Design tokens (tokens.css) are distributed separately
 // Import with: import '@crealievs/design-system/styles/tokens.css'

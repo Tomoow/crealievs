@@ -29,7 +29,13 @@
 @import '../components/SegmentedButtons/SegmentedButtons.css';
 @import '../components/Tab/Tab.css';
 @import '../components/Table/Table.css';
-
+@import '../components/Modal/Modal.css';
+@import '../components/Counter/Counter.css';
+@import '../components/InlineAlert/InlineAlert.css';
+@import '../components/OrderList/OrderList.css';
+@import '../components/OrderCard/OrderCard.css';
+@import '../components/Header/Header.css';
+@import '../components/Toast/Toast.css';
 /* 
  * Note: When adding new components, add their CSS import here:
  * @import '../components/NewComponent/NewComponent.css';

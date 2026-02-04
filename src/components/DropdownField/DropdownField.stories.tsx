@@ -21,9 +21,7 @@ const _optionsWithIcons: DropdownFieldOption[] = [
 const meta: Meta<typeof DropdownField> = {
   title: 'Components/DropdownField',
   component: DropdownField,
-  parameters: {
-    layout: 'centered',
-  },
+  parameters: {},
   argTypes: {
     label: {
       control: 'text',

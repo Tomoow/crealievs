@@ -422,20 +422,18 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         />
 
         <span className="date-picker__actions">
-          <span
-            className={`date-picker__actions-clear${value && !readOnly && !disabled ? '' : ' date-picker__actions-clear--reserved'}`}
-            aria-hidden={!(value && !readOnly && !disabled)}
-          >
+          {value && !readOnly && !disabled && (
             <IconButton
               {...iconButtonProps}
               icon={X}
               onClick={handleClear}
               aria-label="Clear date"
               className="date-picker__clear-button"
-              tabIndex={value && !readOnly && !disabled ? undefined : -1}
             />
+          )}
+          {value && !readOnly && !disabled && (
             <span className="date-picker__separator" aria-hidden="true" />
-          </span>
+          )}
           <IconButton
             {...iconButtonProps}
             icon={Calendar}

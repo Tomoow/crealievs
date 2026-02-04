@@ -2,10 +2,15 @@ export type ModalSize = 'small' | 'medium' | 'large';
 
 export type ModalFooterAlignment = 'left' | 'right';
 
+/** Modal variant: default (neutral) or destructive (primary action styled as destructive). */
+export type ModalVariant = 'default' | 'destructive';
+
 export type ModalAction = {
   label: string;
   onClick: () => void;
   variant?: 'primary' | 'secondary' | 'tertiary';
+  /** Whether the button represents a destructive action (e.g. Delete) */
+  destructive?: boolean;
 };
 
 import type { ReactNode } from 'react';
@@ -21,10 +26,12 @@ export type ModalProps = {
   children: ReactNode;
   /** Optional primary action (e.g. Confirm) */
   primaryAction?: ModalAction;
-  /** Optional secondary action (e.g. Close) */
+  /** Optional secondary action (e.g. Sluiten/Cancel); rendered as tertiary button by default */
   secondaryAction?: ModalAction;
   /** Size affects max width of the dialog */
   size?: ModalSize;
+  /** Variant: default (neutral) or destructive (primary action shown as destructive, e.g. Delete). */
+  variant?: ModalVariant;
   /** Alignment of footer buttons */
   footerAlignment?: ModalFooterAlignment;
   /** Whether to show the close (X) button in the header */

@@ -1,0 +1,102 @@
+/* Toast – Figma DS 278:12664. Fixed bottom-right, semantic tokens, progress bar (countdown). */
+
+.toast {
+  position: fixed;
+  bottom: var(--padding-large);
+  right: var(--padding-large);
+  z-index: 1000;
+  min-width: 280px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-soft);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.toast__content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--padding-default);
+  padding: var(--padding-large);
+  border: var(--border-default) solid transparent;
+  border-radius: var(--radius-soft) var(--radius-soft) 0 0;
+  overflow: hidden;
+  background: var(--bg-neutral-elevated);
+}
+
+.toast--error .toast__content {
+  border-color: var(--border-error-default);
+  background: var(--bg-error-subtle);
+}
+
+.toast--success .toast__content {
+  border-color: var(--border-success-default);
+  background: var(--bg-success-subtle);
+}
+
+.toast--warning .toast__content {
+  border-color: var(--border-warning-default);
+  background: var(--bg-warning-subtle);
+}
+
+.toast--info .toast__content {
+  border-color: var(--border-info-default);
+  background: var(--bg-info-subtle);
+}
+
+.toast__icon-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-error-default);
+}
+
+.toast--success .toast__icon-wrap {
+  color: var(--icon-success-default);
+}
+
+.toast--warning .toast__icon-wrap {
+  color: var(--icon-warning-default);
+}
+
+.toast--info .toast__icon-wrap {
+  color: var(--icon-info-default);
+}
+
+.toast__message {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-default-sm);
+  color: var(--text-neutral-default);
+}
+
+/* Progress bar (below content); fills as countdown. */
+.toast__progress {
+  height: 3px;
+  margin-top: 0;
+  background: currentColor;
+  border-radius: 0 0 var(--radius-soft) var(--radius-soft);
+  transition: width 0.05s linear;
+  flex-shrink: 0;
+}
+
+.toast--error .toast__progress {
+  color: var(--border-error-default);
+}
+
+.toast--success .toast__progress {
+  color: var(--border-success-default);
+}
+
+.toast--warning .toast__progress {
+  color: var(--border-warning-default);
+}
+
+.toast--info .toast__progress {
+  color: var(--border-info-default);
+}

@@ -1,0 +1,222 @@
+/*
+ * Header. Figma DS Header (350-13751).
+ * Above 1200px: full nav (icon + label), 120px padding. 769–1200px: icon-only, 120px padding. ≤768px: icon-only, 16px padding.
+ */
+
+.header {
+  width: 100%;
+  background-color: var(--bg-neutral-default);
+  box-sizing: border-box;
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--padding-large);
+  max-width: var(--screen-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--padding-default) var(--screen-margin-desktop) var(--padding-large);
+  min-height: 0;
+  position: relative;
+}
+
+/* Logo (left): left-aligned, container hugs content */
+.header__logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--padding-small);
+  width: auto;
+  max-width: 120px;
+  min-width: 40px;
+  height: 40px;
+  color: var(--icon-primary-brand);
+}
+
+.header__logo svg {
+  flex-shrink: 0;
+  color: var(--icon-primary-brand);
+  stroke: var(--icon-primary-brand);
+}
+
+/* Logo as image: contain, left-aligned in container, no border */
+.header__logo img,
+.header__logo-img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  height: 90%;
+  object-fit: contain;
+  object-position: left center;
+  border: none;
+}
+
+.header__logo-text {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-highlight);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-default-lg);
+  color: var(--text-primary-brand);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Nav (center) */
+.header__nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--grid-gutter-desktop);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header__nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.header__nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-small);
+  padding: var(--padding-small) 0;
+  margin: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-highlight);
+  line-height: var(--line-height-default-md);
+  color: var(--text-neutral-default);
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 0;
+  transition: color 0.2s ease;
+}
+
+.header__nav-link:hover {
+  color: var(--text-primary-hover);
+}
+
+.header__nav-link--active {
+  color: var(--text-primary-brand);
+}
+
+.header__nav-link--active:hover {
+  color: var(--text-primary-hover);
+}
+
+.header__nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+}
+
+.header__nav-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+.header__nav-label {
+  white-space: nowrap;
+}
+
+/* Compact: at 1200px and below – icon-only nav, hide account text (padding stays 120px until 768px) */
+@media (max-width: 1200px) {
+  .header__nav {
+    justify-content: flex-end;
+  }
+
+  .header__nav-link {
+    padding: var(--padding-small) var(--padding-x-small);
+  }
+
+  .header__nav-label {
+    display: none;
+  }
+
+  .header__account-text {
+    display: none !important;
+  }
+}
+
+/* Mobile: at 768px and below – 16px horizontal padding */
+@media (max-width: 768px) {
+  .header__inner {
+    padding-left: var(--screen-margin-mobile);
+    padding-right: var(--screen-margin-mobile);
+  }
+}
+
+/* Sliding indicator: same width as active nav item, flush on top of bottom border */
+.header__indicator {
+  position: absolute;
+  bottom: calc(-1 * var(--border-thick));
+  height: var(--border-thick);
+  background-color: var(--border-highlight-default);
+  pointer-events: none;
+  transition: left 0.25s ease, width 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header__indicator {
+    transition: none;
+  }
+}
+
+/* Bottom border: 3px (thick token) */
+.header__bottom-line {
+  height: var(--border-thick);
+  background-color: var(--border-action-default);
+  margin: 0;
+}
+
+/* Account (right): tertiary IconButton + text */
+.header__account {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--padding-default);
+  min-width: 0;
+}
+
+.header__account-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  min-width: 0;
+}
+
+.header__account-title {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-highlight);
+  line-height: var(--line-height-default-md);
+  color: var(--text-primary-brand);
+}
+
+.header__account-subtitle {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-default);
+  line-height: var(--line-height-default-sm);
+  color: var(--text-neutral-subtle);
+}

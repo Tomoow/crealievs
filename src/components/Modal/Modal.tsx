@@ -6,7 +6,7 @@ import React from 'react';
 import { X } from 'lucide-react';
 import { IconButton } from '../IconButton';
 import { Button } from '../Button';
-import type { ModalProps, ModalSize, ModalFooterAlignment } from './Modal.types';
+import type { ModalProps, ModalSize, ModalFooterAlignment, ModalVariant } from './Modal.types';
 import { useIsMobile, useModalOpenEffects, useModalPresence } from './Modal.hooks';
 import { useModalKeyboard } from './Modal.keyboard';
 import './Modal.css';
@@ -21,6 +21,7 @@ export const Modal: React.FC<ModalProps> = ({
   primaryAction,
   secondaryAction,
   size = 'medium',
+  variant = 'default',
   footerAlignment = 'right',
   showCloseButton = true,
   className = '',
@@ -42,6 +43,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   const hasFooter = primaryAction || secondaryAction;
   const primaryFirst = footerAlignment === 'right';
+  const primaryDestructive = variant === 'destructive' ? primaryAction?.destructive ?? true : primaryAction?.destructive;
   const visibleClass = isMobile && visible ? ' modal__dialog--visible' : '';
 
   return (
@@ -58,7 +60,7 @@ export const Modal: React.FC<ModalProps> = ({
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={ariaDescribedBy}
-        className={`modal__dialog modal__dialog--${size}${visibleClass} ${className}`.trim()}
+        className={`modal__dialog modal__dialog--${size}${variant === 'destructive' ? ' modal__dialog--destructive' : ''}${visibleClass} ${className}`.trim()}
         tabIndex={-1}
         onKeyDown={handleKeyDown}
       >
@@ -84,6 +86,7 @@ export const Modal: React.FC<ModalProps> = ({
             {primaryFirst && primaryAction && (
               <Button
                 variant={primaryAction.variant ?? 'primary'}
+                destructive={primaryDestructive}
                 onClick={primaryAction.onClick}
               >
                 {primaryAction.label}
@@ -91,7 +94,8 @@ export const Modal: React.FC<ModalProps> = ({
             )}
             {secondaryAction && (
               <Button
-                variant={secondaryAction.variant ?? 'secondary'}
+                variant={secondaryAction.variant ?? 'tertiary'}
+                destructive={secondaryAction.destructive}
                 onClick={secondaryAction.onClick}
               >
                 {secondaryAction.label}
@@ -100,6 +104,7 @@ export const Modal: React.FC<ModalProps> = ({
             {!primaryFirst && primaryAction && (
               <Button
                 variant={primaryAction.variant ?? 'primary'}
+                destructive={primaryDestructive}
                 onClick={primaryAction.onClick}
               >
                 {primaryAction.label}

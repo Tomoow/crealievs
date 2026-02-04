@@ -25,9 +25,14 @@ On viewports under **768px** width, the modal opens as a **bottom sheet** that s
 - Confirmations, forms, or content that must be completed or dismissed before returning to the page.
 - When you need focus trapped inside the dialog and Escape/backdrop to close.
 
+## Variants
+
+- **Default**: Neutral primary action (e.g. Bevestigen). Use for confirmations and forms.
+- **Destructive**: Primary action is styled as destructive (e.g. Verwijderen). Use for delete/irreversible actions. Set `variant="destructive"` or pass `primaryAction.destructive={true}`.
+
 ## States
 
-Explore all states via the **Controls** panel: `title`, `size`, `footerAlignment`, `showCloseButton`, `primaryActionLabel`, `secondaryActionLabel`. Open the modal with the trigger button; close via backdrop, Escape, or close button.
+Explore all states via the **Controls** panel: `title`, `size`, `variant`, `footerAlignment`, `showCloseButton`, `primaryActionLabel`, `secondaryActionLabel`. Open the modal with the trigger button; close via backdrop, Escape, or close button.
 
 ## Example
 
@@ -48,3 +53,17 @@ Explore all states via the **Controls** panel: `title`, `size`, `footerAlignment
 - **Dialog**: `--bg-neutral-default`, `--radius-overlay`, `--padding-x-large`, `--padding-large`, max height `60vh`.
 - **Title (Heading/small)**: `--font-family-heading`, `--font-size-lg`, `--font-weight-highlight`, `--line-height-default-lg`, `--text-neutral-default`.
 - **Body**: `--font-family-body`, `--font-size-md`, `--line-height-body-md`, `--text-neutral-default`.
+- **Destructive primary action**: uses Button destructive tokens (`--bg-error-default`, `--text-neutral-inverse`, etc.).
+
+## Fidelity checklist (Figma DS — Components, Modal)
+
+| Property | Source | Implementation |
+|----------|--------|----------------|
+| Spacing / padding / gap | Auto layout | `--padding-x-large`, `--padding-large` on dialog; header/body/footer gap and footer button gap via tokens |
+| Font sizes / line-heights | Typography styles | Title: `--font-size-lg`, `--font-weight-highlight`, `--line-height-default-lg`; body: `--font-size-md`, `--line-height-body-md` |
+| Colors | Variables / semantic tokens | `--text-neutral-default`, `--bg-neutral-default`; destructive primary: Button destructive (error tokens) |
+| Radii | Component / overlay | `--radius-overlay` on dialog; mobile: top corners only |
+| Shadows | Container | `box-shadow: 0 8px 32px rgba(0,0,0,0.2)` on dialog |
+| Alignment | Auto layout | Header: space-between; footer: left/right per `footerAlignment`; buttons right-aligned by default |
+| Mobile | Bottom sheet | &lt;768px: slide-up from bottom, `translateY(100%)` → `0`, `60vh` max height, top corners rounded only |
+| Destructive variant | Component variant | `variant="destructive"` → primary action uses destructive Button styling (red) |

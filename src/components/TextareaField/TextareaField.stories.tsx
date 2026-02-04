@@ -8,7 +8,6 @@ const meta: Meta<typeof TextareaField> = {
   title: 'Components/TextareaField',
   component: TextareaField,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component: `

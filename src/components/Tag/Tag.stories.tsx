@@ -7,9 +7,7 @@ import '../../styles/tokens.css';
 const meta: Meta<typeof Tag> = {
   title: 'Components/Tag',
   component: Tag,
-  parameters: {
-    layout: 'centered',
-  },
+  parameters: {},
   argTypes: {
     children: {
       control: 'text',

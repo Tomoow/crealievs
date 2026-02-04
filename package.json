@@ -1,6 +1,6 @@
 {
   "name": "@tomlievens/design-system",
-  "version": "1.0.2",
+  "version": "1.0.6",
   "description": "🎨 Crealievs Design System - React components built from Figma",
   "type": "module",
   "main": "./dist/crealievs.cjs",

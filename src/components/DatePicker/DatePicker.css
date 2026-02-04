@@ -54,6 +54,9 @@
   align-items: center;
   gap: var(--padding-small);
   width: 100%;
+  height: var(--input-height);
+  min-height: var(--input-height);
+  max-height: var(--input-height);
   background-color: var(--bg-neutral-default);
   border: var(--border-default) solid var(--border-default-default);
   border-radius: var(--radius-input);
@@ -122,21 +125,8 @@
 .date-picker__actions {
   display: flex;
   align-items: center;
-  gap: var(--padding-small);
+  gap: var(--padding-x-small);
   flex-shrink: 0;
-}
-
-/* Reserve space for clear + separator so container doesn’t jump when value is set. */
-.date-picker__actions-clear {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--padding-small);
-  flex-shrink: 0;
-}
-
-.date-picker__actions-clear--reserved {
-  visibility: hidden;
-  pointer-events: none;
 }
 
 .date-picker__clear-button,

@@ -8,7 +8,6 @@ const meta: Meta<typeof InputField> = {
   title: 'Components/InputField',
   component: InputField,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component: `
@@ -152,41 +151,6 @@ export const Default: Story = {
     placeholder: 'Placeholder text',
     value: '',
     helperText: 'Hint text',
-  },
-  render: renderControlled,
-};
-
-export const Stepper: Story = {
-  args: {
-    type: 'number',
-    label: 'Quantity',
-    required: false,
-    placeholder: 'Enter amount',
-    value: '0',
-    helperText: 'Use the stepper to adjust the value.',
-    min: 0,
-    max: 10,
-    step: 1,
-  },
-  argTypes: {
-    type: {
-      control: false, // Hide type control - stepper always uses 'number'
-      table: {
-        type: { summary: "'number'" },
-      },
-    },
-    leftIcon: {
-      control: false, // Hide leftIcon control - not used in stepper mode
-      table: {
-        disable: true,
-      },
-    },
-    readOnly: {
-      control: false, // Hide readOnly control - steppers are always interactive
-      table: {
-        disable: true,
-      },
-    },
   },
   render: renderControlled,
 };

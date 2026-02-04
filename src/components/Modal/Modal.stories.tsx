@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Modal, type ModalProps } from './Modal';
 import { Button } from '../Button';
-import type { ModalSize, ModalFooterAlignment } from './Modal.types';
+import type { ModalSize, ModalFooterAlignment, ModalVariant } from './Modal.types';
 import '../../styles/tokens.css';
 
 type ModalStoryArgs = ModalProps & {
@@ -14,11 +14,10 @@ const meta: Meta<ModalStoryArgs> = {
   title: 'Components/Modal',
   component: Modal,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component:
-          'Use **Controls** to try states: `title`, `size`, `footerAlignment`, `showCloseButton`, `primaryActionLabel`, `secondaryActionLabel`. Open via the trigger button; close via backdrop, Escape, or close button. No auto-focus on open (Tab moves focus into the modal).',
+          'Use **Controls** to try states: `title`, `size`, `variant`, `footerAlignment`, `showCloseButton`, `primaryActionLabel`, `secondaryActionLabel`. Open via the trigger button; close via backdrop, Escape, or close button. No auto-focus on open (Tab moves focus into the modal). On mobile (<768px) the modal opens as a bottom sheet.',
       },
     },
   },
@@ -28,6 +27,12 @@ const meta: Meta<ModalStoryArgs> = {
       control: 'select',
       options: ['small', 'medium', 'large'] satisfies ModalSize[],
       table: { defaultValue: { summary: 'medium' } },
+    },
+    variant: {
+      control: 'select',
+      options: ['default', 'destructive'] satisfies ModalVariant[],
+      description: 'Default (neutral) or destructive (primary action styled as destructive).',
+      table: { defaultValue: { summary: 'default' } },
     },
     footerAlignment: {
       control: 'select',
@@ -42,7 +47,7 @@ const meta: Meta<ModalStoryArgs> = {
     },
     secondaryActionLabel: {
       control: 'text',
-      description: 'Label for secondary action (e.g. Sluiten).',
+      description: 'Label for secondary/cancel action (e.g. Sluiten). Rendered as tertiary button.',
       table: { defaultValue: { summary: 'Sluiten' } },
     },
   },
@@ -60,6 +65,7 @@ export const Default: Story = {
     open: false,
     title: 'Titel van het paneel',
     size: 'medium',
+    variant: 'default',
     footerAlignment: 'right',
     showCloseButton: true,
     primaryActionLabel: 'Bevestigen',
@@ -72,6 +78,7 @@ export const Default: Story = {
       open: _openArg,
       primaryAction: _pa,
       secondaryAction: _sa,
+      variant,
       ...modalProps
     } = args;
     const [open, setOpen] = useState(false);
@@ -80,6 +87,7 @@ export const Default: Story = {
         <Button onClick={() => setOpen(true)}>Open modal</Button>
         <Modal
           {...modalProps}
+          variant={variant}
           open={open}
           onClose={() => setOpen(false)}
           primaryAction={

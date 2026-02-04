@@ -260,16 +260,16 @@ export const DropdownField: React.FC<DropdownFieldProps> = ({
 
         <span className="dropdown-field__actions">
           {hasSelection && !isReadOnly && !isDisabled && (
-            <>
-              <IconButton
-                {...iconButtonProps}
-                icon={X}
-                onClick={handleClear}
-                aria-label="Clear selection"
-                className="dropdown-field__clear-button"
-              />
-              <span className="dropdown-field__separator" aria-hidden="true" />
-            </>
+            <IconButton
+              {...iconButtonProps}
+              icon={X}
+              onClick={handleClear}
+              aria-label="Clear selection"
+              className="dropdown-field__clear-button"
+            />
+          )}
+          {hasSelection && !isReadOnly && !isDisabled && (
+            <span className="dropdown-field__separator" aria-hidden="true" />
           )}
           <IconButton
             {...iconButtonProps}

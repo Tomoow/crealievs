@@ -8,7 +8,6 @@ const meta: Meta<typeof RadioGroup> = {
   title: 'Components/RadioButton',
   component: RadioGroup,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component: `

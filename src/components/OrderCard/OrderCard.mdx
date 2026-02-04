@@ -1,0 +1,56 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import OrderCardStories from './OrderCard.stories';
+import * as OrderCardStoriesNamed from './OrderCard.stories';
+
+<Meta of={OrderCardStories} />
+
+# OrderCard
+
+Bar order card for staff: **incoming** (Start preparing), **preparing** (Mark as done, animating subtle blue gradient), **done** (green time badge, no actions). **Edit mode**: change quantities, Add items, Save/Cancel. Figma DS nodes 852-162, 852-69, 852-71, 852-120.
+
+## Overview
+
+- **States**: `incoming` → "Start preparing" + edit + delete. `preparing` → animated blue gradient background, "Mark as done" + edit + delete. `done` → green time badge, no actions.
+- **Edit mode**: Set `isEditing` true to show OrderList with Counter per item, "Add" button, Save and Cancel. Consumer handles Add (dropdown on desktop, bottom panel on mobile).
+- **Time badge**: Top-right; default (white/gray) or green when `state === 'done'`.
+
+## When to use
+
+- Bar/kitchen order queue: see incoming orders, mark preparing, mark done.
+- Edit orders (quantities, add items) with Save/Cancel.
+
+## Example
+
+<Canvas of={OrderCardStoriesNamed.Default} />
+
+Use **Controls** for `state`, `isEditing`, `tableName`, `subtitle`, `orderTime`. Toggle edit to change quantities and Save/Cancel.
+
+## Accessibility
+
+- Time badge has `aria-label` with order time.
+- Edit and Delete icon buttons have `aria-label`.
+- Use semantic structure (article, header, footer).
+
+## Design tokens (from Figma variable_defs, node 852-162)
+
+| Figma variable | Token / value |
+|----------------|----------------|
+| padding/default, padding/large | `--padding-default`, `--padding-large` |
+| bg/neutral/default | `--bg-neutral-default` |
+| bg/primary/subtle | `--bg-primary-subtle` (preparing gradient) |
+| border/default/subtle | `--border-default-subtle` |
+| text/neutral/default, text/neutral/subtle | `--text-neutral-default`, `--text-neutral-subtle` |
+| Success (done badge) | `--bg-success-subtle`, `--text-success-default`, `--border-success-default` |
+
+## Fidelity checklist (Figma DS — Order Card)
+
+| Property | Figma source | Implementation |
+|----------|--------------|----------------|
+| Card | White, rounded, border | `--bg-neutral-default`, `--radius-container`, `--border-default-subtle` |
+| Preparing | Subtle blue animating | Gradient with `--bg-primary-subtle`, keyframe animation |
+| Header | Table + subtitle left, time right | Flex space-between |
+| Time badge done | Green | `--bg-success-subtle`, `--text-success-default` |
+| Items | Static "name x qty" or Counter rows | Static list or OrderList + OrderListItem |
+| Summary | Totaal + total stuks | OrderListSummary |
+| Actions | Start preparing / Mark as done + edit + delete | Button + IconButtons |
+| Edit footer | Save + Cancel | Button primary, Button tertiary |

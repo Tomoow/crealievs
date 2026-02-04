@@ -6,9 +6,7 @@ import '../../styles/tokens.css';
 const meta: Meta<typeof IconButton> = {
   title: 'Components/IconButton',
   component: IconButton,
-  parameters: {
-    layout: 'centered',
-  },
+  parameters: {},
   argTypes: {
     icon: {
       control: 'select',

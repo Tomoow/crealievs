@@ -11,7 +11,6 @@ const meta: Meta<DatePickerStoryArgs> = {
   title: 'Components/DatePicker',
   component: DatePicker,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component: `

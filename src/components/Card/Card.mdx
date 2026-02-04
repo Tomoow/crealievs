@@ -6,30 +6,40 @@ import * as CardStoriesNamed from './Card.stories';
 
 # Card
 
-Card with an icon (in a filled circle) top left, title and subtitle, optional 3-dot actions button top right, subtext, and optional footer (e.g. two buttons: Annuleren, Bevestigen).
+Card with two variants:
 
-Use the **Controls** panel to try different title, subtitle, subtext, and toggling the actions button.
+- **Default**: Icon or image in a circle top left, title and subtitle, optional 3-dot actions (small IconButton) top right, subtext, and optional footer. **Primary button should be first (left-aligned).**
+- **Editable**: View mode (key-value rows + edit/delete IconButtons) and edit mode (upload image link, form fields, Save/Cancel). The left circle shows **imageSrc** when set (e.g. after upload); otherwise **icon**. Use **Upload image** (link-style button) to change the image; consumer handles file picker and sets **imageSrc**.
+
+Use the **Controls** panel to try options. For the Editable story, use **Upload image** in edit mode to change the left image.
 
 ## Usage
 
-- **icon**: Renders in a circular container with primary subtle background; icon color is inverse (white).
-- **title** / **subtitle**: Header text next to the icon.
-- **onActionsClick**: When set, a default 3-dot (MoreVertical) IconButton appears top right.
-- **subtext**: Body content below the header.
-- **footer**: Optional ReactNode (e.g. two `Button` components: secondary left, primary right).
+- **variant**: `'default'` | `'editable'`.
+- **icon** / **imageSrc** / **imageAlt**: Left circle shows image when **imageSrc** is set (e.g. after upload), else **icon**. Editable: pass **icon** as fallback when no image yet.
+- **title** / **subtitle**: Header text (subtitle only in default variant).
+- **onActionsClick** (default): When set, 3-dot IconButton (small) top right.
+- **footer** (default): ReactNode; put primary button first for left alignment.
+- **Editable**: **viewFields**, **editFields**, **isEditing**, **onEditClick**, **onDeleteClick**, **onUploadImageClick** (opens file picker; consumer sets **imageSrc**), **onSaveEdit**, **onCancelEdit**.
 
-## Example
+## Examples
 
 <Canvas of={CardStoriesNamed.Default} />
 
 <Controls of={CardStoriesNamed.Default} />
 
+### Editable variant (view / edit, upload image)
+
+<Canvas of={CardStoriesNamed.Editable} />
+
+<Controls of={CardStoriesNamed.Editable} />
+
 ## Design tokens
 
-Card uses semantic tokens only: `--bg-neutral-default`, `--bg-primary-subtle`, `--border-default-subtle`, `--radius-container`, `--padding-x-large`, `--padding-large`, typography and text color tokens.
+Card uses semantic tokens: `--bg-neutral-default`, `--bg-primary-subtle`, `--border-action-default` (editable icon border), `--border-default-subtle`, `--radius-container`, typography and text color tokens.
 
 ## Accessibility
 
 - Semantic `<article>`, `<header>`, `<footer>`.
-- IconButton for actions has `aria-label="More actions"`.
-- Title is `<h2>` for heading hierarchy.
+- IconButtons use **size="small"** and `aria-label`.
+- Upload image is a Button (tertiary, link-style); consumer must provide accessible file input.

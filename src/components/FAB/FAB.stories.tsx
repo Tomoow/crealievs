@@ -6,9 +6,7 @@ import '../../styles/tokens.css';
 const meta: Meta<typeof FAB> = {
   title: 'Components/FAB',
   component: FAB,
-  parameters: {
-    layout: 'centered',
-  },
+  parameters: {},
   argTypes: {
     icon: {
       control: 'select',

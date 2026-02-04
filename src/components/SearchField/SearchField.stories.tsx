@@ -7,7 +7,6 @@ const meta: Meta<typeof SearchField> = {
   title: 'Components/SearchField',
   component: SearchField,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component: `

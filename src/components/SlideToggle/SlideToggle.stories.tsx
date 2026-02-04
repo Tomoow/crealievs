@@ -7,7 +7,6 @@ const meta: Meta<typeof SlideToggle> = {
   title: 'Components/SlideToggle',
   component: SlideToggle,
   parameters: {
-    layout: 'centered',
     docs: {
       description: {
         component: `

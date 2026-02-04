@@ -1,0 +1,75 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import InlineAlertStories from './InlineAlert.stories';
+import * as InlineAlertStoriesNamed from './InlineAlert.stories';
+
+<Meta of={InlineAlertStories} />
+
+# InlineAlert
+
+Inline status alert: full width, left inner bar (0.625rem), icon, title, optional description, optional action button. Figma DS nodes 253-701, 266-2245, 266-2258, 266-2271, 278-6631, 278-6638, 278-6645, 278-6652.
+
+## Overview
+
+- **Full width**: `width: 100%`.
+- **Left inner bar**: 10px (0.625rem) via inset box-shadow; padding-left clears it.
+- **Desktop**: Horizontal: icon | content (title + description) | action (optional, right).
+- **Mobile (&lt;768px)**: Stacked: icon → text → button.
+- **Variants**: info, error, success, warning (border, left bar, icon bg, title color).
+- **Action**: Optional `action` prop (e.g. button "Los op") inside the alert.
+- **Sizes**: default (radius 12px), compact (pill).
+
+## When to use
+
+- Inline feedback (info, success, error, warning) next to content or in forms.
+- When you need a compact alert without a modal or toast.
+
+## States / eight designs
+
+Four variants × with or without action = eight designs. Explore via **Controls**: `variant`, `title`, `description`, `showAction`, `actionLabel`, `size`.
+
+## Example
+
+<Canvas of={InlineAlertStoriesNamed.Default} />
+
+## Accessibility
+
+- Root has `role="alert"` for screen readers.
+- Icon is decorative (`aria-hidden="true"`). Title and description convey the message.
+
+## Design tokens (from Figma variable_defs, node 216-2788)
+
+| Figma variable | Token / value |
+|----------------|----------------|
+| container | 16 → `--padding-large` (container padding) |
+| padding/default | 12 → `--padding-default` (gap icon–content) |
+| padding/x-small | 4 → `--padding-x-small` (gap title–description) |
+| Body/Bold/default | `--font-family-body`, `--font-weight-highlight`, `--font-size-md`, `--line-height-body-md` (28) |
+| Interface/Regular/default | `--font-weight-default`, `--font-size-md`, `--line-height-default-md` (20) |
+| bg/neutral/default | `--bg-neutral-default` |
+| border/{status}/default | `--border-info-default`, `--border-error-default`, etc. |
+| bg/{status}/default (icon circle) | `--bg-info-default`, `--bg-error-default`, etc. |
+| text/{status}/default (title) | `--text-info-default`, `--text-error-default`, etc. |
+| icon/neutral/inverse | `--icon-neutral-inverse` |
+| default (border width) | 1 → `--border-default` |
+
+## Fidelity checklist (Figma DS — Inline Alert, node 216-2788)
+
+| Property | Figma source | Implementation |
+|----------|--------------|----------------|
+| Container padding | container 16 | `--padding-large` (16px) |
+| Gap icon–content | (auto layout) | `--padding-default` (12px) |
+| Gap title–description | padding/x-small 4 | `--padding-x-small` (4px) |
+| Title typography | Body/Bold: size 16, weight 600, line-height 28 | `--font-size-md`, `--font-weight-highlight`, `--line-height-body-md` |
+| Description typography | Interface/Regular: size 16, weight 400, line-height 20 | `--font-size-md`, `--font-weight-default`, `--line-height-default-md` |
+| Border width | default 1 | `--border-default` (1px) |
+| Border color | border/{status}/default | `--border-info-default`, `--border-error-default`, `--border-success-default`, `--border-warning-default` |
+| Icon circle bg | bg/{status}/default | `--bg-info-default`, `--bg-error-default`, etc. |
+| Icon color | icon/neutral/inverse #ffffff | `--icon-neutral-inverse` |
+| Title color | text/{status}/default | `--text-info-default`, `--text-error-default`, etc. |
+| Description color | (secondary) | `--text-neutral-default` |
+| Radii | default size: 12px; compact: pill | `--radius-2` (12px), `--radius-pill` |
+| Icon size | (from frame) | 32×32 wrap, 16×16 icon |
+| Full width | user / Figma | `width: 100%` |
+| Left inner bar | 10px (in rem) | `box-shadow: inset 0.625rem 0 0 0 <variant>`; padding-left `calc(0.625rem + var(--padding-large))` |
+| Action | optional button | `action` prop (ReactNode); desktop right, mobile below text |
+| Mobile stack | icon → text → button | `@media (max-width: 767px)` flex-direction column |
