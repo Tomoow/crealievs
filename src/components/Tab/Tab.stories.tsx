@@ -45,6 +45,11 @@ const defaultTabs: TabOption[] = [
   { value: 'tab-5', label: 'Tab 5' },
 ];
 
+const manyTabs: TabOption[] = Array.from({ length: 12 }, (_, i) => ({
+  value: `tab-${i + 1}`,
+  label: `Tab ${i + 1}`,
+}));
+
 export const Default: Story = {
   args: {
     tabs: defaultTabs,
@@ -63,6 +68,38 @@ export const Default: Story = {
         value={value}
         onChange={(v) => setValue(v)}
       />
+    );
+  },
+};
+
+export const ManyTabsOverflow: Story = {
+  args: {
+    tabs: manyTabs,
+    value: 'tab-1',
+    variant: 'underline',
+    'aria-label': 'Tabs',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Narrow the viewport or use a small container to see left/right arrows. Arrows appear when tabs overflow. Left arrow disabled at start, right at end. Click arrows to center the next/previous tab. Drag the tab strip to scroll.',
+      },
+    },
+  },
+  render: (args) => {
+    const [value, setValue] = useState<string | null>(args.value ?? 'tab-1');
+    useEffect(() => {
+      setValue(args.value ?? 'tab-1');
+    }, [args.value]);
+    return (
+      <div style={{ maxWidth: 320 }}>
+        <Tab
+          {...args}
+          value={value}
+          onChange={(v) => setValue(v)}
+        />
+      </div>
     );
   },
 };

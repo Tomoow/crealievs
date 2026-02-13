@@ -13,7 +13,7 @@ type IndicatorStyle = { left: number; width: number } | null;
 function useIndicatorPosition(
   activeId: string | null,
   navItems: HeaderProps['navItems']
-): [React.RefObject<HTMLDivElement | null>, IndicatorStyle] {
+): [React.RefObject<HTMLDivElement>, IndicatorStyle] {
   const innerRef = useRef<HTMLDivElement>(null);
   const [indicator, setIndicator] = useState<IndicatorStyle>(null);
 
@@ -64,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className={`header ${className}`.trim()}>
-      <div className="header__inner" ref={innerRef as React.RefObject<HTMLDivElement>}>
+      <div className="header__inner" ref={innerRef}>
         <div className="header__logo" aria-hidden>
           {logo}
         </div>

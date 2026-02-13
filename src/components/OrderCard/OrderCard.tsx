@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import { Clock, Pencil, Trash2, Plus } from 'lucide-react';
+import { Badge } from '../Badge';
 import { Button } from '../Button';
 import { IconButton } from '../IconButton';
 import { OrderList, OrderListItem, OrderListSummary } from '../OrderList';
@@ -12,15 +13,28 @@ import './OrderCard.css';
 
 const PLACEHOLDER_IMAGE = 'https://placehold.co/48x48/f2f4f7/606073?text=•';
 
+const FIVE_MIN_MS = 5 * 60 * 1000;
+const TEN_MIN_MS = 10 * 60 * 1000;
+
+function getDelayBadge(orderCreatedAt: number | undefined, state: OrderCardState): 'warning' | 'error' | null {
+  if (state === 'done' || orderCreatedAt == null) return null;
+  const elapsed = Date.now() - orderCreatedAt;
+  if (elapsed >= TEN_MIN_MS) return 'error';
+  if (elapsed >= FIVE_MIN_MS) return 'warning';
+  return null;
+}
+
 export const OrderCard: React.FC<OrderCardProps> = ({
   state,
   tableName,
   subtitle,
   orderTime,
+  orderCreatedAt,
   items,
   isEditing = false,
   onStartPreparing,
   onMarkDone,
+  onUndoPreparing,
   onEditClick,
   onDeleteClick,
   onQuantityChange,
@@ -34,6 +48,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({
   const showActions = state !== 'done' && !isEditing;
   const isPreparing = state === 'preparing';
   const itemsToShow = isEditing ? items : visibleItems;
+  const delayBadge = getDelayBadge(orderCreatedAt, state);
 
   return (
     <article
@@ -46,12 +61,25 @@ export const OrderCard: React.FC<OrderCardProps> = ({
             <p className="order-card__subtitle">{subtitle}</p>
           )}
         </div>
-        <div
-          className={`order-card__time-badge order-card__time-badge--${state === 'done' ? 'done' : 'default'}`}
-          aria-label={`Order time ${orderTime}`}
-        >
-          <Clock className="order-card__time-icon" aria-hidden />
-          <span>{orderTime}</span>
+        <div className="order-card__header-badges">
+          <Badge
+            variant={state === 'done' ? 'success' : 'default'}
+            size="small"
+            icon={Clock}
+            className="order-card__time-badge"
+          >
+            {orderTime}
+          </Badge>
+          {delayBadge === 'warning' && (
+            <Badge variant="warning" size="small" showIcon={false}>
+              Achterstand
+            </Badge>
+          )}
+          {delayBadge === 'error' && (
+            <Badge variant="error" size="small" showIcon={false}>
+              Dringend
+            </Badge>
+          )}
         </div>
       </header>
 
@@ -126,10 +154,19 @@ export const OrderCard: React.FC<OrderCardProps> = ({
               Start preparing
             </Button>
           )}
-          {state === 'preparing' && onMarkDone != null && (
-            <Button variant="primary" size="small" onClick={onMarkDone}>
-              Mark as done
-            </Button>
+          {state === 'preparing' && (
+            <>
+              {onMarkDone != null && (
+                <Button variant="primary" size="small" onClick={onMarkDone}>
+                  Mark as done
+                </Button>
+              )}
+              {onUndoPreparing != null && (
+                <Button variant="tertiary" size="small" onClick={onUndoPreparing}>
+                  Undo
+                </Button>
+              )}
+            </>
           )}
           <div className="order-card__icon-actions">
             {onEditClick != null && (

@@ -137,7 +137,9 @@ export const IconButton: React.FC<IconButtonProps> = ({
         aria-disabled={isDisabled}
         aria-label={ariaLabel}
       >
-        <IconComponent className="icon-button__icon" />
+        <span className="icon-button__inner">
+          <IconComponent className="icon-button__icon" />
+        </span>
       </button>
     </Tooltip>
   );

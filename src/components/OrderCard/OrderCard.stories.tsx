@@ -5,12 +5,22 @@ import { Modal } from '../Modal';
 import type { OrderCardState, OrderCardItem } from './OrderCard.types';
 import '../../styles/tokens.css';
 
+const DELAY_SCENARIOS = {
+  none: 0,
+  achterstand: 6,
+  dringend: 11,
+} as const;
+
+type DelayScenario = keyof typeof DELAY_SCENARIOS;
+
 type OrderCardStoryArgs = {
   state?: OrderCardState;
   isEditing?: boolean;
   tableName?: string;
   subtitle?: string;
   orderTime?: string;
+  /** Delay badge scenario: none, achterstand (≥5 min), or dringend (≥10 min). Only applies when state is incoming or preparing. */
+  delayScenario?: DelayScenario;
 };
 
 const meta: Meta<OrderCardStoryArgs> = {
@@ -46,6 +56,14 @@ const meta: Meta<OrderCardStoryArgs> = {
       control: 'text',
       table: { defaultValue: { summary: '23:00' } },
     },
+    delayScenario: {
+      control: 'select',
+      options: ['none', 'achterstand', 'dringend'] as const,
+      table: {
+        description: 'Delay badge: none, achterstand (≥5 min), or dringend (≥10 min). Only when state is incoming or preparing.',
+        defaultValue: { summary: 'none' },
+      },
+    },
   },
 };
 
@@ -67,6 +85,7 @@ export const Default: Story = {
     tableName: 'Table 1',
     subtitle: 'Trivia Titans',
     orderTime: '23:00',
+    delayScenario: "achterstand"
   },
   render: (args) => {
     const {
@@ -75,7 +94,11 @@ export const Default: Story = {
       tableName = 'Table 1',
       subtitle = 'Trivia Titans',
       orderTime = '23:00',
+      delayScenario = 'none',
     } = args;
+    const delayMinutes = DELAY_SCENARIOS[delayScenario];
+    const orderCreatedAt =
+      delayMinutes > 0 ? Date.now() - delayMinutes * 60 * 1000 : undefined;
     const [cardState, setCardState] = React.useState<OrderCardState>(stateArg);
     const [items, setItems] = React.useState<OrderCardItem[]>(INITIAL_ITEMS);
     const [editing, setEditing] = React.useState(isEditingArg);
@@ -109,10 +132,12 @@ export const Default: Story = {
           tableName={tableName}
           subtitle={subtitle}
           orderTime={cardState === 'done' ? '23:05' : orderTime}
+          orderCreatedAt={orderCreatedAt}
           items={items}
           isEditing={editing}
           onStartPreparing={() => setCardState('preparing')}
           onMarkDone={() => setCardState('done')}
+          onUndoPreparing={() => setCardState('incoming')}
           onEditClick={() => setEditing(true)}
           onDeleteClick={() => {}}
           onQuantityChange={handleQuantityChange}

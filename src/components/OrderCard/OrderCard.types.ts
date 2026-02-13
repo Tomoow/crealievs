@@ -23,6 +23,8 @@ export type OrderCardProps = {
   subtitle?: string;
   /** Order time string (e.g. "23:00"). Shown in top-right badge; green when state is 'done'. */
   orderTime: string;
+  /** Optional. Creation time in ms (e.g. Date.now() or order.createdAt). When set and state !== 'done', shows delay badges: "achterstand" after 5 min, "dringend" after 10 min. */
+  orderCreatedAt?: number;
   /** Order line items. */
   items: OrderCardItem[];
   /** When true, show editable list (counters), Add button, Save/Cancel. */
@@ -31,6 +33,8 @@ export type OrderCardProps = {
   onStartPreparing?: () => void;
   /** Called when "Mark as done" is clicked (preparing only). */
   onMarkDone?: () => void;
+  /** Called when "Undo" is clicked (preparing only); reverts to incoming. */
+  onUndoPreparing?: () => void;
   /** Called when edit (pencil) is clicked. Consumer should set isEditing true and optionally open add-item dropdown/sheet. */
   onEditClick?: () => void;
   /** Called when delete (trash) is clicked. */

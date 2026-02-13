@@ -246,6 +246,8 @@
 
   /* Layout */
   --screen-margin-desktop: 120px;
+  /** Tablet: reduced side margin for mid-size viewports (e.g. iPad). */
+  --screen-margin-tablet: 60px;
   --grid-gutter-desktop: 24px;
   --screen-max-width: 1200px;
   --screen-margin-mobile: 16px;

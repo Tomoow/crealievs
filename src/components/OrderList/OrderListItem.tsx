@@ -12,6 +12,7 @@ export const OrderListItem: React.FC<OrderListItemProps> = ({
   imageAlt,
   title,
   badges,
+  priceIcon,
   price,
   points,
   quantity,
@@ -33,6 +34,7 @@ export const OrderListItem: React.FC<OrderListItemProps> = ({
           <div className="order-list__item-badges">{badges}</div>
         ) : showPriceLine ? (
           <p className="order-list__item-price-line">
+            {priceIcon != null && <span className="order-list__item-price-icon" aria-hidden="true">{priceIcon}</span>}
             {price != null && price !== '' && <span className="order-list__item-price">{price}</span>}
             {price != null && price !== '' && points != null && points !== '' && (
               <span className="order-list__item-sep" aria-hidden="true">

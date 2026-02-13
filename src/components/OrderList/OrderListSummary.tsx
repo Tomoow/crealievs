@@ -9,6 +9,7 @@ import './OrderList.css';
 export const OrderListSummary: React.FC<OrderListSummaryProps> = ({
   label,
   badges,
+  totalPriceIcon,
   totalPrice,
   totalPoints,
   itemCount,
@@ -23,6 +24,7 @@ export const OrderListSummary: React.FC<OrderListSummaryProps> = ({
           <div className="order-list__summary-badges">{badges}</div>
         ) : showValueLine ? (
           <p className="order-list__summary-value">
+            {totalPriceIcon != null && <span className="order-list__summary-price-icon" aria-hidden="true">{totalPriceIcon}</span>}
             {totalPrice != null && totalPrice !== '' && (
               <span className="order-list__summary-price">{totalPrice}</span>
             )}

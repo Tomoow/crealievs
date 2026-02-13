@@ -1,5 +1,6 @@
 /*
  * Header. Figma DS Header (350-13751).
+ * Use full viewport width by placing outside any max-width container; inner content is max-width centered.
  * Above 1200px: full nav (icon + label), 120px padding. 769–1200px: icon-only, 120px padding. ≤768px: icon-only, 16px padding.
  */
 
@@ -14,12 +15,20 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--padding-large);
-  max-width: var(--screen-max-width);
+  max-width: var(--screen-max-width, 1200px);
   margin-left: auto;
   margin-right: auto;
   padding: var(--padding-default) var(--screen-margin-desktop) var(--padding-large);
   min-height: 0;
   position: relative;
+  box-sizing: border-box;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header__inner {
+    padding-left: var(--screen-margin-tablet, var(--screen-margin-desktop));
+    padding-right: var(--screen-margin-tablet, var(--screen-margin-desktop));
+  }
 }
 
 /* Logo (left): left-aligned, container hugs content */

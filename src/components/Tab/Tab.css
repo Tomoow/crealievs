@@ -1,13 +1,64 @@
-/* Tab – Figma 67:580 (underline bar), 67:581 (tab instance). Tokens: text/neutral/default, gap/tight, padding/large, weight/highlight, weight/default. */
+/* Tab – Figma 67:580 (underline bar), 67:581 (tab instance). Overflow: arrows (Figma 898-7067) + drag-to-scroll. */
 
 .tab {
   display: flex;
-  align-items: center;
-  gap: var(--padding-small);
+  align-items: stretch;
+  gap: var(--padding-default);
+  width: 100%;
   font-family: var(--font-family-body);
   font-size: var(--font-size-md);
   line-height: var(--line-height-default-md);
   color: var(--text-neutral-default);
+  box-sizing: border-box;
+}
+
+.tab__nav {
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.tab__nav--left,
+.tab__nav--right {
+  /* Chevrons: enabled = dark grey (tertiary), disabled = light grey (IconButton opacity) */
+}
+
+.tab__scroll-wrap {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab__scroll {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-behavior: smooth;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.tab__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.tab__scroll--dragging {
+  cursor: grabbing;
+}
+
+.tab__scroll:focus {
+  outline: none;
+}
+
+.tab__list {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-small);
+  position: relative;
   box-sizing: border-box;
 }
 
@@ -61,10 +112,20 @@
   display: inline-block;
 }
 
-/* ----- Underline variant: base border + sliding pill indicator (5px, pill radius) ----- */
-.tab--underline {
-  position: relative;
-  border-bottom: var(--border-default) solid var(--border-default-default);
+/* ----- Underline variant: baseline div (full width) + indicator on top ----- */
+.tab--underline .tab__list {
+  padding-bottom: 8px;
+}
+
+.tab--underline .tab__baseline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  min-width: 100%;
+  background: var(--border-default-default);
+  pointer-events: none;
 }
 
 .tab--underline .tab__item {
@@ -79,14 +140,15 @@
   font-weight: var(--font-weight-highlight);
 }
 
-/* Sliding pill: 5px height, full pill radius, centered on border (move down 3px) */
+/* Sliding pill: 5px height, aligned on top of baseline */
 .tab__indicator {
   position: absolute;
-  bottom: -3px;
+  bottom: 0;
   height: 5px;
   border-radius: var(--pill);
   background: var(--border-highlight-default);
   pointer-events: none;
+  z-index: 1;
   transition:
     left 0.25s ease,
     width 0.25s ease;

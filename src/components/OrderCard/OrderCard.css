@@ -70,46 +70,6 @@
   color: var(--text-neutral-subtle);
 }
 
-/* Time badge: default (white/gray) or done (green) */
-.order-card__time-badge {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--padding-x-small);
-  padding: var(--padding-x-small) var(--padding-small);
-  border-radius: var(--radius-soft);
-  font-family: var(--font-family-body);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-default);
-  line-height: var(--line-height-default-sm);
-}
-
-.order-card__time-badge--default {
-  background-color: var(--bg-neutral-default);
-  color: var(--text-neutral-default);
-  border: var(--border-default) solid var(--border-default-subtle);
-}
-
-.order-card__time-badge--default .order-card__time-icon {
-  color: var(--icon-neutral-default);
-}
-
-.order-card__time-badge--done {
-  background-color: var(--bg-success-subtle);
-  color: var(--text-success-default);
-  border: var(--border-default) solid var(--border-success-default);
-}
-
-.order-card__time-badge--done .order-card__time-icon {
-  color: var(--icon-success-default);
-}
-
-.order-card__time-icon {
-  flex-shrink: 0;
-  width: 16px;
-  height: 16px;
-}
-
 /* Separator */
 .order-card__separator {
   height: 0;
@@ -155,17 +115,30 @@
 }
 
 .order-card__item-qty {
-  font-weight: var(--font-weight-default);
+  font-weight: var(--font-weight-highlight);
   color: var(--text-neutral-subtle);
 }
 
-/* Summary: re-use OrderListSummary layout */
+/* Summary: re-use OrderListSummary layout; total count in Open Sans, bold */
 .order-card__summary {
   min-width: 0;
 }
 
 .order-card__summary .order-list__summary {
   padding-bottom: 0;
+}
+
+.order-card__summary .order-list__summary-count {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-highlight);
+}
+
+/* Header badges: time + optional delay (uses design system Badge) */
+.order-card__header-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-small);
+  flex-shrink: 0;
 }
 
 /* Footer: actions or Save/Cancel */

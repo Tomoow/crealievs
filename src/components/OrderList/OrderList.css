@@ -75,6 +75,19 @@
   color: var(--text-neutral-default);
 }
 
+.order-list__item-price-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--padding-x-small);
+  color: var(--text-primary-brand);
+}
+
+.order-list__item-price-icon svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
 .order-list__item-price {
   color: var(--text-primary-brand);
 }
@@ -155,6 +168,19 @@
 }
 
 /* Total amount line: small heading font, primary blue */
+.order-list__summary-price-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--padding-x-small);
+  color: var(--text-primary-brand);
+}
+
+.order-list__summary-price-icon svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
 .order-list__summary-price {
   font-family: var(--font-family-heading);
   font-size: var(--font-size-sm);
