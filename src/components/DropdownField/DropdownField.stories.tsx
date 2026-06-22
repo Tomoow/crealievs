@@ -21,7 +21,12 @@ const _optionsWithIcons: DropdownFieldOption[] = [
 const meta: Meta<typeof DropdownField> = {
   title: 'Components/DropdownField',
   component: DropdownField,
-  parameters: {},
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=92-377',
+    },
+  },
   argTypes: {
     label: {
       control: 'text',

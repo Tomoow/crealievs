@@ -7,6 +7,10 @@ const meta: Meta<TabProps> = {
   title: 'Components/Tab',
   component: Tab,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=898-7067',
+    },
     docs: {
       description: {
         component:

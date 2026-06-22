@@ -6,7 +6,12 @@ import '../../styles/tokens.css';
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
   component: Badge,
-  parameters: {},
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=144-377',
+    },
+  },
   argTypes: {
     children: {
       control: 'text',

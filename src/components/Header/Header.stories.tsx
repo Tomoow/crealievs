@@ -14,6 +14,10 @@ const meta: Meta<typeof Header> = {
   title: 'Components/Header',
   component: Header,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=278-7340',
+    },
     layout: 'fullscreen',
     docs: {
       description: {

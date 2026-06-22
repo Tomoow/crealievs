@@ -8,6 +8,10 @@ const meta: Meta<typeof Slider> = {
   title: 'Components/Slider',
   component: Slider,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=395-16912',
+    },
     docs: {
       description: {
         component: `

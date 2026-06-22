@@ -8,6 +8,10 @@ const meta: Meta<typeof TextareaField> = {
   title: 'Components/TextareaField',
   component: TextareaField,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=81-525',
+    },
     docs: {
       description: {
         component: `

@@ -8,6 +8,10 @@ const meta: Meta<typeof RadioGroup> = {
   title: 'Components/RadioButton',
   component: RadioGroup,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=36-414',
+    },
     docs: {
       description: {
         component: `

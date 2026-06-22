@@ -7,6 +7,10 @@ const meta: Meta<typeof Counter> = {
   title: 'Components/Counter',
   component: Counter,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=120-1933',
+    },
     docs: {
       description: {
         component:

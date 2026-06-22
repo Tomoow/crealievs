@@ -6,7 +6,12 @@ import '../../styles/tokens.css';
 const meta: Meta<typeof FAB> = {
   title: 'Components/FAB',
   component: FAB,
-  parameters: {},
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=511-4734',
+    },
+  },
   argTypes: {
     icon: {
       control: 'select',

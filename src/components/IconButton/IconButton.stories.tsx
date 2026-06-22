@@ -6,7 +6,12 @@ import '../../styles/tokens.css';
 const meta: Meta<typeof IconButton> = {
   title: 'Components/IconButton',
   component: IconButton,
-  parameters: {},
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=120-2603',
+    },
+  },
   argTypes: {
     icon: {
       control: 'select',

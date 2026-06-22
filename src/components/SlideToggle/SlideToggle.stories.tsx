@@ -7,6 +7,10 @@ const meta: Meta<typeof SlideToggle> = {
   title: 'Components/SlideToggle',
   component: SlideToggle,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=36-507',
+    },
     docs: {
       description: {
         component: `

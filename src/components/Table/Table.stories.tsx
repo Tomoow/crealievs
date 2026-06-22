@@ -25,6 +25,10 @@ const meta: Meta<TableProps<SampleRow> & { multiselect?: boolean }> = {
   title: 'Components/Table',
   component: Table,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=166-271',
+    },
     layout: 'padded',
     docs: {
       description: {

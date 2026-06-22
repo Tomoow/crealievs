@@ -10,6 +10,10 @@ const meta: Meta<typeof Card> = {
   title: 'Components/Card',
   component: Card,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=878-1813',
+    },
     layout: 'padded',
     docs: {
       description: {

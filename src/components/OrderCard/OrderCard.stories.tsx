@@ -27,6 +27,10 @@ const meta: Meta<OrderCardStoryArgs> = {
   title: 'Components/OrderCard',
   component: OrderCard,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=847-5156',
+    },
     docs: {
       description: {
         component:

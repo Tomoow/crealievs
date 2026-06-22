@@ -15,6 +15,10 @@ const meta: Meta<InlineAlertStoryArgs> = {
   title: 'Components/InlineAlert',
   component: InlineAlert,
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=216-2597',
+    },
     docs: {
       description: {
         component:

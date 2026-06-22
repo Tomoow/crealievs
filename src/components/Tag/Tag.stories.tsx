@@ -7,7 +7,12 @@ import '../../styles/tokens.css';
 const meta: Meta<typeof Tag> = {
   title: 'Components/Tag',
   component: Tag,
-  parameters: {},
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/OHwR5VlI0xnvCfMisbHhQM/crealiev-ds?node-id=143-283',
+    },
+  },
   argTypes: {
     children: {
       control: 'text',
